@@ -132,7 +132,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Getting not sync user badges
     public Cursor getRevenues() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_TBLR_RevenueType, null, null, null, null, null, KEY_ID + " DESC", null);
+//        Cursor cursor = db.query(TABLE_TBLR_RevenueType, null, null, null, null, null, null, null);
+        String selectQuery = "SELECT  * FROM " + TABLE_TBLR_RevenueType;
+        Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
     }
 
