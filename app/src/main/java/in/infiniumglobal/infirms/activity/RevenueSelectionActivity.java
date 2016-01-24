@@ -1,5 +1,6 @@
 package in.infiniumglobal.infirms.activity;
 
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,17 +12,21 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import in.infiniumglobal.infirms.R;
+import in.infiniumglobal.infirms.db.DatabaseHandler;
 
 public class RevenueSelectionActivity extends AppCompatActivity {
 
     private Spinner spinnerLocation, spinnerRevenue, spinnerArea;
     private ArrayList<String> locationList, revenueList, areaList;
+    private DatabaseHandler dbHandler;
+    private Cursor areaCursor, locationCursor, revenueCursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_revenueselection);
 
+        dbHandler = DatabaseHandler.getInstance(RevenueSelectionActivity.this);
         spinnerRevenue = (Spinner) findViewById(R.id.spinnerRevenue);
         spinnerArea = (Spinner) findViewById(R.id.spinnerArea);
         spinnerLocation = (Spinner) findViewById(R.id.spinnerLocation);
@@ -69,12 +74,12 @@ public class RevenueSelectionActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }
 
     private void setArea() {
+        areaCursor = dbHandler.getAreas();
         areaList.add("Areas");
         areaList.add("Automobile");
         areaList.add("Business Services");
@@ -89,13 +94,18 @@ public class RevenueSelectionActivity extends AppCompatActivity {
     }
 
     private void setRevenues() {
-        revenueList.add("Revenue Type");
-        revenueList.add("Automobile");
-        revenueList.add("Business Services");
-        revenueList.add("Computers");
-        revenueList.add("Education");
-        revenueList.add("Personal");
-        revenueList.add("Travel");
+        revenueCursor = dbHandler.getRevenues();
+        for (int i = 0; i < revenueCursor.getCount(); i++) {
+            System.out.println("revenue:" + revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME)));
+//            revenueList.add(revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME)));
+        }
+//        revenueList.add("Revenue Type");
+//        revenueList.add("Automobile");
+//        revenueList.add("Business Services");
+//        revenueList.add("Computers");
+//        revenueList.add("Education");
+//        revenueList.add("Personal");
+//        revenueList.add("Travel");
 
         ArrayAdapter<String> revenueAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, revenueList);
         revenueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -103,6 +113,7 @@ public class RevenueSelectionActivity extends AppCompatActivity {
     }
 
     private void setLocations() {
+        dbHandler.getLocations();
         locationList.add("Locations");
         locationList.add("Automobile");
         locationList.add("Business Services");

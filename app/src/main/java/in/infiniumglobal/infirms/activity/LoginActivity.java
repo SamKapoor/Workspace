@@ -57,7 +57,7 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        dbHandler = DatabaseHandler.getInstance(LoginActivity.this);
         // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.email);
 
@@ -185,7 +185,6 @@ public class LoginActivity extends Activity {
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
-            dbHandler = DatabaseHandler.getInstance(LoginActivity.this);
             userId = dbHandler.loginUser(email, password);
         }
 

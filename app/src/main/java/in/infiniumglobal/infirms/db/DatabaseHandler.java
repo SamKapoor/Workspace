@@ -38,6 +38,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String KEY_USERNAME = "UserName";
     public static final String KEY_PASSWORD = "UserPassword";
 
+    public static final String KEY_REVENUE_ID = "_id";
+    public static final String KEY_REVENUE_TYPEID = "RevenueTypeId";
+    public static final String KEY_REVENUE_NAME = "RevenueName";
+    public static final String KEY_REVENUE_TYPE = "ReceiptType";
+
+
     // User Table Columns names
     public static final String KEY_ID = "_id";
     private Context mContext;
@@ -104,9 +110,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_TBLA_User, null, KEY_USERNAME + "=? and " + KEY_PASSWORD + "=?", new String[]{username, password}, null, null, null, null);
         if (cursor != null && cursor.getCount() > 0) {
             cursor.moveToFirst();
-            return  cursor.getInt(cursor.getColumnIndexOrThrow(KEY_USERID));
+            return cursor.getInt(cursor.getColumnIndexOrThrow(KEY_USERID));
         }
         return -1;
+    }
+
+    // Getting not sync user badges
+    public Cursor getAreas() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TBLR_Area, null, null, null, null, null, null, null);
+        return cursor;
+    }
+
+    // Getting not sync user badges
+    public Cursor getLocations() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TBLR_Location, null, null, null, null, null, null, null);
+        return cursor;
+    }
+
+    // Getting not sync user badges
+    public Cursor getRevenues() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TBLR_RevenueType, null, null, null, null, null, KEY_ID + " DESC", null);
+        return cursor;
     }
 
 /*
