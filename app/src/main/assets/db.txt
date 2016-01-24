@@ -1,0 +1,80 @@
+TBLA_User			
+UserID	int		
+UserName	[varchar]	50	
+UserPassword	[varchar]	200	
+			
+TBLR_RevenueType			
+RevenueTypeId	int		
+RevenueName	varchar(50)		
+ReceiptType	varchar(150)		
+TBLR_RevenueRate			
+RevenueRateId	int	 	
+RevenueTypeId	int		
+RevenueUnit	varchar(50)		
+RevenueRateType	char(1)		
+RevenueRate	decimal(18, 2)	 	
+			
+TBLR_Area			
+AreaId	int		
+AreaName	varchar(255)	 
+
+
+TBLR_Location
+LocationId	int	
+AreaId	int	
+LocationName	varchar(255)	
+		
+TBLR_RevenueCustomer		
+RCustomerId	bigint	
+CustomerNo	varchar(50)	
+CustomerBarcode	image	
+RevenueTypeId	int	
+BusinessName	varchar(255)	
+OwnerName	varchar(255)	
+BusinessLicNo	varchar(50)	
+TINNo	varchar(50)	
+VNRNo	varchar(50)	
+OutstandingAmt	decimal(18, 2)	
+PostalAddress	nvarchar(300)	
+Postcode	varchar(50)	
+ContactPerson	varchar(100)	
+ContactNo	varchar(100)	
+AreaId	int	
+LocationId	int	
+Email	varchar(255)	
+		
+		
+TBLR_RevenueReceipt		
+RReceiptId	bigint	
+RevenueTypeId	int	
+RCustomerId	int	
+CustomerName	varchar(100)	
+RReceiptDate	date	
+ReceiptNo	varchar(50)	
+ReceiptBarcode	image	
+RevenueRateID	int	
+RevenueRate	decimal(18, 2)	
+TotalUnit	decimal(18, 2)	
+TotalAmount	decimal(18, 2)	
+OtherChargse	decimal(18, 2)	
+AdjustmentAmt	decimal(18, 2)	
+PaidAmount	decimal(18, 2)	
+PayType	varchar(50)	
+BankName	varchar(50)	
+ChequeNo	varchar(50)	
+PayRemarks	varchar(100)	
+CreatedBy	int	
+CreatedDate	smalldatetime	
+		
+TBLR_Adjustment		
+AdjustmentId	bigint	
+CustomerId	int	
+RevenueTypeId	int	
+AdjustmentDate	date	
+AdjustmentType	char(1)	
+Amount	decimal(18, 2)	
+Remarks	varchar(1000)	
+CreatedBy	int	
+CreatedDate	smalldatetime	
+	
+			

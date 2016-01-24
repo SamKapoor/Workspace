@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,17 +27,21 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import in.infiniumglobal.infirms.R;
+import in.infiniumglobal.infirms.db.DatabaseHandler;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends Activity {
 
+    private int userId;
+    private DatabaseHandler dbHandler;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -75,10 +81,9 @@ public class LoginActivity extends Activity {
             }
         });
 
-        mLoginFormView = findViewById(R.id.email_login_form);  
+        mLoginFormView = findViewById(R.id.email_login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
-
 
 
     /**
@@ -180,19 +185,16 @@ public class LoginActivity extends Activity {
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
+            dbHandler = DatabaseHandler.getInstance(LoginActivity.this);
+            userId = dbHandler.loginUser(email, password);
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
+            dbHandler = DatabaseHandler.getInstance(LoginActivity.this);
+            userId = dbHandler.loginUser(mEmail, mPassword);
 
 
             // TODO: register the new account here.
@@ -204,11 +206,11 @@ public class LoginActivity extends Activity {
             mAuthTask = null;
             showProgress(false);
 
-            if (success) {
-                finish();
+            if (userId == -1) {
+                Toast.makeText(LoginActivity.this, "Username passowrd do not match.", Toast.LENGTH_SHORT).show();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                startActivity(new Intent(LoginActivity.this, RevenueSelectionActivity.class));
+                finish();
             }
         }
 

@@ -34,10 +34,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_TBLR_RevenueReceipt = "TBLR_RevenueReceipt";
     private static final String TABLE_TBLR_Adjustment = "TBLR_Adjustment";
 
+    public static final String KEY_USERID = "UserID";
+    public static final String KEY_USERNAME = "UserName";
+    public static final String KEY_PASSWORD = "UserPassword";
 
     // User Table Columns names
     public static final String KEY_ID = "_id";
-
     private Context mContext;
 
     public DatabaseHandler(Context context) {
@@ -97,6 +99,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public int loginUser(String username, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TBLA_User, null, KEY_USERNAME + "=? and " + KEY_PASSWORD + "=?", new String[]{username, password}, null, null, null, null);
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            return  cursor.getInt(cursor.getColumnIndexOrThrow(KEY_USERID));
+        }
+        return -1;
+    }
 
 /*
     public int getIfAvailable(String ruleId, String type) {
