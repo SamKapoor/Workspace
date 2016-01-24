@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">RevenueManagementSystem</string>
+    <string name="spinner_title">Revenue type</string>
+
+
+    <!-- Login activity-->
+    <string name="prompt_email">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_sign_in_short">Login</string>
+
+    <!--<string name="error_invalid_email">This email address is invalid</string>-->
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="title_activity_customer_management">CustomerManagementActivity</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
+    <!--<string name="error_field_required">This field is required</string>-->
+    
+</resources>
