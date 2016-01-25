@@ -27,9 +27,9 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateVisible">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -43,8 +43,11 @@
 
         <activity
             android:name=".activity.CustomerManagementActivity"
-            android:label="@string/title_activity_customer_management">
-        </activity>
+            android:label="@string/title_activity_customer_management"></activity>
+
+        <activity
+            android:name=".activity.CustomerSearchActivity"
+            android:label="@string/title_activity_customer_management"></activity>
     </application>
 
 </manifest>

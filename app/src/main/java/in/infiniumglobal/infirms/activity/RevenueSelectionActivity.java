@@ -1,11 +1,13 @@
 package in.infiniumglobal.infirms.activity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ public class RevenueSelectionActivity extends AppCompatActivity {
     private ArrayList<String> locationList, revenueList, areaList;
     private DatabaseHandler dbHandler;
     private Cursor areaCursor, locationCursor, revenueCursor;
+    Button btnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class RevenueSelectionActivity extends AppCompatActivity {
         spinnerRevenue = (Spinner) findViewById(R.id.spinnerRevenue);
         spinnerArea = (Spinner) findViewById(R.id.spinnerArea);
         spinnerLocation = (Spinner) findViewById(R.id.spinnerLocation);
+        btnNext = (Button) findViewById(R.id.btnNext);
 
         areaList = new ArrayList<String>();
         revenueList = new ArrayList<String>();
@@ -74,6 +78,14 @@ public class RevenueSelectionActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RevenueSelectionActivity.this, CustomerSearchActivity.class));
+                finish();
             }
         });
     }
