@@ -1,5 +1,6 @@
 package in.infiniumglobal.infirms.activity;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -33,7 +34,8 @@ public class CustomerSearchActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (edtTinNumber.getText().toString().trim().length() > 0 || edtReceiptNumber.getText().toString().trim().length() > 0
                         || edtBusinessNumber.getText().toString().trim().length() > 0 || edtCustomerNumber.getText().toString().trim().length() > 0) {
-                    dbHandler.searchCustomer(edtTinNumber.getText().toString().trim(), edtReceiptNumber.getText().toString().trim(), edtBusinessNumber.getText().toString().trim(), edtCustomerNumber.getText().toString().trim());
+                    Cursor customerData = dbHandler.searchCustomer(edtTinNumber.getText().toString().trim(), edtReceiptNumber.getText().toString().trim(), edtBusinessNumber.getText().toString().trim(), edtCustomerNumber.getText().toString().trim());
+                    System.out.println("customer size:"+customerData.getCount());
                 } else {
                     Toast.makeText(CustomerSearchActivity.this, "Please enter values.", Toast.LENGTH_LONG).show();
                 }
