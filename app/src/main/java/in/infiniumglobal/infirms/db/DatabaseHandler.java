@@ -43,6 +43,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String KEY_REVENUE_NAME = "RevenueName";
     public static final String KEY_REVENUE_TYPE = "ReceiptType";
 
+    public static final String KEY_AREAID = "AreaId";
+    public static final String KEY_AREANAME = "AreaName";
+
+    public static final String KEY_LOCATIONID = "LocationId";
+    public static final String KEY_LOCATIONNAME = "LocationName";
 
     // User Table Columns names
     public static final String KEY_ID = "_id";

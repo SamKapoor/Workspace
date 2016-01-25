@@ -80,13 +80,19 @@ public class RevenueSelectionActivity extends AppCompatActivity {
 
     private void setArea() {
         areaCursor = dbHandler.getAreas();
-        areaList.add("Areas");
-        areaList.add("Automobile");
-        areaList.add("Business Services");
-        areaList.add("Computers");
-        areaList.add("Education");
-        areaList.add("Personal");
-        areaList.add("Travel");
+        System.out.println("revenue size:" + areaCursor.getCount());
+        areaCursor.moveToFirst();
+        while (!areaCursor.isAfterLast()) {
+            areaList.add(areaCursor.getString(areaCursor.getColumnIndex(dbHandler.KEY_AREANAME))); //add the item
+            areaCursor.moveToNext();
+        }
+//        areaList.add("Areas");
+//        areaList.add("Automobile");
+//        areaList.add("Business Services");
+//        areaList.add("Computers");
+//        areaList.add("Education");
+//        areaList.add("Personal");
+//        areaList.add("Travel");
 
         ArrayAdapter<String> areaAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, areaList);
         areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -95,10 +101,16 @@ public class RevenueSelectionActivity extends AppCompatActivity {
 
     private void setRevenues() {
         revenueCursor = dbHandler.getRevenues();
-        for (int i = 0; i < revenueCursor.getCount(); i++) {
-            System.out.println("revenue:" + revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME)));
-//            revenueList.add(revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME)));
+        System.out.println("revenue size:" + revenueCursor.getCount());
+        revenueCursor.moveToFirst();
+        while (!revenueCursor.isAfterLast()) {
+            revenueList.add(revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME))); //add the item
+            revenueCursor.moveToNext();
         }
+//        for (int i = 0; i < revenueCursor.getCount(); i++) {
+//            System.out.println("revenue:" + revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME)));
+////            revenueList.add(revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME)));
+//        }
 //        revenueList.add("Revenue Type");
 //        revenueList.add("Automobile");
 //        revenueList.add("Business Services");
@@ -113,14 +125,20 @@ public class RevenueSelectionActivity extends AppCompatActivity {
     }
 
     private void setLocations() {
-        dbHandler.getLocations();
-        locationList.add("Locations");
-        locationList.add("Automobile");
-        locationList.add("Business Services");
-        locationList.add("Computers");
-        locationList.add("Education");
-        locationList.add("Personal");
-        locationList.add("Travel");
+        locationCursor = dbHandler.getLocations();
+        System.out.println("revenue size:" + locationCursor.getCount());
+        locationCursor.moveToFirst();
+        while (!locationCursor.isAfterLast()) {
+            locationList.add(locationCursor.getString(locationCursor.getColumnIndex(dbHandler.KEY_LOCATIONNAME))); //add the item
+            locationCursor.moveToNext();
+        }
+//        locationList.add("Locations");
+//        locationList.add("Automobile");
+//        locationList.add("Business Services");
+//        locationList.add("Computers");
+//        locationList.add("Education");
+//        locationList.add("Personal");
+//        locationList.add("Travel");
 
         ArrayAdapter<String> locationAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationList);
         locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
