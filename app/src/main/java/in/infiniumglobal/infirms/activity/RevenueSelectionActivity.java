@@ -24,6 +24,7 @@ public class RevenueSelectionActivity extends AppCompatActivity {
     private DatabaseHandler dbHandler;
     private Cursor areaCursor, locationCursor, revenueCursor;
     Button btnNext;
+    private boolean isFirst = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +46,19 @@ public class RevenueSelectionActivity extends AppCompatActivity {
 
         setRevenues();
         setArea();
-        setLocations();
+        setLocations(0);
 
         spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), "Selected area: " + item, Toast.LENGTH_LONG).show();
+                if (!isFirst) {
+                    int areaID = getAreaIdFromCursor(item);
+                    System.out.println("selected areaid:" + areaID);
+                    setLocations(areaID);
+                } else {
+                    isFirst = false;
+                }
             }
 
             @Override
@@ -64,7 +71,6 @@ public class RevenueSelectionActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), "Selected revenue: " + item, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -77,7 +83,6 @@ public class RevenueSelectionActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), "Selected location: " + item, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -94,6 +99,18 @@ public class RevenueSelectionActivity extends AppCompatActivity {
         });
     }
 
+    private int getAreaIdFromCursor(String item) {
+        int areaID = 0;
+        areaCursor.moveToFirst();
+        while (!areaCursor.isAfterLast()) {
+            if (areaCursor.getString(areaCursor.getColumnIndex(dbHandler.KEY_AREANAME)).equals(item)) {
+                areaID = areaCursor.getInt(areaCursor.getColumnIndex(dbHandler.KEY_AREAID));
+            }
+            areaCursor.moveToNext();
+        }
+        return areaID;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -106,19 +123,12 @@ public class RevenueSelectionActivity extends AppCompatActivity {
 
     private void setArea() {
         areaCursor = dbHandler.getAreas();
-        System.out.println("revenue size:" + areaCursor.getCount());
+        System.out.println("area size:" + areaCursor.getCount());
         areaCursor.moveToFirst();
         while (!areaCursor.isAfterLast()) {
             areaList.add(areaCursor.getString(areaCursor.getColumnIndex(dbHandler.KEY_AREANAME))); //add the item
             areaCursor.moveToNext();
         }
-//        areaList.add("Areas");
-//        areaList.add("Automobile");
-//        areaList.add("Business Services");
-//        areaList.add("Computers");
-//        areaList.add("Education");
-//        areaList.add("Personal");
-//        areaList.add("Travel");
 
         ArrayAdapter<String> areaAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, areaList);
         areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -133,38 +143,25 @@ public class RevenueSelectionActivity extends AppCompatActivity {
             revenueList.add(revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME))); //add the item
             revenueCursor.moveToNext();
         }
-//        for (int i = 0; i < revenueCursor.getCount(); i++) {
-//            System.out.println("revenue:" + revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME)));
-////            revenueList.add(revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME)));
-//        }
-//        revenueList.add("Revenue Type");
-//        revenueList.add("Automobile");
-//        revenueList.add("Business Services");
-//        revenueList.add("Computers");
-//        revenueList.add("Education");
-//        revenueList.add("Personal");
-//        revenueList.add("Travel");
 
         ArrayAdapter<String> revenueAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, revenueList);
         revenueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRevenue.setAdapter(revenueAdapter);
     }
 
-    private void setLocations() {
-        locationCursor = dbHandler.getLocations();
-        System.out.println("revenue size:" + locationCursor.getCount());
+    private void setLocations(int locationID) {
+        if (locationID != 0) {
+            locationCursor = dbHandler.getLocationsByID(locationID);
+        } else {
+            locationCursor = dbHandler.getLocations();
+        }
+        System.out.println("location size:" + locationCursor.getCount());
         locationCursor.moveToFirst();
+        locationList.clear();
         while (!locationCursor.isAfterLast()) {
             locationList.add(locationCursor.getString(locationCursor.getColumnIndex(dbHandler.KEY_LOCATIONNAME))); //add the item
             locationCursor.moveToNext();
         }
-//        locationList.add("Locations");
-//        locationList.add("Automobile");
-//        locationList.add("Business Services");
-//        locationList.add("Computers");
-//        locationList.add("Education");
-//        locationList.add("Personal");
-//        locationList.add("Travel");
 
         ArrayAdapter<String> locationAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationList);
         locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

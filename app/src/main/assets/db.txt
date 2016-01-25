@@ -6,7 +6,8 @@ UserPassword	[varchar]	200
 TBLR_RevenueType			
 RevenueTypeId	int		
 RevenueName	varchar(50)		
-ReceiptType	varchar(150)		
+ReceiptType	varchar(150)
+
 TBLR_RevenueRate			
 RevenueRateId	int	 	
 RevenueTypeId	int		

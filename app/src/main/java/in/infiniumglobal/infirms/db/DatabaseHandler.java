@@ -34,20 +34,87 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_TBLR_RevenueReceipt = "TBLR_RevenueReceipt";
     private static final String TABLE_TBLR_Adjustment = "TBLR_Adjustment";
 
+    //    TBLA_User
     public static final String KEY_USERID = "UserID";
     public static final String KEY_USERNAME = "UserName";
     public static final String KEY_PASSWORD = "UserPassword";
 
+    //    TBLR_RevenueType
     public static final String KEY_REVENUE_ID = "_id";
     public static final String KEY_REVENUE_TYPEID = "RevenueTypeId";
     public static final String KEY_REVENUE_NAME = "RevenueName";
     public static final String KEY_REVENUE_TYPE = "ReceiptType";
 
+    //TBLR_Area
     public static final String KEY_AREAID = "AreaId";
     public static final String KEY_AREANAME = "AreaName";
 
+    //TBLR_Location
     public static final String KEY_LOCATIONID = "LocationId";
     public static final String KEY_LOCATIONNAME = "LocationName";
+
+    //TBLR_RevenueType
+    public static final String KEY_REVENUETYPEID = "RevenueTypeId";
+    public static final String KEY_REVENUENAME = "RevenueName";
+    public static final String KEY_RECEIPTTYPE = "ReceiptType";
+
+    //    TBLR_RevenueRate
+    public static final String KEY_REVENUERATEID = "RevenueRateId";
+    public static final String KEY_REVENUEUNIT = "RevenueUnit";
+    public static final String KEY_REVENUERATETYPE = "RevenueRateType";
+    public static final String KEY_REVENUERATE = "RevenueRate";
+
+    //    TBLR_RevenueCustomer
+    public static final String KEY_RCUSTOMERID = "RCustomerId";
+    public static final String KEY_CUSTOMERNO = "CustomerNo";
+    public static final String KEY_CUSTOMERBARCODE = "CustomerBarcode";
+    //    public static final String KEY_REVENUETYPEID = "RevenueTypeId";
+    public static final String KEY_BUSINESSNAME = "BusinessName";
+    public static final String KEY_OWNERNAME = "OwnerName";
+    public static final String KEY_BUSINESSLICNO = "BusinessLicNo";
+    public static final String KEY_TINNO = "TINNo";
+    public static final String KEY_VNRNO = "VNRNo";
+    public static final String KEY_OUTSTANDINGAMT = "OutstandingAmt";
+    public static final String KEY_POSTALADDRESS = "PostalAddress";
+    public static final String KEY_POSTCODE = "Postcode";
+    public static final String KEY_CONTACTPERSON = "ContactPerson";
+    public static final String KEY_CONTACTNO = "ContactNo";
+    //    public static final String KEY_AREAID = "AreaId";
+//    public static final String KEY_LOCATIONID = "LocationId";
+    public static final String KEY_EMAIL = "Email";
+
+    //    TBLR_RevenueReceipt
+    public static final String KEY_RRECEIPTID = "RReceiptId";
+    //    public static final String KEY_REVENUETYPEID = "RevenueTypeId";
+//    public static final String KEY_RCUSTOMERID = "RCustomerId";
+    public static final String KEY_CUSTOMERNAME = "CustomerName";
+    public static final String KEY_RRECEIPTDATE = "RReceiptDate";
+    public static final String KEY_RECEIPTNO = "ReceiptNo";
+    public static final String KEY_RECEIPTBARCODE = "ReceiptBarcode";
+    //    public static final String KEY_REVENUERATEID = "RevenueRateID";
+//    public static final String KEY_REVENUERATE = "RevenueRate";
+    public static final String KEY_TOTALUNIT = "TotalUnit";
+    public static final String KEY_TOTALAMOUNT = "TotalAmount";
+    public static final String KEY_OTHERCHARGSE = "OtherChargse";
+    public static final String KEY_ADJUSTMENTAMT = "AdjustmentAmt";
+    public static final String KEY_PAIDAMOUNT = "PaidAmount";
+    public static final String KEY_PAYTYPE = "PayType";
+    public static final String KEY_BANKNAME = "BankName";
+    public static final String KEY_CHEQUENO = "ChequeNo";
+    public static final String KEY_PAYREMARKS = "PayRemarks";
+    public static final String KEY_CREATEDBY = "CreatedBy";
+    public static final String KEY_CREATEDDATE = "CreatedDate";
+
+    //    TBLR_Adjustment
+    public static final String KEY_ADJUSTMENTID = "AdjustmentId";
+    public static final String KEY_CUSTOMERID = "CustomerId";
+    //    public static final String KEY_REVENUETYPEID = "RevenueTypeId";
+    public static final String KEY_ADJUSTMENTDATE = "AdjustmentDate";
+    public static final String KEY_ADJUSTMENTTYPE = "AdjustmentType";
+    public static final String KEY_AMOUNT = "Amount";
+    public static final String KEY_REMARKS = "Remarks";
+//    public static final String KEY_CREATEDBY = "CreatedBy";
+//    public static final String KEY_CREATEDDATE = "CreatedDate";
 
     // User Table Columns names
     public static final String KEY_ID = "_id";
@@ -135,11 +202,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting not sync user badges
+    public Cursor getLocationsByID(int locationID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TBLR_Location, null, KEY_AREAID + "=?", new String[]{String.valueOf(locationID)}, null, null, null, null);
+        return cursor;
+    }
+
+    // Getting not sync user badges
     public Cursor getRevenues() {
         SQLiteDatabase db = this.getReadableDatabase();
 //        Cursor cursor = db.query(TABLE_TBLR_RevenueType, null, null, null, null, null, null, null);
         String selectQuery = "SELECT  * FROM " + TABLE_TBLR_RevenueType;
         Cursor cursor = db.rawQuery(selectQuery, null);
+        return cursor;
+    }
+
+    public Cursor searchCustomer(String TIN, String ReceiptNumber, String BusinessNumber, String CustomerNumber) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TBLR_Location, null, KEY_TINNO + "=? or " + KEY_RECEIPTNO + "=? or " + KEY_BUSINESSLICNO + "=? or " + KEY_CUSTOMERNO + "=?", new String[]{TIN, ReceiptNumber, BusinessNumber, CustomerNumber}, null, null, null, "1");
         return cursor;
     }
 
