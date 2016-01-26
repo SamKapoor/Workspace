@@ -55,8 +55,8 @@ public class SearchAdapter extends CursorAdapter {
 
         if (tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_BUSINESSNAME)).length() >0)
             tvBusinessName.setText(tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_BUSINESSNAME)));
-        if (tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CUSTOMERNAME)).length() >0)
-            tvCustomerName.setText(tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CUSTOMERNAME)));
+        if (tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_OWNERNAME)).length() >0)
+            tvCustomerName.setText(tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_OWNERNAME)));
 
         final String id = tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
         /*view.findViewById(R.id.delete_rule).setOnClickListener(new View.OnClickListener() {

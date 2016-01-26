@@ -2,6 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/activity_vertical_margin">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Customers"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+    <ListView
+        android:id="@+id/customerlist_lv_customers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice"
+        android:layout_marginTop="10dp"
+        android:divider="@color/color_lightblue"
+        android:dividerHeight="1dp" />
 
 </LinearLayout>

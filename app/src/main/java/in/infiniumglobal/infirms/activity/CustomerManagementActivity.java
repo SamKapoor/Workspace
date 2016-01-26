@@ -18,7 +18,7 @@ import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.fragment.NavigationDrawerFragment;
 import in.infiniumglobal.infirms.utils.Common;
 
-public class CustomerManagementActivity extends AppCompatActivity
+public class CustomerManagementActivity extends BaseActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -32,7 +32,7 @@ public class CustomerManagementActivity extends AppCompatActivity
     private CharSequence mTitle;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_management);
 
@@ -88,26 +88,6 @@ public class CustomerManagementActivity extends AppCompatActivity
             return true;
         }
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logout) {
-            Common.removeAllPrefrences(this, getString(R.string.app_name));
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**

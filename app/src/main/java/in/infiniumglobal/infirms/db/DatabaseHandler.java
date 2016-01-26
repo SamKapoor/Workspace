@@ -238,7 +238,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = "";
 
-        sql = "Select " + KEY_RCUSTOMERID + "," + KEY_BUSINESSNAME + "," + KEY_OWNERNAME + " from " + TABLE_TBLR_RevenueCustomer + " WHERE " + KEY_REVENUETYPEID + "=" + RevenueTypeId;
+        sql = "Select * from " + TABLE_TBLR_RevenueCustomer + " WHERE " + KEY_REVENUETYPEID + "=" + RevenueTypeId;
 
         if (TIN.length() > 0) {
             sql = sql + " AND (" + KEY_TINNO + "='" + TIN + "')";
@@ -257,9 +257,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(sql, null);
         return cursor;
     }
+/*
+    // Limited data original
+
+    public Cursor searchCustomer(String TIN, String ReceiptNumber, String BusinessName, String CustomerName, String RevenueTypeId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "";
+
+        sql = "Select " + KEY_RCUSTOMERID + "," + KEY_BUSINESSNAME + "," + KEY_OWNERNAME + " from " + TABLE_TBLR_RevenueCustomer + " WHERE " + KEY_REVENUETYPEID + "=" + RevenueTypeId;
+
+        if (TIN.length() > 0) {
+            sql = sql + " AND (" + KEY_TINNO + "='" + TIN + "')";
+        }
+        if (BusinessName.length() > 0) {
+            sql = sql + " AND (" + KEY_BUSINESSNAME + " like '%" + BusinessName + "%')";
+        }
+        if (CustomerName.length() > 0) {
+            sql = sql + " AND (" + KEY_OWNERNAME + " like '%" + CustomerName + "%')";
+        }
+        if (ReceiptNumber.length() > 0) {
+            sql = sql + " AND (" + KEY_RCUSTOMERID + " in (SELECT " + KEY_RCUSTOMERID + " FROM " + TABLE_TBLR_RevenueReceipt + " WHERE " + KEY_REVENUETYPEID + " = " + RevenueTypeId + " AND ReceiptNo  = '" + ReceiptNumber + "' ))";
+        }
 
 
-
+        Cursor cursor = db.rawQuery(sql, null);
+        return cursor;
+    }*/
 
 /*
     public int getIfAvailable(String ruleId, String type) {

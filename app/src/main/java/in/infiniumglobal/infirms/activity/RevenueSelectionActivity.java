@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
+import in.infiniumglobal.infirms.utils.AppConfig;
 import in.infiniumglobal.infirms.utils.Common;
 
-public class RevenueSelectionActivity extends AppCompatActivity {
+public class RevenueSelectionActivity extends BaseActivity {
 
     private Spinner spinnerLocation, spinnerRevenue, spinnerArea;
     private ArrayList<String> locationList, revenueList, areaList;
@@ -27,9 +28,10 @@ public class RevenueSelectionActivity extends AppCompatActivity {
     Button btnNext;
     private boolean isFirst = true;
     private int revenueID = 0, areaID = 0;
+    private int locationID;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_revenueselection);
 
@@ -52,6 +54,8 @@ public class RevenueSelectionActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String areaItem = parent.getItemAtPosition(position).toString();
                 areaID = getAreaIdFromCursor(areaItem);
+                AppConfig.areaID = areaID;
+                AppConfig.areaItem = areaItem;
                 if (!isFirst) {
                     setLocations(areaID);
                 } else {
@@ -70,6 +74,8 @@ public class RevenueSelectionActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String revenueItem = parent.getItemAtPosition(position).toString();
                 revenueID = getRevenueIdFromCursor(revenueItem);
+                AppConfig.revenueID = revenueID;
+                AppConfig.revenueItem = revenueItem;
             }
 
             @Override
@@ -82,7 +88,9 @@ public class RevenueSelectionActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String locationItem = parent.getItemAtPosition(position).toString();
-                revenueID = getLocationIdFromCursor(locationItem);
+                locationID = getLocationIdFromCursor(locationItem);
+                AppConfig.locationID = locationID;
+                AppConfig.locationItem = locationItem;
             }
 
             @Override
@@ -192,28 +200,4 @@ public class RevenueSelectionActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.customer_management, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            case R.id.action_logout:
-                Common.removeAllPrefrences(this, getString(R.string.app_name));
-                Intent intent = new Intent(this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
