@@ -1,6 +1,5 @@
 package in.infiniumglobal.infirms.activity;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
-import in.infiniumglobal.infirms.utils.AppConfig;
 
 public class CustomerSearchActivity extends AppCompatActivity {
 
@@ -40,12 +38,10 @@ public class CustomerSearchActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (edtTinNumber.getText().toString().trim().length() > 0 || edtReceiptNumber.getText().toString().trim().length() > 0
                         || edtBusinessName.getText().toString().trim().length() > 0 || edtCustomerName.getText().toString().trim().length() > 0) {
-                    Cursor customerData = dbHandler.searchCustomer(edtTinNumber.getText().toString().trim(), edtReceiptNumber.getText().toString().trim(), edtBusinessName.getText().toString().trim(), edtCustomerName.getText().toString().trim(), "");
+                    Cursor customerData = dbHandler.searchCustomer(edtTinNumber.getText().toString().trim(), edtReceiptNumber.getText().toString().trim(), edtBusinessName.getText().toString().trim(), edtCustomerName.getText().toString().trim(), "1212");
                     System.out.println("customer size:" + customerData.getCount());
                     if (customerData.getCount() == 0) {
                         Toast.makeText(CustomerSearchActivity.this, "Customer not found.", Toast.LENGTH_LONG).show();
-                    } else {
-                        AppConfig.customerData = customerData;
                     }
                 } else {
                     Toast.makeText(CustomerSearchActivity.this, "Please enter values.", Toast.LENGTH_LONG).show();
@@ -58,7 +54,6 @@ public class CustomerSearchActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(CustomerSearchActivity.this, RevenueSelectionActivity.class));
                 finish();
                 break;
         }
