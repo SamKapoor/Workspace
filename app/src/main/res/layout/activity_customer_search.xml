@@ -45,6 +45,8 @@
         android:singleLine="true" />
 
     <Button
+        android:textColor="@android:color/white"
+        android:background="@drawable/drawable_button"
         android:id="@+id/btnSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

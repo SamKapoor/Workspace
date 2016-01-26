@@ -64,6 +64,9 @@ public class CustomerSearchActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (item.getItemId()) {
             case android.R.id.home:
+                Intent mIntent = new Intent(this, RevenueSelectionActivity.class);
+                mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(mIntent);
                 finish();
                 break;
             case R.id.action_logout:

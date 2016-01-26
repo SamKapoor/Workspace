@@ -47,6 +47,8 @@
         android:prompt="@string/spinner_title" />
 
     <Button
+        android:textColor="@android:color/white"
+        android:background="@drawable/drawable_button"
         android:id="@+id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -34,6 +34,7 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
             android:maxLines="1"
@@ -55,6 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal">
 
             <Button
@@ -62,8 +64,10 @@
                 style="?android:textAppearanceSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/drawable_button"
                 android:text="@string/action_sign_in"
+                android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
             <Button
@@ -71,8 +75,10 @@
                 style="?android:textAppearanceSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/drawable_button"
                 android:text="Reset"
+                android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
         </LinearLayout>
