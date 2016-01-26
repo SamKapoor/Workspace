@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent mIntent;
-                if (Common.getStringPrefrences(SplashActivity.this, getString(R.string.pref)).trim().equals("")) {
+                if (Common.getStringPrefrences(SplashActivity.this, getString(R.string.pref_userName), getString(R.string.app_name)).trim().equals("")) {
                     mIntent = new Intent(SplashActivity.this, LoginActivity.class);
                 } else {
                     mIntent = new Intent(SplashActivity.this, RevenueSelectionActivity.class);
