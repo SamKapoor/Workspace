@@ -96,6 +96,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import in.infiniumglobal.infirms.R;
+
 
 /**
  * @author H!ral
@@ -134,19 +136,19 @@ public class Common {
             return true;
     }
 
-    public static void setNotificationKey(String access_key, Context context) {
-        SharedPreferences prefs;
-        prefs = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
-        Editor editor = prefs.edit();
-        editor.putString(context.getString(R.string.prefnotification), access_key);
-        editor.commit();
-    }
-
-    public static String getNotificationKey(Context context) {
-        SharedPreferences prefs;
-        prefs = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
-        return prefs.getString(context.getString(R.string.prefnotification), null);
-    }
+//    public static void setNotificationKey(String access_key, Context context) {
+//        SharedPreferences prefs;
+//        prefs = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
+//        Editor editor = prefs.edit();
+//        editor.putString(context.getString(R.string.prefnotification), access_key);
+//        editor.commit();
+//    }
+//
+//    public static String getNotificationKey(Context context) {
+//        SharedPreferences prefs;
+//        prefs = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
+//        return prefs.getString(context.getString(R.string.prefnotification), null);
+//    }
 
     /**
      * check availability of Internet
@@ -533,25 +535,25 @@ public class Common {
      *
      * @param mContext
      */
-    @SuppressWarnings({"static-access"})
-    public static void disableSleepMode(Context mContext) {
-//        System.out.println("disable");
-        ((Activity) mContext).getWindow().addFlags(
-                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        keyguardManager = (KeyguardManager) mContext
-                .getSystemService(Activity.KEYGUARD_SERVICE);
-        lock = keyguardManager.newKeyguardLock(mContext.KEYGUARD_SERVICE);
-        lock.disableKeyguard();
-    }
+//    @SuppressWarnings({"static-access"})
+//    public static void disableSleepMode(Context mContext) {
+////        System.out.println("disable");
+//        ((Activity) mContext).getWindow().addFlags(
+//                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+//        keyguardManager = (KeyguardManager) mContext
+//                .getSystemService(Activity.KEYGUARD_SERVICE);
+//        lock = keyguardManager.newKeyguardLock(mContext.KEYGUARD_SERVICE);
+//        lock.disableKeyguard();
+//    }
 
     // ---------------------------
 
     /**
      * use for enable sleep screen while using application.
      */
-    public static void enableSleepMode() {
-        lock.reenableKeyguard();
-    }
+//    public static void enableSleepMode() {
+//        lock.reenableKeyguard();
+//    }
 
     // ------------------------------
 
@@ -996,38 +998,38 @@ public class Common {
     // --------------------------------------------------------------
 
     // -----------------------------------
-    @SuppressLint("DefaultLocale")
-    public static void onBlueTooth(String action) {
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter
-                .getDefaultAdapter();
-        if (action.toLowerCase().equalsIgnoreCase("on")) {
-            if (!mBluetoothAdapter.isEnabled()) {
-                mBluetoothAdapter.enable();
-            }
-        }
+//    @SuppressLint("DefaultLocale")
+//    public static void onBlueTooth(String action) {
+//        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter
+//                .getDefaultAdapter();
+//        if (action.toLowerCase().equalsIgnoreCase("on")) {
+//            if (!mBluetoothAdapter.isEnabled()) {
+//                mBluetoothAdapter.enable();
+//            }
+//        }
+//
+//        if (action.toLowerCase().equalsIgnoreCase("off")) {
+//            if (mBluetoothAdapter.isEnabled()) {
+//                mBluetoothAdapter.disable();
+//            }
+//        }
+//    }
 
-        if (action.toLowerCase().equalsIgnoreCase("off")) {
-            if (mBluetoothAdapter.isEnabled()) {
-                mBluetoothAdapter.disable();
-            }
-        }
-    }
-
-    public static void onWifi(Context mContext, String action) {
-        WifiManager wm = ((WifiManager) mContext
-                .getSystemService(Context.WIFI_SERVICE));
-        if (action.toLowerCase().equalsIgnoreCase("on")) {
-            if (!wm.isWifiEnabled()) {
-                wm.setWifiEnabled(true);
-            }
-        }
-
-        if (action.toLowerCase().equalsIgnoreCase("off")) {
-            if (wm.isWifiEnabled()) {
-                wm.setWifiEnabled(false);
-            }
-        }
-    }
+//    public static void onWifi(Context mContext, String action) {
+//        WifiManager wm = ((WifiManager) mContext
+//                .getSystemService(Context.WIFI_SERVICE));
+//        if (action.toLowerCase().equalsIgnoreCase("on")) {
+//            if (!wm.isWifiEnabled()) {
+//                wm.setWifiEnabled(true);
+//            }
+//        }
+//
+//        if (action.toLowerCase().equalsIgnoreCase("off")) {
+//            if (wm.isWifiEnabled()) {
+//                wm.setWifiEnabled(false);
+//            }
+//        }
+//    }
 
     public static void hideKeyboard(Context mContext, View v) {
         InputMethodManager imm = (InputMethodManager) mContext
