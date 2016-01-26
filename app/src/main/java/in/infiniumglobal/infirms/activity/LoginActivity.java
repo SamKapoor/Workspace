@@ -34,6 +34,7 @@ import java.util.List;
 
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
+import in.infiniumglobal.infirms.utils.Common;
 
 /**
  * A login screen that offers login via email/password.
@@ -57,6 +58,11 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if (Common.getStringPrefrences(this, getString(R.string.pref_userId), getString(R.string.app_name)).length() > 0) {
+            startActivity(new Intent(LoginActivity.this, RevenueSelectionActivity.class));
+            finish();
+        }
         dbHandler = DatabaseHandler.getInstance(LoginActivity.this);
         // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.email);
@@ -216,8 +222,10 @@ public class LoginActivity extends Activity {
             showProgress(false);
 
             if (userId == -1) {
-                Toast.makeText(LoginActivity.this, "Username passowrd do not match.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Username password do not match.", Toast.LENGTH_SHORT).show();
             } else {
+                Common.setStringPrefrences(LoginActivity.this, getString(R.string.pref_userName), mEmail, getString(R.string.app_name));
+                Common.setStringPrefrences(LoginActivity.this, getString(R.string.pref_userId), userId + "", getString(R.string.app_name));
                 startActivity(new Intent(LoginActivity.this, RevenueSelectionActivity.class));
                 finish();
             }

@@ -1,6 +1,7 @@
 package in.infiniumglobal.infirms.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.fragment.NavigationDrawerFragment;
+import in.infiniumglobal.infirms.utils.Common;
 
 public class CustomerManagementActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -97,6 +99,13 @@ public class CustomerManagementActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.action_logout) {
+            Common.removeAllPrefrences(this, getString(R.string.app_name));
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
             return true;
         }
 
