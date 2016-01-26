@@ -69,7 +69,7 @@ public class CustomerSearchActivity extends AppCompatActivity {
             case R.id.action_logout:
                 Common.removeAllPrefrences(this, getString(R.string.app_name));
                 Intent intent = new Intent(this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
                 break;
