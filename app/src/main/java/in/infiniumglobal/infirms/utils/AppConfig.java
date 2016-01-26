@@ -8,4 +8,10 @@ import android.database.Cursor;
 public class AppConfig {
 
     public static Cursor customerData = null;
+    public static int areaID = 0;
+    public static int revenueID = 0;
+    public static int locationID = 0;
+    public static String locationItem = "";
+    public static String revenueItem = "";
+    public static String areaItem = "";
 }
