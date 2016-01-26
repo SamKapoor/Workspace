@@ -59,10 +59,6 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if (Common.getStringPrefrences(this, getString(R.string.pref_userId), getString(R.string.app_name)).length() > 0) {
-            startActivity(new Intent(LoginActivity.this, RevenueSelectionActivity.class));
-            finish();
-        }
         dbHandler = DatabaseHandler.getInstance(LoginActivity.this);
         // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.email);
