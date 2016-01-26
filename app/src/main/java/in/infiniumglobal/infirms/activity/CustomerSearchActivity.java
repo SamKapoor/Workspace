@@ -1,8 +1,10 @@
 package in.infiniumglobal.infirms.activity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
+import in.infiniumglobal.infirms.utils.Common;
 
 public class CustomerSearchActivity extends AppCompatActivity {
 
@@ -51,12 +54,28 @@ public class CustomerSearchActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.customer_management, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
+            case R.id.action_logout:
+                Common.removeAllPrefrences(this, getString(R.string.app_name));
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                break;
         }
-        return true;
+
+        return super.onOptionsItemSelected(item);
     }
+
 }
