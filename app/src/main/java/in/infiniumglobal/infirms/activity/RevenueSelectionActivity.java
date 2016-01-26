@@ -31,9 +31,6 @@ public class RevenueSelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_revenueselection);
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         dbHandler = DatabaseHandler.getInstance(RevenueSelectionActivity.this);
         spinnerRevenue = (Spinner) findViewById(R.id.spinnerRevenue);
         spinnerArea = (Spinner) findViewById(R.id.spinnerArea);
@@ -140,16 +137,6 @@ public class RevenueSelectionActivity extends AppCompatActivity {
         return locationID;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-        }
-        return true;
-    }
-
     private void setArea() {
         areaCursor = dbHandler.getAreas();
         System.out.println("area size:" + areaCursor.getCount());
@@ -195,5 +182,11 @@ public class RevenueSelectionActivity extends AppCompatActivity {
         ArrayAdapter<String> locationAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationList);
         locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLocation.setAdapter(locationAdapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
