@@ -28,20 +28,20 @@
 
 
     <EditText
-        android:id="@+id/edtBusinessNumber"
+        android:id="@+id/edtBusinessName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Business name"
-        android:inputType="number"
+        android:inputType="textCapSentences"
         android:singleLine="true" />
 
 
     <EditText
-        android:id="@+id/edtCustomerNumber"
+        android:id="@+id/edtCustomerName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Customer name"
-        android:inputType="number"
+        android:inputType="textCapSentences"
         android:singleLine="true" />
 
     <Button

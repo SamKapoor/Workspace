@@ -26,7 +26,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.LoginActivity"
-            android:label="Login"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateVisible">
             <intent-filter>
@@ -37,6 +37,7 @@
         </activity>
         <activity
             android:name=".activity.RevenueSelectionActivity"
+            android:label="Revenue selection"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
@@ -50,7 +51,6 @@
 
         <activity
             android:name=".activity.CustomerSearchActivity"
-            android:label="@string/title_activity_customer_management"></activity>
+            android:label="Customer search"></activity>
     </application>
-
 </manifest>

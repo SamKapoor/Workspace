@@ -14,7 +14,7 @@ import in.infiniumglobal.infirms.db.DatabaseHandler;
 
 public class CustomerSearchActivity extends AppCompatActivity {
 
-    EditText edtTinNumber, edtReceiptNumber, edtBusinessNumber, edtCustomerNumber;
+    EditText edtTinNumber, edtReceiptNumber, edtBusinessName, edtCustomerName;
     Button btnSearch;
     private DatabaseHandler dbHandler;
 
@@ -29,17 +29,20 @@ public class CustomerSearchActivity extends AppCompatActivity {
         dbHandler = DatabaseHandler.getInstance(CustomerSearchActivity.this);
         edtTinNumber = (EditText) findViewById(R.id.edtTinNumber);
         edtReceiptNumber = (EditText) findViewById(R.id.edtReceiptNumber);
-        edtBusinessNumber = (EditText) findViewById(R.id.edtBusinessNumber);
-        edtCustomerNumber = (EditText) findViewById(R.id.edtCustomerNumber);
+        edtBusinessName = (EditText) findViewById(R.id.edtBusinessName);
+        edtCustomerName = (EditText) findViewById(R.id.edtCustomerName);
         btnSearch = (Button) findViewById(R.id.btnSearch);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (edtTinNumber.getText().toString().trim().length() > 0 || edtReceiptNumber.getText().toString().trim().length() > 0
-                        || edtBusinessNumber.getText().toString().trim().length() > 0 || edtCustomerNumber.getText().toString().trim().length() > 0) {
-                    Cursor customerData = dbHandler.searchCustomer(edtTinNumber.getText().toString().trim(), edtReceiptNumber.getText().toString().trim(), edtBusinessNumber.getText().toString().trim(), edtCustomerNumber.getText().toString().trim());
+                        || edtBusinessName.getText().toString().trim().length() > 0 || edtCustomerName.getText().toString().trim().length() > 0) {
+                    Cursor customerData = dbHandler.searchCustomer(edtTinNumber.getText().toString().trim(), edtReceiptNumber.getText().toString().trim(), edtBusinessName.getText().toString().trim(), edtCustomerName.getText().toString().trim());
                     System.out.println("customer size:" + customerData.getCount());
+                    if (customerData.getCount() == 0) {
+                        Toast.makeText(CustomerSearchActivity.this, "Customer not found.", Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     Toast.makeText(CustomerSearchActivity.this, "Please enter values.", Toast.LENGTH_LONG).show();
                 }

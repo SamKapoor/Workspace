@@ -2,15 +2,14 @@ package in.infiniumglobal.infirms.activity;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,6 +24,7 @@ public class RevenueSelectionActivity extends AppCompatActivity {
     private Cursor areaCursor, locationCursor, revenueCursor;
     Button btnNext;
     private boolean isFirst = true;
+    private int revenueID = 0, areaID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +51,9 @@ public class RevenueSelectionActivity extends AppCompatActivity {
         spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
+                String areaItem = parent.getItemAtPosition(position).toString();
+                areaID = getAreaIdFromCursor(areaItem);
                 if (!isFirst) {
-                    int areaID = getAreaIdFromCursor(item);
-                    System.out.println("selected areaid:" + areaID);
                     setLocations(areaID);
                 } else {
                     isFirst = false;
@@ -70,7 +69,8 @@ public class RevenueSelectionActivity extends AppCompatActivity {
         spinnerRevenue.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
+                String revenueItem = parent.getItemAtPosition(position).toString();
+                revenueID = getRevenueIdFromCursor(revenueItem);
             }
 
             @Override
@@ -82,7 +82,8 @@ public class RevenueSelectionActivity extends AppCompatActivity {
         spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
+                String locationItem = parent.getItemAtPosition(position).toString();
+                revenueID = getLocationIdFromCursor(locationItem);
             }
 
             @Override
@@ -99,6 +100,20 @@ public class RevenueSelectionActivity extends AppCompatActivity {
         });
     }
 
+    private int getRevenueIdFromCursor(String item) {
+        int revenueID = 0;
+        revenueCursor.moveToFirst();
+        while (!revenueCursor.isAfterLast()) {
+            if (revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME)).equals(item)) {
+                revenueID = revenueCursor.getInt(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_TYPEID));
+            }
+            revenueCursor.moveToNext();
+        }
+
+        System.out.println("selected revenue id:" + item + ":" + revenueID);
+        return revenueID;
+    }
+
     private int getAreaIdFromCursor(String item) {
         int areaID = 0;
         areaCursor.moveToFirst();
@@ -108,7 +123,21 @@ public class RevenueSelectionActivity extends AppCompatActivity {
             }
             areaCursor.moveToNext();
         }
+        System.out.println("selected area id:" + item + ":" + areaID);
         return areaID;
+    }
+
+    private int getLocationIdFromCursor(String item) {
+        int locationID = 0;
+        locationCursor.moveToFirst();
+        while (!locationCursor.isAfterLast()) {
+            if (locationCursor.getString(locationCursor.getColumnIndex(dbHandler.KEY_LOCATIONNAME)).equals(item)) {
+                locationID = locationCursor.getInt(locationCursor.getColumnIndex(dbHandler.KEY_LOCATIONID));
+            }
+            locationCursor.moveToNext();
+        }
+        System.out.println("selected location id:" + item + ":" + locationID);
+        return locationID;
     }
 
     @Override
