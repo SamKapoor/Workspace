@@ -92,7 +92,6 @@ public class RevenueSelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RevenueSelectionActivity.this, CustomerSearchActivity.class));
-                finish();
             }
         });
     }
