@@ -15,6 +15,10 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
 import in.infiniumglobal.infirms.R;
+import in.infiniumglobal.infirms.fragment.CustomerCreditFragment;
+import in.infiniumglobal.infirms.fragment.CustomerDetailsFragment;
+import in.infiniumglobal.infirms.fragment.CustomerHistoryFragment;
+import in.infiniumglobal.infirms.fragment.CustomerReceiptFragment;
 import in.infiniumglobal.infirms.fragment.NavigationDrawerFragment;
 import in.infiniumglobal.infirms.utils.Common;
 
@@ -49,22 +53,49 @@ public class CustomerManagementActivity extends BaseActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+        Fragment fragment = null;
+        switch (position) {
+            case 0:
+                fragment = new CustomerDetailsFragment();
+                break;
+            case 1:
+                fragment = new CustomerReceiptFragment();
+                break;
+            case 2:
+                fragment = new CustomerCreditFragment();
+                break;
+            case 3:
+                fragment = new CustomerHistoryFragment();
+                break;
+            default:
+                break;
+        }
+
+        if (fragment != null) {
+            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+            // update selected item and title, then close the drawer
+//            mDrawerList.setItemChecked(position, true);
+//            mDrawerList.setSelection(position);
+//            setTitle(navMenuTitles[position]);
+//            mDrawerLayout.closeDrawer(mDrawerList);
+        }
     }
 
     public void onSectionAttached(int number) {
         switch (number) {
-            case 1:
+            case 0:
                 mTitle = getString(R.string.title_section1);
                 break;
-            case 2:
+            case 1:
                 mTitle = getString(R.string.title_section2);
                 break;
-            case 3:
+            case 2:
                 mTitle = getString(R.string.title_section3);
+                break;
+            case 3:
+                mTitle = getString(R.string.title_section4);
                 break;
         }
     }
@@ -75,7 +106,6 @@ public class CustomerManagementActivity extends BaseActivity
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -129,5 +159,4 @@ public class CustomerManagementActivity extends BaseActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
-
 }
