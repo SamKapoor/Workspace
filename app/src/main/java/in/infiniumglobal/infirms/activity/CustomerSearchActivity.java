@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
+import in.infiniumglobal.infirms.utils.AppConfig;
 
 public class CustomerSearchActivity extends AppCompatActivity {
 
@@ -43,6 +44,8 @@ public class CustomerSearchActivity extends AppCompatActivity {
                     System.out.println("customer size:" + customerData.getCount());
                     if (customerData.getCount() == 0) {
                         Toast.makeText(CustomerSearchActivity.this, "Customer not found.", Toast.LENGTH_LONG).show();
+                    } else {
+                        AppConfig.customerData = customerData;
                     }
                 } else {
                     Toast.makeText(CustomerSearchActivity.this, "Please enter values.", Toast.LENGTH_LONG).show();
