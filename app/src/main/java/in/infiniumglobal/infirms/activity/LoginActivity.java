@@ -73,6 +73,16 @@ public class LoginActivity extends Activity {
             }
         });
 
+        mEmailView.setText("username");
+        mPasswordView.setText("password");
+        findViewById(R.id.login_reset_button).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEmailView.setText("");
+                mPasswordView.setText("");
+            }
+        });
+
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
