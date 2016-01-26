@@ -217,6 +217,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public boolean deleteAllRecords(String tableName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("DELETE FROM SQLITE_SEQUENCE WHERE name='" + tableName + "'", null);
+        if (cursor == null)
+            return true;
+        else if (cursor.getCount() == 0)
+            return true;
+        else
+            return false;
+    }
+
 //    public Cursor searchCustomer(String TIN, String ReceiptNumber, String BusinessName, String CustomerName) {
 //        SQLiteDatabase db = this.getReadableDatabase();
 //        Cursor cursor = db.query(TABLE_TBLR_RevenueCustomer, null, KEY_TINNO + "=? or " + KEY_RCUSTOMERID + "=? or " + KEY_BUSINESSNAME+ "=? or " + KEY_CUSTOMERNAME + "=?", new String[]{TIN, ReceiptNumber, BusinessName, CustomerName}, null, null, null, null);
