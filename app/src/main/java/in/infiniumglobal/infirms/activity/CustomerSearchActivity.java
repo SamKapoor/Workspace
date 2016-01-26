@@ -38,7 +38,7 @@ public class CustomerSearchActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (edtTinNumber.getText().toString().trim().length() > 0 || edtReceiptNumber.getText().toString().trim().length() > 0
                         || edtBusinessName.getText().toString().trim().length() > 0 || edtCustomerName.getText().toString().trim().length() > 0) {
-                    Cursor customerData = dbHandler.searchCustomer(edtTinNumber.getText().toString().trim(), edtReceiptNumber.getText().toString().trim(), edtBusinessName.getText().toString().trim(), edtCustomerName.getText().toString().trim());
+                    Cursor customerData = dbHandler.searchCustomer(edtTinNumber.getText().toString().trim(), edtReceiptNumber.getText().toString().trim(), edtBusinessName.getText().toString().trim(), edtCustomerName.getText().toString().trim(), "");
                     System.out.println("customer size:" + customerData.getCount());
                     if (customerData.getCount() == 0) {
                         Toast.makeText(CustomerSearchActivity.this, "Customer not found.", Toast.LENGTH_LONG).show();

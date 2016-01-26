@@ -217,11 +217,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Cursor searchCustomer(String TIN, String ReceiptNumber, String BusinessName, String CustomerName) {
+//    public Cursor searchCustomer(String TIN, String ReceiptNumber, String BusinessName, String CustomerName) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.query(TABLE_TBLR_RevenueCustomer, null, KEY_TINNO + "=? or " + KEY_RCUSTOMERID + "=? or " + KEY_BUSINESSNAME+ "=? or " + KEY_CUSTOMERNAME + "=?", new String[]{TIN, ReceiptNumber, BusinessName, CustomerName}, null, null, null, null);
+//        return cursor;
+//    }
+
+    public Cursor searchCustomer(String TIN, String ReceiptNumber, String BusinessName, String CustomerName, String RevenueTypeId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_TBLR_RevenueCustomer, null, KEY_TINNO + "=? or " + KEY_RCUSTOMERID + "=? or " + KEY_BUSINESSNAME+ "=? or " + KEY_CUSTOMERNAME + "=?", new String[]{TIN, ReceiptNumber, BusinessName, CustomerName}, null, null, null, null);
+        String sql = "";
+
+        sql = "Select " + KEY_RCUSTOMERID + "," + KEY_BUSINESSNAME + "," + KEY_OWNERNAME + " from " + TABLE_TBLR_RevenueCustomer + " WHERE " + KEY_REVENUETYPEID + "=" + RevenueTypeId;
+
+        if (TIN.length() > 0) {
+            sql = sql + " AND (" + KEY_TINNO + "='" + TIN + "')";
+        }
+        if (BusinessName.length() > 0) {
+            sql = sql + " AND (" + KEY_BUSINESSNAME + " like '%" + BusinessName + "%')";
+        }
+        if (CustomerName.length() > 0) {
+            sql = sql + " AND (" + KEY_OWNERNAME + " like '%" + CustomerName + "%')";
+        }
+        if (ReceiptNumber.length() > 0) {
+            sql = sql + " AND (" + KEY_RCUSTOMERID + " in (SELECT " + KEY_RCUSTOMERID + " FROM " + TABLE_TBLR_RevenueReceipt + " WHERE " + KEY_REVENUETYPEID + " = " + RevenueTypeId + " AND ReceiptNo  = '" + ReceiptNumber + "' ))";
+        }
+
+
+        Cursor cursor = db.rawQuery(sql, null);
         return cursor;
     }
+
+
+
 
 /*
     public int getIfAvailable(String ruleId, String type) {

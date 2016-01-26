@@ -78,4 +78,45 @@ Remarks	varchar(1000)
 CreatedBy	int	
 CreatedDate	smalldatetime	
 	
-			
+
+			Query
+
+
+DECLARE
+		@RevenueTypeId int =NULL,
+		@TINNo Varchar(255)=NULL,
+		@ReceiptNo Varchar(50)=NULL,
+		@BusinessName Varchar(250)=NULL,
+		@CustomerName Varchar(250)=NULL,
+		@CustomerId int =NULL
+
+IF (@ReceiptNo IS NOT NULL)
+BEGIN
+	SELECT @CustomerId=RCustomerId FROM TBLR_RevenueReceipt WHERE RevenueTypeId=@RevenueTypeId AND ReceiptNo  = @ReceiptNo
+END
+string sql= "";
+
+sql="select RCustomerId,BusinessName,OwnerName from TBLR_RevenueCustomer
+WHERE RevenueTypeId=@RevenueTypeId";
+
+if(tinno!="")
+{
+sql=sql+ " AND (TINNo='"+tini+"')
+}
+if(BusinessName!="")
+{
+sql=sql+ " AND (BusinessName like '%"+BusinessName+"%')
+}
+if(OwnerName!="")
+{
+sql=sql+ " AND (OwnerName Like '%"+OwnerName+"%')
+}
+
+ if(ReceiptNo!="")
+ {
+    sql=sql+ " AND (RCustomerId in (SELECT RCustomerId FROM TBLR_RevenueReceipt WHERE RevenueTypeId="+1+" AND ReceiptNo  = "'+ReceiptNo+'"))
+ }
+
+
+ AND (TINNo=@TINNo OR @TINNo IS NULL) AND (RCustomerId=@CustomerId OR @CustomerId IS NULL)
+AND (BusinessName=@BusinessName OR @BusinessName IS NULL)  AND (OwnerName=@CustomerName OR @CustomerName IS NULL)
