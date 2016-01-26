@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="Customer No:  12345" />
+                android:text="Barcode No:  12345" />
 
 
             <TextView

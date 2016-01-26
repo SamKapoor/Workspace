@@ -1,14 +1,124 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Details"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
-</LinearLayout>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Customer No:  12345" />
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_barcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Barcode No:  12345" />
+
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_businessName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Business: Infinium global" />
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_ownerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Owner: Ramesh" />
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_businessLic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Business Lic No:  12345" />
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_tinNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="TIN No:  12345" />
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_vnrNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="VNR No:  12345" />
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_OutstandingAmt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Outstanding Amount:  12345" />
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_PostalAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Postal Address:  12345" />
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_Postcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Postcode:  12345" />
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_ContactPerson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Contact Person:  12345" />
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_ContactNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Contact No:  12345" />
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_AreaId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Area Id:  12345" />
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_LocationId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Location Id:  12345" />
+
+            <TextView
+                android:id="@+id/customer_detail_frag_tv_Email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Email:  12345" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
