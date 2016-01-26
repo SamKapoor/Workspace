@@ -1,5 +1,6 @@
 package in.infiniumglobal.infirms.activity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -54,6 +55,7 @@ public class CustomerSearchActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                startActivity(new Intent(CustomerSearchActivity.this, RevenueSelectionActivity.class));
                 finish();
                 break;
         }
