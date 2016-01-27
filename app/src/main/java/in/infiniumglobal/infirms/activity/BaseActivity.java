@@ -43,6 +43,7 @@ public class BaseActivity extends AppCompatActivity {
                 break;
             case R.id.action_sync:
 //                TODO sync
+
                 break;
         }
 
