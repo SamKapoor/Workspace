@@ -78,4 +78,46 @@ Remarks	varchar(1000)
 CreatedBy	int	
 CreatedDate	smalldatetime	
 	
-			
+
+
+
+
+INSERT INTO [dbo].[TBLA_User]([UserID] ,[UserName],[UserPassword]) VALUES (1,admin,a )
+INSERT INTO [dbo].[TBLA_User]([UserID] ,[UserName],[UserPassword]) VALUES (3,ronnymbele,ronny123 )
+INSERT INTO [dbo].[TBLA_User]([UserID] ,[UserName],[UserPassword]) VALUES (4,ronny,ronny123 )
+
+
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (1,1,'BUKWIMBA' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (2,2,'NUNDU' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (3,3,'KAFITA' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (4,4,'KHARUMWA' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (5,5,'IZUNYA' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (6,6,'NYUGWA' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (7,7,'NYIJUNDU' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (8,8,'NYANGWALE' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (9,9,'SHABAKA' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (10,10,'MWINGILO' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (11,11,'NYABULANDA' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (12,12,'BUSOLWA' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (13,13,'KABOHA' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (14,14,'NYAMTUKUZA' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (15,15,'KAKORA' );
+INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (16,16,'NYANGHWALE' );
+
+
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (1,1,'BUKWIMBA' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (2,2,'NUNDU' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (3,3,'KAFITA' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (4,4,'KHARUMWA' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (5,5,'IZUNYA' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (6,6,'NYUGWA' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (7,7,'NYIJUNDU' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (8,8,'NYANGWALE' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (9,9,'SHABAKA' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (10,10,'MWINGILO' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (11,11,'NYABULANDA' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (12,12,'BUSOLWA' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (13,13,'KABOHA' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (14,14,'NYAMTUKUZA' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (15,15,'KAKORA' );
+INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (16,16,'NYANGHWALE' );
