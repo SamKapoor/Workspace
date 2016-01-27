@@ -70,6 +70,9 @@ public class CustomerManagementActivity extends BaseActivity
             case 3:
                 fragment = new CustomerHistoryFragment();
                 break;
+            case 4:
+                fragment = new CustomerHistoryFragment();
+                break;
             default:
                 break;
         }
@@ -97,6 +100,9 @@ public class CustomerManagementActivity extends BaseActivity
                 break;
             case 3:
                 mTitle = getString(R.string.title_section4);
+                break;
+            case 4:
+                mTitle = getString(R.string.title_section5);
                 break;
         }
     }

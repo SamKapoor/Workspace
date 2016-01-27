@@ -14,10 +14,11 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="title_activity_customer_management">CustomerManagementActivity</string>
 
-    <string name="title_section1">Customer Details</string>
-    <string name="title_section2">Customer Receipt</string>
-    <string name="title_section3">Customer Credit</string>
-    <string name="title_section4">Customer History</string>
+    <string name="title_section1">Customer</string>
+    <string name="title_section2">Receipt</string>
+    <string name="title_section3">Credit Note</string>
+    <string name="title_section4">Debit Note</string>
+    <string name="title_section5">Payment History</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

@@ -87,22 +87,66 @@ INSERT INTO [dbo].[TBLA_User]([UserID] ,[UserName],[UserPassword]) VALUES (3,ron
 INSERT INTO [dbo].[TBLA_User]([UserID] ,[UserName],[UserPassword]) VALUES (4,ronny,ronny123 )
 
 
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (1,1,'BUKWIMBA' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (2,2,'NUNDU' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (3,3,'KAFITA' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (4,4,'KHARUMWA' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (5,5,'IZUNYA' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (6,6,'NYUGWA' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (7,7,'NYIJUNDU' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (8,8,'NYANGWALE' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (9,9,'SHABAKA' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (10,10,'MWINGILO' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (11,11,'NYABULANDA' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (12,12,'BUSOLWA' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (13,13,'KABOHA' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (14,14,'NYAMTUKUZA' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (15,15,'KAKORA' );
-INSERT INTO  [TBLR_Location] ([_id],[LocationId] ,[AreaId],[LocationName])VALUES (16,16,'NYANGHWALE' );
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (1,1,15,'BULULU' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (2,2,15,'KABIGA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (3,3,15,'KAKORA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (4,4,15,'KITONGO' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (5,5,15,'NYANGALAMILA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (6,6,14,'NYAMTUKUZA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (7,7,14,'NHWIGA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (8,8,14,'ISENI' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (9,9,13,'KABOHA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (10,10,13,'SHIBALANGA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (11,11,13,'NYABULULU' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (12,12,13,'SHIBUMBA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (13,13,12,'BUSOLWA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (14,14,12,'KONA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (15,15,12,'IFUGANDI' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (16,16,11,'NYABULANDA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (17,17,11,'NYASHILANGA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (18,18,11,'BUJULAMIYENZE' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (19,19,11,'IDETEMIA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (20,20,10,'MWINGILO' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (21,21,10,'IYENZE' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (22,22,10,'NGHWASABUKO' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (23,23,10,'NYAMIKONZE' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (24,24,9,'SHABAKA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (25,25,9,'WAVU' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (26,26,9,'NYAMIGOGWA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (27,27,9,'MUHAMA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (28,28,9,'IHUSHI' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (29,29,9,'LUBONDO' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (30,30,16,'NYANGHWALE' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (31,31,16,'IBAMBILA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (32,32,16,'NYAKASWI' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (33,33,16,'KASEME "A"' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (34,34,1,'BUKWIMBA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (35,35,1,'KASUBUYA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (36,36,1,'BULANGALE' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (37,37,2,'NUNDU' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (38,38,2,'NYANGHOLONGO' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (39,39,2,'LYULU' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (40,40,2,'IGEKA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (41,41,3,'KAFITA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (42,42,3,'KAYENZE' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (43,43,3,'BUKULU' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (44,44,3,'LUSHIMBA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (45,45,4,'BUKUNGU' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (46,46,4,'KHARUMWA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (47,47,4,'BUSENGWA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (48,48,4,'IKANGALA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (49,49,4,'BUMANDA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (50,50,5,'IZUNYA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (51,51,5,'MWAMAKILIGA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (52,52,5,'KANEGELE' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (53,53,6,'NYUGWA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (54,54,6,'KIJINGA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (55,55,6,'MIMBILI' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (56,56,6,'ISONDA' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (57,57,7,'NYIJUNDU' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (58,58,7,'NYARUBELE' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (59,59,7,'IYOGELO' )
+INSERT INTO  [TBLR_Location] ([_id] ,[LocationId],[AreaId],[LocationName])VALUES (60,60,7,'NYARUGUNA_NYARUGUNA' )
 
 
 INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (1,1,'BUKWIMBA' );
@@ -121,3 +165,161 @@ INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (13,13,'KABOHA' );
 INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (14,14,'NYAMTUKUZA' );
 INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (15,15,'KAKORA' );
 INSERT INTO  [TBLR_Area] ([_id] ,[AreaId],[AreaName])VALUES (16,16,'NYANGHWALE' );
+
+
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (1,1,'GUEST HOUSE','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (2,2,'GUEST HOUSE SERVICE LEVY','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (3,3,'MADUKA YA REJA REJA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (4,4,'MADUKA YA DAWA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (5,5,'HARDWARE AND STATIONARY','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (6,6,'OTHERS','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (7,7,'POSHO MILL','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (8,8,'REJA REJA - KAKORA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (9,9,'MIALO','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (10,10,'WACHENJUAJI','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (11,11,'STAKABADHI','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (12,12,'BUSINESS LICENCE','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (13,13,'LIQUOR LICENCE','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (14,14,'FAINI / ADHABU / MENGINEYO (  fines/ PENALTY / men','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (15,15,'USHURU WA HUDUMA ( SERVICE LEVY)','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (16,16,'ADA YA ZABUNI ( TENDER)','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (17,17,'PARKING','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (18,18,'ENTERTAINMENT ','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (19,19,'ROAD SHOW','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (20,20,'PAMBA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (21,21,'MPUNGA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (22,22,'MAHINDI','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (23,23,'MAZAO MENGINEYO','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (24,24,'USHURU WA MASOKOO','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (25,25,'ADA YA MASOKO ','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (26,26,'SOKO BUKWIMBA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (27,27,'SOKO KHARUMWA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (28,28,'SOKO NYIJUNDU','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (29,29,'SOKO NYANGHWALE-KASEME','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (30,30,'SOKO NYABULANDA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (31,31,'SOKO SHABAKA-IMARABARUTI','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (32,32,'SOKO BUSOLWA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (33,33,'SOKO MWINGIRO','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (34,34,'SOKO KAFITA-LUSHIMBA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (35,35,'SOKO KAKORA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (36,36,'SOKO IZUNYA-ZANZIBAR','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (37,37,'SOKO NYUGWA-MIIMBILI','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (38,38,'SOKO KABOHA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (39,39,'MNADA WAA NGOMBE KHARUMWA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (40,40,'USHURU WA MACHINJIO KHARUMWA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (41,41,'LESENI YA VYOMBO VYA MAJINI','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (42,42,'LESENI YA UVUVI ','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (43,43,'ADA YA SHULE YA SECONDARY','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (44,44,'UCHANGIAJI HUDUMA ZA  AFYA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (45,45,'CHF','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (46,46,'PAPO KWA PAPO 1','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (47,47,'PAPO KWA PAPO 2','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (48,48,'USHURU WA ARDHI','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (49,49,'LESENI YA MISITU','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (50,50,'USHURU WA MKAA','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (51,51,'USHURU WA KUNI KAVU','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (52,52,'LESENI ZA MAGOBORE','STAKABADHI' );
+INSERT INTO  [TBLR_RevenueType] ([_id] ,[RevenueTypeId],[RevenueName],[ReceiptType])VALUES (53,53,'USHURU WA MABANGO','STAKABADHI' );
+
+
+
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (1,1,1,'MONTHLY','P',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (2,2,2,'MONTHLY','P',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (3,3,3,'YEARLY','A',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (4,4,4,'YEARLY','A',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (5,5,5,'YEARLY','A',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (6,6,6,'YEARLY','A',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (7,7,7,'YEARLY','A',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (8,8,8,'YEARLY','A',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (9,9,9,'YEARLY','A',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (10,10,10,'YEARLY','A',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (11,11,8,'PER BOOK','A',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (12,12,11,'PER BOOK','A','5000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (13,13,15,'PER COMPANY','A',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (14,14,16,'YEARLY','A',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (15,15,17,'SMALL BUS','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (16,16,20,'Per KG','P','5.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (17,17,21,'PER BAG','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (18,18,22,'PER BAG','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (19,19,23,'PER BAG','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (20,20,24,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (21,21,25,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (22,22,26,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (23,23,27,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (24,24,28,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (25,25,29,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (26,26,30,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (27,27,31,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (28,28,32,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (29,29,33,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (30,30,34,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (31,31,35,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (32,32,36,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (33,33,37,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (34,34,38,'YEARLY PER TENDER','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (35,35,39,'COW','A','5000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (36,36,40,'COW','A','4000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (37,37,42,'PER PERSON','A','65000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (38,38,43,'PER STUDENT  BOARDING','A','70000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (39,39,45,'PER PERSON','A','10000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (40,40,46,'PER PERSON','A','500.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (41,41,47,'PER PERSON','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (42,42,48,'PER SQUARE METER','A',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (43,43,49,'PER AREA','A','261000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (44,44,50,'PER KILO (KG)','A','240.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (45,45,51,'PER CUBIC METRE','A','5900.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (46,46,52,'PER PIECE','A','1000.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (47,47,53,'PER SQUARE METER','A',NULL );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (48,48,39,'GOAT OR SHEEP','A','1500.00' );
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (49,49,40,' GOAT OR SHEEP','A','1000.00' );
+
+
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (1,1,1,'MONTHLY','P',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (2,2,2,'MONTHLY','P',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (3,3,3,'YEARLY','A',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (4,4,4,'YEARLY','A',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (5,5,5,'YEARLY','A',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (6,6,6,'YEARLY','A',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (7,7,7,'YEARLY','A',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (8,8,8,'YEARLY','A',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (9,9,9,'YEARLY','A',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (10,10,10,'YEARLY','A',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (11,11,8,'PER BOOK','A',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (12,12,11,'PER BOOK','A','5000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (13,13,15,'PER COMPANY','A',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (14,14,16,'YEARLY','A',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (15,15,17,'SMALL BUS','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (16,16,20,'Per KG','P','5.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (17,17,21,'PER BAG','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (18,18,22,'PER BAG','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (19,19,23,'PER BAG','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (20,20,24,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (21,21,25,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (22,22,26,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (23,23,27,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (24,24,28,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (25,25,29,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (26,26,30,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (27,27,31,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (28,28,32,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (29,29,33,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (30,30,34,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (31,31,35,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (32,32,36,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (33,33,37,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (34,34,38,'YEARLY PER TENDER','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (35,35,39,'COW','A','5000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (36,36,40,'COW','A','4000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (37,37,42,'PER PERSON','A','65000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (38,38,43,'PER STUDENT  BOARDING','A','70000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (39,39,45,'PER PERSON','A','10000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (40,40,46,'PER PERSON','A','500.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (41,41,47,'PER PERSON','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (42,42,48,'PER SQUARE METER','A',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (43,43,49,'PER AREA','A','261000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (44,44,50,'PER KILO (KG)','A','240.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (45,45,51,'PER CUBIC METRE','A','5900.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (46,46,52,'PER PIECE','A','1000.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (47,47,53,'PER SQUARE METER','A',NULL )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (48,48,39,'GOAT OR SHEEP','A','1500.00' )
+INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (49,49,40,' GOAT OR SHEEP','A','1000.00' )
