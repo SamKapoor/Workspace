@@ -3,7 +3,8 @@ UserID	int
 UserName	[varchar]	50	
 UserPassword	[varchar]	200	
 			
-TBLR_RevenueType			
+TBLR_RevenueType
+InstantPay varchar(50)
 RevenueTypeId	int		
 RevenueName	varchar(50)		
 ReceiptType	varchar(150)
