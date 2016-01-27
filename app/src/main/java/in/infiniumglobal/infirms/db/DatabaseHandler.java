@@ -25,14 +25,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static DatabaseHandler mInstance;
     private SQLiteDatabase db;
 
-    private static final String TABLE_TBLA_User = "TBLA_User";
-    private static final String TABLE_TBLR_RevenueType = "TBLR_RevenueType";
-    private static final String TABLE_TBLR_RevenueRate = "TBLR_RevenueRate";
-    private static final String TABLE_TBLR_Area = "TBLR_Area";
-    private static final String TABLE_TBLR_Location = "TBLR_Location";
-    private static final String TABLE_TBLR_RevenueCustomer = "TBLR_RevenueCustomer";
-    private static final String TABLE_TBLR_RevenueReceipt = "TBLR_RevenueReceipt";
-    private static final String TABLE_TBLR_Adjustment = "TBLR_Adjustment";
+    public static final String TABLE_TBLA_User = "TBLA_User";
+    public static final String TABLE_TBLR_RevenueType = "TBLR_RevenueType";
+    public static final String TABLE_TBLR_RevenueRate = "TBLR_RevenueRate";
+    public static final String TABLE_TBLR_Area = "TBLR_Area";
+    public static final String TABLE_TBLR_Location = "TBLR_Location";
+    public static final String TABLE_TBLR_RevenueCustomer = "TBLR_RevenueCustomer";
+    public static final String TABLE_TBLR_RevenueReceipt = "TBLR_RevenueReceipt";
+    public static final String TABLE_TBLR_Adjustment = "TBLR_Adjustment";
 
     //    TBLA_User
     public static final String KEY_USERID = "UserID";
@@ -219,7 +219,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public boolean deleteAllRecords(String tableName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("DELETE FROM SQLITE_SEQUENCE WHERE name='" + tableName + "'", null);
+        Cursor cursor = db.rawQuery("DELETE FROM " + tableName , null);
         if (cursor == null)
             return true;
         else if (cursor.getCount() == 0)

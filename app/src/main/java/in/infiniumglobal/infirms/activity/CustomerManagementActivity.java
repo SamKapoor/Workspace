@@ -121,6 +121,18 @@ public class CustomerManagementActivity extends BaseActivity
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+//                finish();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */

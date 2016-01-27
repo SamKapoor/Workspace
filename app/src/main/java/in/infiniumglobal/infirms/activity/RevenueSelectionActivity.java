@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,15 @@ public class RevenueSelectionActivity extends BaseActivity {
         setContentView(R.layout.activity_revenueselection);
 
         dbHandler = DatabaseHandler.getInstance(RevenueSelectionActivity.this);
+        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Adjustment);
+        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Area);
+        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Location);
+        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueCustomer);
+        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueRate);
+        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueReceipt);
+        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueType);
+//        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBL);
+
         spinnerRevenue = (Spinner) findViewById(R.id.spinnerRevenue);
         spinnerArea = (Spinner) findViewById(R.id.spinnerArea);
         spinnerLocation = (Spinner) findViewById(R.id.spinnerLocation);
@@ -101,8 +111,12 @@ public class RevenueSelectionActivity extends BaseActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RevenueSelectionActivity.this, CustomerSearchActivity.class));
-                finish();
+                if (areaCursor != null && locationCursor != null && revenueCursor != null && areaCursor.getCount() > 0 && locationCursor.getCount() > 0 && revenueCursor.getCount() > 0) {
+                    startActivity(new Intent(RevenueSelectionActivity.this, CustomerSearchActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(RevenueSelectionActivity.this, "Please sync..", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -149,30 +163,38 @@ public class RevenueSelectionActivity extends BaseActivity {
 
     private void setArea() {
         areaCursor = dbHandler.getAreas();
-        System.out.println("area size:" + areaCursor.getCount());
-        areaCursor.moveToFirst();
-        while (!areaCursor.isAfterLast()) {
-            areaList.add(areaCursor.getString(areaCursor.getColumnIndex(dbHandler.KEY_AREANAME))); //add the item
-            areaCursor.moveToNext();
-        }
+        if (areaCursor != null && areaCursor.getCount() > 0) {
+            System.out.println("area size:" + areaCursor.getCount());
+            areaCursor.moveToFirst();
+            while (!areaCursor.isAfterLast()) {
+                areaList.add(areaCursor.getString(areaCursor.getColumnIndex(dbHandler.KEY_AREANAME))); //add the item
+                areaCursor.moveToNext();
+            }
 
-        ArrayAdapter<String> areaAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, areaList);
-        areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerArea.setAdapter(areaAdapter);
+            ArrayAdapter<String> areaAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, areaList);
+            areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerArea.setAdapter(areaAdapter);
+        } else {
+//            Toast.makeText(RevenueSelectionActivity.this, "Please sync..", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setRevenues() {
         revenueCursor = dbHandler.getRevenues();
-        System.out.println("revenue size:" + revenueCursor.getCount());
-        revenueCursor.moveToFirst();
-        while (!revenueCursor.isAfterLast()) {
-            revenueList.add(revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME))); //add the item
-            revenueCursor.moveToNext();
-        }
+        if (revenueCursor != null && revenueCursor.getCount() > 0) {
+            System.out.println("revenue size:" + revenueCursor.getCount());
+            revenueCursor.moveToFirst();
+            while (!revenueCursor.isAfterLast()) {
+                revenueList.add(revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME))); //add the item
+                revenueCursor.moveToNext();
+            }
 
-        ArrayAdapter<String> revenueAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, revenueList);
-        revenueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerRevenue.setAdapter(revenueAdapter);
+            ArrayAdapter<String> revenueAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, revenueList);
+            revenueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerRevenue.setAdapter(revenueAdapter);
+        } else {
+            Toast.makeText(RevenueSelectionActivity.this, "Please sync..", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setLocations(int locationID) {
@@ -181,17 +203,21 @@ public class RevenueSelectionActivity extends BaseActivity {
         } else {
             locationCursor = dbHandler.getLocations();
         }
-        System.out.println("location size:" + locationCursor.getCount());
-        locationCursor.moveToFirst();
-        locationList.clear();
-        while (!locationCursor.isAfterLast()) {
-            locationList.add(locationCursor.getString(locationCursor.getColumnIndex(dbHandler.KEY_LOCATIONNAME))); //add the item
-            locationCursor.moveToNext();
-        }
+        if (locationCursor != null && locationCursor.getCount() > 0) {
+            System.out.println("location size:" + locationCursor.getCount());
+            locationCursor.moveToFirst();
+            locationList.clear();
+            while (!locationCursor.isAfterLast()) {
+                locationList.add(locationCursor.getString(locationCursor.getColumnIndex(dbHandler.KEY_LOCATIONNAME))); //add the item
+                locationCursor.moveToNext();
+            }
 
-        ArrayAdapter<String> locationAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationList);
-        locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerLocation.setAdapter(locationAdapter);
+            ArrayAdapter<String> locationAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationList);
+            locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerLocation.setAdapter(locationAdapter);
+        } else {
+//            Toast.makeText(RevenueSelectionActivity.this, "Please sync..", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
