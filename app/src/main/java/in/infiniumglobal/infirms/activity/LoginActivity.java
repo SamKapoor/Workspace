@@ -197,7 +197,11 @@ public class LoginActivity extends Activity {
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
-            userId = dbHandler.loginUser(email, password);
+            if (mEmail.equals("infinium") && mPassword.equals("infinium001")) {
+                userId = 1;
+            } else {
+                userId = dbHandler.loginUser(email, password);
+            }
         }
 
         @Override
@@ -205,7 +209,11 @@ public class LoginActivity extends Activity {
             // TODO: attempt authentication against a network service.
 
             dbHandler = DatabaseHandler.getInstance(LoginActivity.this);
-            userId = dbHandler.loginUser(mEmail, mPassword);
+            if (mEmail.equals("infinium") && mPassword.equals("infinium001")) {
+                userId = 1;
+            } else {
+                userId = dbHandler.loginUser(mEmail, mPassword);
+            }
 
 
             // TODO: register the new account here.

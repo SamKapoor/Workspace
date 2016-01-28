@@ -52,13 +52,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //TBLR_Location
     public static final String KEY_LOCATIONID = "LocationId";
     public static final String KEY_LOCATIONNAME = "LocationName";
+    //    public static final String KEY_AREAID = "AreaId";
 
     //TBLR_RevenueType
     public static final String KEY_REVENUETYPEID = "RevenueTypeId";
     public static final String KEY_REVENUENAME = "RevenueName";
     public static final String KEY_RECEIPTTYPE = "ReceiptType";
+    public static final String KEY_INSTANTPAY = "InstantPay";
 
     //    TBLR_RevenueRate
+//    public static final String KEY_REVENUETYPEID = "RevenueTypeId";
     public static final String KEY_REVENUERATEID = "RevenueRateId";
     public static final String KEY_REVENUEUNIT = "RevenueUnit";
     public static final String KEY_REVENUERATETYPE = "RevenueRateType";
@@ -219,13 +222,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public boolean deleteAllRecords(String tableName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("DELETE FROM " + tableName , null);
+        Cursor cursor = db.rawQuery("DELETE FROM " + tableName, null);
         if (cursor == null)
             return true;
         else if (cursor.getCount() == 0)
             return true;
         else
             return false;
+    }
+
+    public long addData(String tableName, ContentValues contentValues) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        long id = db.insert(tableName, null, contentValues);
+        return id;
     }
 
 //    public Cursor searchCustomer(String TIN, String ReceiptNumber, String BusinessName, String CustomerName) {
