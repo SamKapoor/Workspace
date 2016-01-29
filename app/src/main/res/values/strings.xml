@@ -34,5 +34,8 @@
 
     <!--APIs-->
     <string name="api_master">http://infiniumglobal.com/api/master/</string>
+    <string name="title_activity_instant_pay">InstantPayActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

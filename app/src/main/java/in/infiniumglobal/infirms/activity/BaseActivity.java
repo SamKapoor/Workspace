@@ -33,6 +33,10 @@ public class BaseActivity extends AppCompatActivity {
         context = BaseActivity.this;
     }
 
+    public void setContext(Context context){
+        this.context = context;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.customer_management, menu);
@@ -241,6 +245,10 @@ public class BaseActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            ((RevenueSelectionActivity)context).setRevenues();
+            ((RevenueSelectionActivity)context).setArea();
+            ((RevenueSelectionActivity)context).setLocations(0);
         }
     };
 }

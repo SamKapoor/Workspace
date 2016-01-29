@@ -30,20 +30,22 @@ public class RevenueSelectionActivity extends BaseActivity {
     private boolean isFirst = true;
     private int revenueID = 0, areaID = 0;
     private int locationID;
+    private String instantPay;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_revenueselection);
 
+        setContext(this);
         dbHandler = DatabaseHandler.getInstance(RevenueSelectionActivity.this);
-        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Adjustment);
-        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Area);
-        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Location);
-        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueCustomer);
-        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueRate);
-        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueReceipt);
-        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueType);
+//        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Adjustment);
+//        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Area);
+//        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Location);
+//        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueCustomer);
+//        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueRate);
+//        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueReceipt);
+//        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueType);
 //        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBL);
 
         spinnerRevenue = (Spinner) findViewById(R.id.spinnerRevenue);
@@ -112,8 +114,12 @@ public class RevenueSelectionActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (areaCursor != null && locationCursor != null && revenueCursor != null && areaCursor.getCount() > 0 && locationCursor.getCount() > 0 && revenueCursor.getCount() > 0) {
-                    startActivity(new Intent(RevenueSelectionActivity.this, CustomerSearchActivity.class));
-                    finish();
+                    if(instantPay.equals("Y")){
+
+                    }else {
+                        startActivity(new Intent(RevenueSelectionActivity.this, CustomerSearchActivity.class));
+//                        finish();
+                    }
                 } else {
                     Toast.makeText(RevenueSelectionActivity.this, "Please sync..", Toast.LENGTH_SHORT).show();
                 }
@@ -127,6 +133,7 @@ public class RevenueSelectionActivity extends BaseActivity {
         while (!revenueCursor.isAfterLast()) {
             if (revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME)).equals(item)) {
                 revenueID = revenueCursor.getInt(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_TYPEID));
+                instantPay = revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_INSTANTPAY));
             }
             revenueCursor.moveToNext();
         }
@@ -161,7 +168,7 @@ public class RevenueSelectionActivity extends BaseActivity {
         return locationID;
     }
 
-    private void setArea() {
+    public void setArea() {
         areaCursor = dbHandler.getAreas();
         if (areaCursor != null && areaCursor.getCount() > 0) {
             System.out.println("area size:" + areaCursor.getCount());
@@ -179,7 +186,7 @@ public class RevenueSelectionActivity extends BaseActivity {
         }
     }
 
-    private void setRevenues() {
+    public void setRevenues() {
         revenueCursor = dbHandler.getRevenues();
         if (revenueCursor != null && revenueCursor.getCount() > 0) {
             System.out.println("revenue size:" + revenueCursor.getCount());
@@ -197,7 +204,7 @@ public class RevenueSelectionActivity extends BaseActivity {
         }
     }
 
-    private void setLocations(int locationID) {
+    public void setLocations(int locationID) {
         if (locationID != 0) {
             locationCursor = dbHandler.getLocationsByID(locationID);
         } else {
