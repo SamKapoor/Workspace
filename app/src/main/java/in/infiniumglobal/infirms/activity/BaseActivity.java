@@ -1,5 +1,6 @@
 package in.infiniumglobal.infirms.activity;
 
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private MyClientGet myclientget;
     private Context context;
+    private ProgressDialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class BaseActivity extends AppCompatActivity {
         context = BaseActivity.this;
     }
 
-    public void setContext(Context context){
+    public void setContext(Context context) {
         this.context = context;
     }
 
@@ -59,6 +61,11 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.action_sync:
 //                TODO sync
                 if (Common.isNetworkAvailable(context)) {
+                    dialog = new ProgressDialog(context);
+                    dialog.setMessage("Please wait...");
+                    dialog.setCancelable(false);
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.show();
                     getUsers();
                 } else {
                     Toast.makeText(context, "No internet available.", Toast.LENGTH_LONG).show();
@@ -70,7 +77,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void getUsers() {
-        myclientget = new MyClientGet(context, "Please wait...", onUserSyncComplete);
+        myclientget = new MyClientGet(context, "", onUserSyncComplete);
         myclientget.execute(getResources().getString(R.string.api_master) + "user");
     }
 
@@ -106,7 +113,7 @@ public class BaseActivity extends AppCompatActivity {
     };
 
     private void getAreas() {
-        myclientget = new MyClientGet(context, "Please wait...", onAreaSyncComplete);
+        myclientget = new MyClientGet(context, "", onAreaSyncComplete);
         myclientget.execute(getResources().getString(R.string.api_master) + "area");
     }
 
@@ -140,7 +147,7 @@ public class BaseActivity extends AppCompatActivity {
     };
 
     private void getLocations() {
-        myclientget = new MyClientGet(context, "Please wait...", onLocationSyncComplete);
+        myclientget = new MyClientGet(context, "", onLocationSyncComplete);
         myclientget.execute(getResources().getString(R.string.api_master) + "location");
     }
 
@@ -175,7 +182,7 @@ public class BaseActivity extends AppCompatActivity {
     };
 
     private void getRevenueType() {
-        myclientget = new MyClientGet(context, "Please wait...", onRevenueSyncComplete);
+        myclientget = new MyClientGet(context, "", onRevenueSyncComplete);
         myclientget.execute(getResources().getString(R.string.api_master) + "RevenueType");
     }
 
@@ -213,7 +220,7 @@ public class BaseActivity extends AppCompatActivity {
     };
 
     private void getRevenueRate() {
-        myclientget = new MyClientGet(context, "Please wait...", onRevenueRateSyncComplete);
+        myclientget = new MyClientGet(context, "", onRevenueRateSyncComplete);
         myclientget.execute(getResources().getString(R.string.api_master) + "RevenueRate");
     }
 
@@ -246,9 +253,10 @@ public class BaseActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            ((RevenueSelectionActivity)context).setRevenues();
-            ((RevenueSelectionActivity)context).setArea();
-            ((RevenueSelectionActivity)context).setLocations(0);
+            ((RevenueSelectionActivity) context).setRevenues();
+            ((RevenueSelectionActivity) context).setArea();
+            ((RevenueSelectionActivity) context).setLocations(0);
+            dialog.dismiss();
         }
     };
 }
