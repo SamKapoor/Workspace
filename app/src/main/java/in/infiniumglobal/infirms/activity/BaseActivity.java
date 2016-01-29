@@ -91,7 +91,8 @@ public class BaseActivity extends AppCompatActivity {
                         contentValues.put(DatabaseHandler.KEY_USERID, userJsonObject.optString("UserID"));
                         contentValues.put(DatabaseHandler.KEY_USERNAME, userJsonObject.optString("UserName"));
                         contentValues.put(DatabaseHandler.KEY_PASSWORD, userJsonObject.optString("UserPassword"));
-                        dbHandler.addData(dbHandler.TABLE_TBLA_User, contentValues);
+                        long response = dbHandler.addData(dbHandler.TABLE_TBLA_User, contentValues);
+                        System.out.println("response user:" + response);
                     }
                 }
             } catch (JSONException e) {
@@ -124,7 +125,8 @@ public class BaseActivity extends AppCompatActivity {
 //                        contentValues.put(DatabaseHandler.KEY_ID, areaJsonObject.optString(""));
                         contentValues.put(DatabaseHandler.KEY_AREAID, areaJsonObject.optString("AreaId"));
                         contentValues.put(DatabaseHandler.KEY_AREANAME, areaJsonObject.optString("AreaName"));
-                        dbHandler.addData(dbHandler.TABLE_TBLR_Area, contentValues);
+                        long response = dbHandler.addData(dbHandler.TABLE_TBLR_Area, contentValues);
+                        System.out.println("response area:" + response);
                     }
                 }
             } catch (JSONException e) {
@@ -158,7 +160,8 @@ public class BaseActivity extends AppCompatActivity {
                         contentValues.put(DatabaseHandler.KEY_LOCATIONID, locationJsonObject.optString("LocationId"));
                         contentValues.put(DatabaseHandler.KEY_AREAID, locationJsonObject.optString("AreaId"));
                         contentValues.put(DatabaseHandler.KEY_LOCATIONNAME, locationJsonObject.optString("LocationName"));
-                        dbHandler.addData(dbHandler.TABLE_TBLR_Location, contentValues);
+                        long response = dbHandler.addData(dbHandler.TABLE_TBLR_Location, contentValues);
+                        System.out.println("response location:" + response);
                     }
                 }
             } catch (JSONException e) {
@@ -195,7 +198,8 @@ public class BaseActivity extends AppCompatActivity {
                         contentValues.put(DatabaseHandler.KEY_REVENUENAME, revenueJsonObject.optString("RevenueName"));
                         contentValues.put(DatabaseHandler.KEY_RECEIPTTYPE, revenueJsonObject.optString("ReceiptType"));
                         contentValues.put(DatabaseHandler.KEY_INSTANTPAY, revenueJsonObject.optString(""));
-                        dbHandler.addData(dbHandler.TABLE_TBLR_RevenueType, contentValues);
+                        long response = dbHandler.addData(dbHandler.TABLE_TBLR_RevenueType, contentValues);
+                        System.out.println("response revenuetype:" + response);
                     }
                 }
             } catch (JSONException e) {
@@ -230,7 +234,8 @@ public class BaseActivity extends AppCompatActivity {
                         contentValues.put(DatabaseHandler.KEY_REVENUEUNIT, revenueRateJsonObject.optString("RevenueUnit"));
                         contentValues.put(DatabaseHandler.KEY_REVENUERATETYPE, revenueRateJsonObject.optString("RevenueRateType"));
                         contentValues.put(DatabaseHandler.KEY_REVENUERATE, revenueRateJsonObject.optString("RevenueRate"));
-                        dbHandler.addData(dbHandler.TABLE_TBLR_RevenueRate, contentValues);
+                        long response = dbHandler.addData(dbHandler.TABLE_TBLR_RevenueRate, contentValues);
+                        System.out.println("response revenuerate:" + response);
                     }
                 }
             } catch (JSONException e) {
