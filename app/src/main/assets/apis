@@ -10,5 +10,57 @@ Location
 
 
 RevenueCustomer
+{
+    "result": 1,
+    "detail": [
+        {
+            "RCustomerId": 50,
+            "CustomerNo": "12233333",
+            "CustomerBarcode": null,
+            "RevenueTypeId": 1,
+            "BusinessName": "a",
+            "OwnerName": "a",
+            "BusinessLicNo": "12",
+            "PostalAddress": null,
+            "Postcode": null,
+            "ContactPerson": null,
+            "ContactNo": null,
+            "AreaId": null,
+            "LocationId": null,
+            "Email": null,
+            "OutstandngAmt": null,
+            "MarketStatus": null,
+            "CreatedBy": null,
+            "CreatedDate": "2016-01-26T11:12:00",
+            "UpdatedBy": null,
+            "UpdatedDate": null,
+            "IsExist": null
+        },
+        {
+            "RCustomerId": 50,
+            "CustomerNo": "12233333",
+            "CustomerBarcode": null,
+            "RevenueTypeId": 1,
+            "BusinessName": "a",
+            "OwnerName": "a",
+            "BusinessLicNo": "12",
+            "PostalAddress": null,
+            "Postcode": null,
+            "ContactPerson": null,
+            "ContactNo": null,
+            "AreaId": null,
+            "LocationId": null,
+            "Email": null,
+            "OutstandngAmt": null,
+            "MarketStatus": null,
+            "CreatedBy": null,
+            "CreatedDate": "2016-01-26T11:18:00",
+            "UpdatedBy": null,
+            "UpdatedDate": null,
+            "IsExist": null
+        }
+    ]
+}
 
 Adjustment
+No data found
