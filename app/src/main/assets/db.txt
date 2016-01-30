@@ -1,32 +1,32 @@
-TBLA_User			
+TBLA_User=
 UserID	int		
 UserName	[varchar]	50	
 UserPassword	[varchar]	200	
 			
-TBLR_RevenueType
+TBLR_RevenueType =
 InstantPay varchar(50)
 RevenueTypeId	int		
 RevenueName	varchar(50)		
 ReceiptType	varchar(150)
 
-TBLR_RevenueRate			
+TBLR_RevenueRate	=
 RevenueRateId	int	 	
 RevenueTypeId	int		
 RevenueUnit	varchar(50)		
 RevenueRateType	char(1)		
 RevenueRate	decimal(18, 2)	 	
 			
-TBLR_Area			
+TBLR_Area	=
 AreaId	int		
 AreaName	varchar(255)	 
 
 
-TBLR_Location
+TBLR_Location=
 LocationId	int	
 AreaId	int	
 LocationName	varchar(255)	
 		
-TBLR_RevenueCustomer		
+TBLR_RevenueCustomer	==
 RCustomerId	bigint	
 CustomerNo	varchar(50)	
 CustomerBarcode	image	
@@ -46,7 +46,7 @@ LocationId	int
 Email	varchar(255)	
 		
 		
-TBLR_RevenueReceipt		
+TBLR_RevenueReceipt		x
 RReceiptId	bigint	
 RevenueTypeId	int	
 RCustomerId	int	
