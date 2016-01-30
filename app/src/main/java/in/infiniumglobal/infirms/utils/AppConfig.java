@@ -19,4 +19,5 @@ public class AppConfig {
     public static String RevenueRate = "";
     public static String RevenueRateId = "";
     public static String RevenueUnit = "";
+    public static String PrintText = "";
 }

@@ -48,6 +48,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
 
     protected static final String TAG = "Print_Application";
     public static PrinterClassSerialPort printerClass = null;
+    private Button btnRePrint;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -167,6 +168,13 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
 
         btnScanAndPrint = (Button) findViewById(R.id.customer_receipt_frag_btn_save_print);
         btnScanAndPrint.setOnClickListener(this);
+
+        btnRePrint = (Button) findViewById(R.id.customer_receipt_frag_btn_reprint);
+        btnRePrint.setOnClickListener(this);
+        if (AppConfig.PrintText.length() > 0)
+            btnRePrint.setVisibility(View.VISIBLE);
+        else
+            btnRePrint.setVisibility(View.GONE);
 
         spinnerUnitType = (Spinner) findViewById(R.id.customer_receipt_frag_spinner_unit);
 
@@ -389,9 +397,23 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
                     "\n";
 
             if (printing.length() > 0) {
+                AppConfig.PrintText = printing;
                 boolean printed = printerClass.printText(printing);
                 Common.showAlertDialog(this, "", "Printed . " + printed, true);
             }
+
+            tvReceiptDate.setText("Date: " + Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
+            edtName.setText("");
+            edtTotalUnit.setText("");
+            edtTotalAmount.setText("");
+            edtPaidAmount.setText("");
+            edtBankName.setText("");
+            edtChequeNumber.setText("");
+            edtRemarks.setText("");
+
+        } else if (v == btnRePrint) {
+            boolean printed = printerClass.printText(AppConfig.PrintText);
+
         }
     }
 
