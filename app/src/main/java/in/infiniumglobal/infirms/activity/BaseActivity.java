@@ -310,9 +310,6 @@ public class BaseActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            ((RevenueSelectionActivity) context).setRevenues();
-            ((RevenueSelectionActivity) context).setArea();
-            ((RevenueSelectionActivity) context).setLocations(0);
             dialog.dismiss();
         }
     };
