@@ -220,6 +220,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor getUnitType(int revenueID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TBLR_RevenueRate, null, KEY_REVENUE_TYPEID + "=?", new String[]{String.valueOf(revenueID)}, null, null, null, null);
+        return cursor;
+    }
+
     public boolean deleteAllRecords(String tableName) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("DELETE FROM " + tableName, null);

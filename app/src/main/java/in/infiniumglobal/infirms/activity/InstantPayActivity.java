@@ -1,21 +1,37 @@
 package in.infiniumglobal.infirms.activity;
 
 import android.content.ContentValues;
+import android.database.Cursor;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
+import in.infiniumglobal.infirms.utils.AppConfig;
 import in.infiniumglobal.infirms.utils.Common;
+import print.pda3505.helper.printer.PrintService;
+import print.pda3505.helper.printer.PrinterClass;
+import print.pda3505.printer.PrinterClassSerialPort;
 
 public class InstantPayActivity extends BaseActivity implements View.OnClickListener {
 
@@ -23,14 +39,112 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
     TextView /*tvBusinessName, tvCustomername,*/ tvReceiptDate;
     EditText /*edtOutStanding,*/ edtUnitRate, edtTotalUnit, edtTotalAmount, /*edtAdjustment,*/
             edtPaidAmount, edtChequeNumber, edtBankName, edtRemarks;
-    RadioGroup radioGroupCollection, radioGroupPaymentType;
+    RadioGroup /*radioGroupCollection,*/ radioGroupPaymentType;
     Spinner spinnerUnitType;
     Button btnScanAndPrint;
+    private EditText edtName;
+    private Cursor unitCursor;
+    private ArrayList<String> unitList = new ArrayList<>();
+
+    protected static final String TAG = "Print_Application";
+    public static PrinterClassSerialPort printerClass = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instant_pay);
+
+
+        getSupportActionBar().setTitle(AppConfig.revenueItem);
+
+        Handler mhandler = new Handler() {
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case PrinterClass.MESSAGE_READ:
+                        byte[] readBuf = (byte[]) msg.obj;
+                        Log.i(TAG, "readBuf:" + readBuf[0]);
+                        if (readBuf[0] == 0x13) {
+                            // PrintService.isFUll = true;
+                            // ShowMsg(getResources().getString(R.string.str_printer_state)+":"+getResources().getString(R.string.str_printer_bufferfull));
+                        } else if (readBuf[0] == 0x11) {
+                            // PrintService.isFUll = false;
+                            // ShowMsg(getResources().getString(R.string.str_printer_state)+":"+getResources().getString(R.string.str_printer_buffernull));
+                        } else if (readBuf[0] == 0x08) {
+                            ShowMsg(getResources().getString(
+                                    R.string.str_printer_state)
+                                    + ":"
+                                    + getResources().getString(
+                                    R.string.str_printer_nopaper));
+                        } else if (readBuf[0] == 0x01) {
+                            // ShowMsg(getResources().getString(R.string.str_printer_state)+":"+getResources().getString(R.string.str_printer_printing));
+                        } else if (readBuf[0] == 0x04) {
+                            ShowMsg(getResources().getString(
+                                    R.string.str_printer_state)
+                                    + ":"
+                                    + getResources().getString(
+                                    R.string.str_printer_hightemperature));
+                        } else if (readBuf[0] == 0x02) {
+                            ShowMsg(getResources().getString(
+                                    R.string.str_printer_state)
+                                    + ":"
+                                    + getResources().getString(
+                                    R.string.str_printer_lowpower));
+                        } else {
+                            String readMessage = new String(readBuf, 0, msg.arg1);
+                            if (readMessage.contains("800"))// 80mm paper
+                            {
+                                PrintService.imageWidth = 72;
+                                Toast.makeText(getApplicationContext(), "80mm",
+                                        Toast.LENGTH_SHORT).show();
+                            } else if (readMessage.contains("580"))// 58mm paper
+                            {
+                                PrintService.imageWidth = 48;
+                                Toast.makeText(getApplicationContext(), "58mm",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+
+                            }
+                        }
+                        break;
+                    case PrinterClass.MESSAGE_STATE_CHANGE:// 6��l��״
+                        switch (msg.arg1) {
+                            case PrinterClass.STATE_CONNECTED:// �Ѿ�l��
+                                break;
+                            case PrinterClass.STATE_CONNECTING:// ����l��
+                                Toast.makeText(getApplicationContext(),
+                                        "STATE_CONNECTING", Toast.LENGTH_SHORT).show();
+                                break;
+                            case PrinterClass.STATE_LISTEN:
+                            case PrinterClass.STATE_NONE:
+                                break;
+                            case PrinterClass.SUCCESS_CONNECT:
+                                printerClass.write(new byte[]{0x1b, 0x2b});// ����ӡ���ͺ�
+                                Toast.makeText(getApplicationContext(),
+                                        "SUCCESS_CONNECT", Toast.LENGTH_SHORT).show();
+                                break;
+                            case PrinterClass.FAILED_CONNECT:
+                                Toast.makeText(getApplicationContext(),
+                                        "FAILED_CONNECT", Toast.LENGTH_SHORT).show();
+
+                                break;
+                            case PrinterClass.LOSE_CONNECT:
+                                Toast.makeText(getApplicationContext(), "LOSE_CONNECT",
+                                        Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case PrinterClass.MESSAGE_WRITE:
+
+                        break;
+                }
+                super.handleMessage(msg);
+            }
+        };
+        printerClass = new PrinterClassSerialPort(mhandler);
+        printerClass.open(this);
+
+        AppConfig.RevenueRateType = "";
+        AppConfig.RevenueRate = "";
+        AppConfig.RevenueRateId = "";
 
         llChequeNumber = (LinearLayout) findViewById(R.id.llChequeNumber);
         llBankName = (LinearLayout) findViewById(R.id.llBankName);
@@ -38,8 +152,9 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
 //        tvBusinessName = (TextView) findViewById(R.id.customer_receipt_frag_tv_business_name);
 //        tvCustomername = (TextView) findViewById(R.id.customer_receipt_frag_tv_customer_name);
         tvReceiptDate = (TextView) findViewById(R.id.customer_receipt_frag_tv_date);
-        tvReceiptDate.setText(Common.getCurrentDate("dd:MM:yyyy"));
+        tvReceiptDate.setText("Date: " + Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
 
+        edtName = (EditText) findViewById(R.id.customer_receipt_frag_edt_name);
         edtUnitRate = (EditText) findViewById(R.id.customer_receipt_frag_edt_unit_rate);
         edtTotalUnit = (EditText) findViewById(R.id.customer_receipt_frag_edt_total_units);
 //        edtOutStanding = (EditText) findViewById(R.id.customer_receipt_frag_edt_outstanding);
@@ -55,7 +170,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
 
         spinnerUnitType = (Spinner) findViewById(R.id.customer_receipt_frag_spinner_unit);
 
-        radioGroupCollection = (RadioGroup) findViewById(R.id.radioCollectionGroup);
+//        radioGroupCollection = (RadioGroup) findViewById(R.id.radioCollectionGroup);
         radioGroupPaymentType = (RadioGroup) findViewById(R.id.radioGroupPaymentType);
 
         llBankName.setVisibility(View.GONE);
@@ -74,17 +189,100 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
             }
         });
 
-        radioGroupCollection.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        DatabaseHandler dbHandler = DatabaseHandler.getInstance(this);
+        unitCursor = dbHandler.getUnitType(AppConfig.revenueID);
+        if (unitCursor != null && unitCursor.getCount() > 0) {
+            System.out.println("revenue size:" + unitCursor.getCount());
+            unitCursor.moveToFirst();
+            while (!unitCursor.isAfterLast()) {
+                unitList.add(unitCursor.getString(unitCursor.getColumnIndex(DatabaseHandler.KEY_REVENUEUNIT))); //add the item
+                unitCursor.moveToNext();
+            }
+
+            ArrayAdapter<String> revenueAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, unitList);
+            revenueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerUnitType.setAdapter(revenueAdapter);
+        }
+
+        spinnerUnitType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.customer_receipt_frag_rb_new) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String unitItem = parent.getItemAtPosition(position).toString();
 
-                } else if (checkedId == R.id.customer_receipt_frag_rb_remaining) {
+                unitCursor.moveToFirst();
+                while (!unitCursor.isAfterLast()) {
+                    if (unitCursor.getString(unitCursor.getColumnIndex(DatabaseHandler.KEY_REVENUEUNIT)).equals(unitItem)) {
+                        AppConfig.RevenueRateType = unitCursor.getString(unitCursor.getColumnIndex(DatabaseHandler.KEY_REVENUERATETYPE));
+                        AppConfig.RevenueRate = unitCursor.getString(unitCursor.getColumnIndex(DatabaseHandler.KEY_REVENUERATE));
+                        AppConfig.RevenueRateId = unitCursor.getString(unitCursor.getColumnIndex(DatabaseHandler.KEY_REVENUERATEID));
+                        AppConfig.RevenueUnit = unitItem;
 
+                        edtUnitRate.setText(AppConfig.RevenueRate);
+                        if (AppConfig.RevenueRateType.equals("A")) {
+                            edtTotalUnit.setText("1");
+                            edtTotalAmount.setText("" + AppConfig.RevenueRate);
+                        }
+//                        revenueID = revenueCursor.getInt(revenueCursor.getColumnIndex(DatabaseHandler.KEY_REVENUE_TYPEID));
+//                        instantPay = revenueCursor.getString(revenueCursor.getColumnIndex(DatabaseHandler.KEY_INSTANTPAY));
+                    }
+                    unitCursor.moveToNext();
                 }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        edtUnitRate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                edtTotalUnit.setText("");
+                edtTotalAmount.setText("");
+                edtPaidAmount.setText("");
             }
         });
 
+        edtTotalUnit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (AppConfig.RevenueRateType.equals("A")) {
+                    try {
+                        double total = Double.parseDouble(edtUnitRate.getText().toString()) * Double.parseDouble(edtTotalUnit.getText().toString());
+                        edtTotalAmount.setText("" + String.format("%.2f", total));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (AppConfig.RevenueRateType.equals("P")) {
+                    try {
+                        double total = Double.parseDouble(edtUnitRate.getText().toString()) * Double.parseDouble(edtTotalUnit.getText().toString());
+                        edtTotalAmount.setText("" + String.format("%.2f", total / 100));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
     }
 
@@ -97,6 +295,12 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
             String totalUnit = edtTotalUnit.getText().toString().trim();
             String totalAmount = edtTotalAmount.getText().toString().trim();
             String paidAmount = edtPaidAmount.getText().toString().trim();
+            String name = edtName.getText().toString().trim();
+
+            if (AppConfig.RevenueUnit.trim().length() == 0) {
+                Common.showAlertDialog(this, "", "Please select Unit type.", true);
+                return;
+            }
 
             if (unitRate.length() == 0) {
                 Common.showAlertDialog(this, "", "Please enter Unit rate.", true);
@@ -110,9 +314,20 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
             } else if (paidAmount.length() == 0) {
                 Common.showAlertDialog(this, "", "Please enter Paid amount.", true);
                 return;
+            } else if (Double.parseDouble(paidAmount) > Double.parseDouble(totalAmount)) {
+                Common.showAlertDialog(this, "", "Paid amount must be less than total amount.", true);
+                return;
             }
 
+
 //            receiptValues.put(DatabaseHandler.KEY_, unitRate);
+            receiptValues.put(DatabaseHandler.KEY_REVENUE_TYPEID, AppConfig.revenueID);
+            if (!name.isEmpty())
+                receiptValues.put(DatabaseHandler.KEY_CUSTOMERNAME, name);
+
+            receiptValues.put(DatabaseHandler.KEY_RRECEIPTDATE, Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
+            receiptValues.put(DatabaseHandler.KEY_REVENUERATEID, AppConfig.RevenueRateId);
+            receiptValues.put(DatabaseHandler.KEY_REVENUERATE, AppConfig.RevenueRate);
             receiptValues.put(DatabaseHandler.KEY_TOTALUNIT, totalUnit);
             receiptValues.put(DatabaseHandler.KEY_TOTALAMOUNT, totalAmount);
             receiptValues.put(DatabaseHandler.KEY_PAIDAMOUNT, paidAmount);
@@ -129,18 +344,58 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
                 } else if (bankName.length() == 0) {
                     Common.showAlertDialog(this, "", "Please enter Bank Name.", true);
                     return;
-                } else if (remarks.length() == 0) {
+                }
+                /*else if (remarks.length() == 0) {
                     Common.showAlertDialog(this, "", "Please enter Remark.", true);
                     return;
-                }
+                }*/
                 receiptValues.put(DatabaseHandler.KEY_CHEQUENO, chequeNumber);
                 receiptValues.put(DatabaseHandler.KEY_BANKNAME, bankName);
                 receiptValues.put(DatabaseHandler.KEY_REMARKS, remarks);
+                receiptValues.put(DatabaseHandler.KEY_PAYTYPE, "Cheque");
+            } else {
+                receiptValues.put(DatabaseHandler.KEY_PAYTYPE, "Cash");
             }
+            receiptValues.put(DatabaseHandler.KEY_CREATEDBY, Common.getStringPrefrences(this, getString(R.string.pref_userId), getString(R.string.app_name)));
+            receiptValues.put(DatabaseHandler.KEY_CREATEDDATE, Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
 
             DatabaseHandler dbHandler = DatabaseHandler.getInstance(InstantPayActivity.this);
 
-            dbHandler.addData(DatabaseHandler.TABLE_TBLR_RevenueReceipt, receiptValues);
+            long rowId = dbHandler.addData(DatabaseHandler.TABLE_TBLR_RevenueReceipt, receiptValues);
+            Common.showAlertDialog(this, "", "Data saved. " + rowId, true);
+
+            String printing = "";
+            printing += "\tNYANG'HWALE DISTRICT COUNCIL";
+            printing += "\n\t\tP O BOX 352, GEITA";
+            printing += "\n________________________\n";
+            printing += "\n\t\t" + AppConfig.revenueItem.toUpperCase();
+
+            printing += "\n________________________\n";
+            printing += "\nRECEIPT NO:" + rowId + "  " + Common.getCurrentDate("dd-MM-yy hh:mm");
+            if (name.length() > 0)
+                printing += "\n\t\t" + name.toUpperCase();
+            printing += "\n" + AppConfig.RevenueUnit + "\t " + AppConfig.RevenueRate + " * " + totalUnit + "\t " + totalAmount;
+            if (llBankName.getVisibility() == View.VISIBLE) {
+                printing += "\nPaid Amt: " + paidAmount + "\t Cheque : " + edtChequeNumber.getText().toString().trim();
+            } else {
+                printing += "\nPaid Amt: " + paidAmount + "\t Cash";
+            }
+            printing += "\n________________________\n";
+            printing += "\n\t\t\tTHANK YOU\n";
+            printing += "\n________________________\n\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n";
+
+            if (printing.length() > 0) {
+                boolean printed = printerClass.printText(printing);
+                Common.showAlertDialog(this, "", "Printed . " + printed, true);
+            }
         }
+    }
+
+    private void ShowMsg(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }

@@ -38,4 +38,127 @@
 
     <string name="hello_world">Hello world!</string>
 
+
+    <string name="serialportnumber">Serial Number:</string>
+    <string name="baudrate">Baud Rate:</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="exit">Exit</string>
+    <string name="sectornumber">Sector Number:</string>
+    <string name="blocknumber">Block Number:</string>
+    <string name="receivedata">Card Type:</string>
+    <string name="senddata">Card ID:</string>
+    <string name="blockdata">Block Data:</string>
+    <string name="readblock">Read Block</string>
+    <string name="writeblock">Write Block</string>
+    <string name="autoreadwrite">Auto Read Write Block</string>
+    <string name="opensuccess">Open success!</string>
+    <string name="systemprompt">System prompt</string>
+    <string name="confirmexit">you sure exit?</string>
+    <string name="yes">Yes</string>
+    <string name="cancal">Cancal</string>
+    <string name="str_print">PrinterTest</string>
+    <string name="str_psam">PSAMTest</string>
+    <string name="str_rfid">RFIDTest</string>
+    <string name="str_camera">CameraTest</string>
+    <string name="str_qrcode">QrCode/BarCode</string>
+    <string name="str_wireless">SerialPort</string>
+    <string name="str_finger_print">Finger Printer</string>
+    <string name="str_powercord">Powercord</string>
+    <string name="btpsam1">SAM1</string>
+    <string name="btpsam2">SAM2</string>
+    <string name="btn1">CardReset</string>
+    <string name="btn2">GetRandom</string>
+    <string name="btn3">SelectMaster</string>
+    <string name="openpic">Open Picture</string>
+    <string name="printpic">Print Picture</string>
+    <string name="qrcode">QR CODE</string>
+    <string name="barcode">BAR CODE</string>
+    <string name="timing">Timed Print</string>
+    <string name="print">Print</string>
+    <string name="str_printunicode">Print Unicode</string>
+    <string name="str_send_cmd">CMD</string>
+    <string name="wordtopic">Words Turn Pictures</string>
+    <string name="str_cannotcreatebar">Can Not Create Barcode</string>
+    <string name="sendsuccess">Send success!</string>
+    <string name="camera">Photo</string>
+    <string name="hex">Hex</string>
+    <string name="send">Send</string>
+    <string name="autosend">Auto Send</string>
+    <string name="error_configuration">Please configure your serial port first.</string>
+    <string name="error_security">You do not have read/write permission to the serial port.</string>
+    <string name="error_unknown">The serial port can not be opened for an unknown reason.</string>
+    <string name="selectserialport">Please select the serial number</string>
+    <string name="currentserialport">The currnet serial number:</string>
+    <string name="selectbaudrate">Please select the baud rate</string>
+    <string name="currentbaudrate">The current baud rate:</string>
+    <string name="receivebuf">Receiver Data:</string>
+    <string name="sendbuf">Send Data:</string>
+    <string name="openpower">Open Power</string>
+    <string name="closepower">Close Power</string>
+    <string name="openautoread">OpenAutoRead</string>
+    <string name="closeautoread">CloseAutoRead</string>
+    <string name="btnprinton">printer power on</string>
+    <string name="btnprintoff">printer power off</string>
+    <string name="btnrfidon">RFID power on</string>
+    <string name="btnrfidoff">RFID power off</string>
+    <string name="btnwifion">WIFI power on</string>
+    <string name="btnwifioff">WIFI power off</string>
+    <string name="btnrj45on">RJ45 LAN Power On</string>
+    <string name="btnrj45off">RJ45 LAN Power Off</string>
+    <string name="newline">New Line</string>
+
+
+    <string name="str_button_send">Send</string>
+    <string name="str_serialport_name">Serialport</string>
+    <string name="str_serialport_baud">Baud rate</string>
+    <string name="str_serialport_data">Data bit</string>
+    <string name="str_serialport_stop">Stop bit</string>
+    <string name="str_serialport_flowcontrol">Flow control</string>
+    <string name="str_serialport_check">Check type</string>
+    <string name="str_serialport_space">Space(ms)</string>
+    <string name="str_serialport_save">Save</string>
+    <string name="str_menu_serialport_set">Setting</string>
+    <string name="str_menu_serialport_clean">Clean Statistics</string>
+    <string name="str_menu_serialport_open">Open</string>
+    <string name="str_menu_serialport_close">Close</string>
+    <string name="str_serialport_hexrec">Hex</string>
+    <string name="str_serialport_hexsend">Hex</string>
+
+    <!-- BarCode -->
+    <string name = "action_1d">barcode modules set</string>
+    <string name = "action_reset">Restore Factory Settings</string>
+    <string name = "action_reset_desc">reset all settings to factory state, clearing the user to set parameters</string>
+    <string name = "action_datatype">Setting Data Format</string>
+    <string name = "action_datatype_desc">Set the data format is: barcode data + carriage return line, to facilitate data analysis</string>
+    <string name="action_encodingtype">Encoding Type</string>
+    <string name="action_encodingtype_desc">Set the qr code decoding encoding type</string>
+    <string name = "action_setsuccess">Settings success</string>
+    <string name = "action_2d">Qr modules set</string>
+    <string name="action_encoding_tip">Please select a code type</string>
+    <string name = "open_scan">Scan</string>
+    <string name = "empty">Empty</string>
+    <string name = "popup_title">Select</string>
+    <string name = "popup_message">Device quit, you have to exit the application do?</string>
+    <string name = "popup_yes">OK</string>
+    <string name = "popup_no">Cancel</string>
+    <!-- BarCode -->
+
+    <string name="str_bat_tip">Low battery is less than</string>
+
+
+    <string name="str_printer_state">STATE</string>
+    <string name="str_printer_printing">Printing</string>
+    <string name="str_printer_lowpower">Low power</string>
+    <string name="str_printer_nopaper">No paper</string>
+    <string name="str_printer_bufferfull">Buffer full</string>
+    <string name="str_printer_buffernull">Buffer null</string>
+    <string name="str_printer_hightemperature">High temperature</string>
+
+    <string name="prompt_planets">Match Level</string>
+    <string-array name="FpCount">
+        <item>1700</item>
+        <item>2000</item>
+        <item>3000</item>
+    </string-array>
 </resources>

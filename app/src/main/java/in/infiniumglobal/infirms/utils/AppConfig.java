@@ -15,4 +15,8 @@ public class AppConfig {
     public static String locationItem = "";
     public static String revenueItem = "";
     public static String areaItem = "";
+    public static String RevenueRateType = "";
+    public static String RevenueRate = "";
+    public static String RevenueRateId = "";
+    public static String RevenueUnit = "";
 }
