@@ -228,6 +228,7 @@ public class BaseActivity extends AppCompatActivity {
         @Override
         public void response(String result) {
             try {
+                getRevenueCustomer();
                 JSONObject jobj = new JSONObject(result);
                 String response_code = jobj.getString("result");
                 if (response_code.equals("1")) {
@@ -245,6 +246,62 @@ public class BaseActivity extends AppCompatActivity {
                         contentValues.put(DatabaseHandler.KEY_REVENUEUNIT, revenueRateJsonObject.optString("RevenueUnit"));
                         contentValues.put(DatabaseHandler.KEY_REVENUERATETYPE, revenueRateJsonObject.optString("RevenueRateType"));
                         contentValues.put(DatabaseHandler.KEY_REVENUERATE, revenueRateJsonObject.optString("RevenueRate"));
+                        long response = dbHandler.addData(dbHandler.TABLE_TBLR_RevenueRate, contentValues);
+                        System.out.println("response revenuerate:" + response);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            ((RevenueSelectionActivity) context).setRevenues();
+            ((RevenueSelectionActivity) context).setArea();
+            ((RevenueSelectionActivity) context).setLocations(0);
+            dialog.dismiss();
+        }
+    };
+
+    private void getRevenueCustomer() {
+        myclientget = new MyClientGet(context, "", onRevenueCustomerSyncComplete);
+        myclientget.execute(getResources().getString(R.string.api_master) + "RevenueCustomer");
+    }
+
+    MyClientGet.OnGetCallComplete onRevenueCustomerSyncComplete = new MyClientGet.OnGetCallComplete() {
+        @Override
+        public void response(String result) {
+            try {
+                JSONObject jobj = new JSONObject(result);
+                String response_code = jobj.getString("result");
+                if (response_code.equals("1")) {
+                    JSONArray revenueCustomerArray = new JSONArray();
+                    revenueCustomerArray = jobj.getJSONArray("detail");
+                    DatabaseHandler dbHandler = DatabaseHandler.getInstance(context);
+                    ContentValues contentValues;
+
+                    for (int i = 0; i < revenueCustomerArray.length(); i++) {
+                        JSONObject revenueCustomerJsonObject = revenueCustomerArray.getJSONObject(i);
+                        contentValues = new ContentValues();
+                        contentValues.put(DatabaseHandler.KEY_RCUSTOMERID, revenueCustomerJsonObject.optString("RCustomerId"));
+                        contentValues.put(DatabaseHandler.KEY_CUSTOMERNO, revenueCustomerJsonObject.optString("CustomerNo"));
+                        contentValues.put(DatabaseHandler.KEY_CUSTOMERBARCODE, revenueCustomerJsonObject.optString("CustomerBarcode"));
+                        contentValues.put(DatabaseHandler.KEY_REVENUETYPEID, revenueCustomerJsonObject.optString("RevenueTypeId"));
+                        contentValues.put(DatabaseHandler.KEY_BUSINESSNAME, revenueCustomerJsonObject.optString("BusinessName"));
+                        contentValues.put(DatabaseHandler.KEY_OWNERNAME, revenueCustomerJsonObject.optString("OwnerName"));
+                        contentValues.put(DatabaseHandler.KEY_BUSINESSLICNO, revenueCustomerJsonObject.optString("BusinessLicNo"));
+                        contentValues.put(DatabaseHandler.KEY_POSTALADDRESS, revenueCustomerJsonObject.optString("PostalAddress"));
+                        contentValues.put(DatabaseHandler.KEY_POSTCODE, revenueCustomerJsonObject.optString("Postcode"));
+                        contentValues.put(DatabaseHandler.KEY_CONTACTPERSON, revenueCustomerJsonObject.optString("ContactPerson"));
+                        contentValues.put(DatabaseHandler.KEY_CONTACTNO, revenueCustomerJsonObject.optString("ContactNo"));
+                        contentValues.put(DatabaseHandler.KEY_AREAID, revenueCustomerJsonObject.optString("AreaId"));
+                        contentValues.put(DatabaseHandler.KEY_LOCATIONID, revenueCustomerJsonObject.optString("LocationId"));
+                        contentValues.put(DatabaseHandler.KEY_EMAIL, revenueCustomerJsonObject.optString("Email"));
+                        contentValues.put(DatabaseHandler.KEY_OUTSTANDINGAMT, revenueCustomerJsonObject.optString("OutstandngAmt"));
+                        //contentValues.put(DatabaseHandler.KEY_MARKETSTATUS, revenueCustomerJsonObject.optString("MarketStatus"));
+                        contentValues.put(DatabaseHandler.KEY_CREATEDBY, revenueCustomerJsonObject.optString("CreatedBy"));
+                        contentValues.put(DatabaseHandler.KEY_CREATEDDATE, revenueCustomerJsonObject.optString("CreatedDate"));
+                        //contentValues.put(DatabaseHandler.KEY_UPDATEDBY, revenueCustomerJsonObject.optString("UpdatedBy"));
+                        //contentValues.put(DatabaseHandler.KEY_UPDATEDBY, revenueCustomerJsonObject.optString("UpdatedByUpdatedBy"));
+                        //contentValues.put(DatabaseHandler.KEY_ISEXIST, revenueCustomerJsonObject.optString("IsExist"));
                         long response = dbHandler.addData(dbHandler.TABLE_TBLR_RevenueRate, contentValues);
                         System.out.println("response revenuerate:" + response);
                     }
