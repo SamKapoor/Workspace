@@ -20,12 +20,12 @@
                 android:padding="10dp"
                 android:text="Customer No:  12345" />
 
-            <TextView
-                android:id="@+id/customer_detail_frag_tv_barcode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Barcode No:  12345" />
+            <!--<TextView-->
+                <!--android:id="@+id/customer_detail_frag_tv_barcode"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="10dp"-->
+                <!--android:text="Barcode No:  12345" />-->
 
 
             <TextView
@@ -70,26 +70,26 @@
                 android:padding="10dp"
                 android:text="Outstanding Amount:  12345" />
 
-            <TextView
-                android:id="@+id/customer_detail_frag_tv_PostalAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Postal Address:  12345" />
+            <!--<TextView-->
+                <!--android:id="@+id/customer_detail_frag_tv_PostalAddress"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="10dp"-->
+                <!--android:text="Postal Address:  12345" />-->
 
-            <TextView
-                android:id="@+id/customer_detail_frag_tv_Postcode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Postcode:  12345" />
+            <!--<TextView-->
+                <!--android:id="@+id/customer_detail_frag_tv_Postcode"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="10dp"-->
+                <!--android:text="Postcode:  12345" />-->
 
-            <TextView
-                android:id="@+id/customer_detail_frag_tv_ContactPerson"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Contact Person:  12345" />
+            <!--<TextView-->
+                <!--android:id="@+id/customer_detail_frag_tv_ContactPerson"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="10dp"-->
+                <!--android:text="Contact Person:  12345" />-->
 
             <TextView
                 android:id="@+id/customer_detail_frag_tv_ContactNo"
@@ -98,26 +98,26 @@
                 android:padding="10dp"
                 android:text="Contact No:  12345" />
 
-            <TextView
-                android:id="@+id/customer_detail_frag_tv_AreaId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Area Id:  12345" />
+            <!--<TextView-->
+                <!--android:id="@+id/customer_detail_frag_tv_AreaId"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="10dp"-->
+                <!--android:text="Area Id:  12345" />-->
 
-            <TextView
-                android:id="@+id/customer_detail_frag_tv_LocationId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Location Id:  12345" />
+            <!--<TextView-->
+                <!--android:id="@+id/customer_detail_frag_tv_LocationId"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="10dp"-->
+                <!--android:text="Location Id:  12345" />-->
 
-            <TextView
-                android:id="@+id/customer_detail_frag_tv_Email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Email:  12345" />
+            <!--<TextView-->
+                <!--android:id="@+id/customer_detail_frag_tv_Email"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="10dp"-->
+                <!--android:text="Email:  12345" />-->
 
         </LinearLayout>
     </ScrollView>

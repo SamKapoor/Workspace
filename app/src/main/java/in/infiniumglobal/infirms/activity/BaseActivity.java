@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,8 +16,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.client.MyClientGet;
+import in.infiniumglobal.infirms.client.MyClientPost;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
 import in.infiniumglobal.infirms.utils.Common;
 
@@ -28,11 +33,14 @@ public class BaseActivity extends AppCompatActivity {
     private MyClientGet myclientget;
     private Context context;
     private ProgressDialog dialog;
+    private DatabaseHandler dbHandler;
+    private boolean revenueReceiptSync = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = BaseActivity.this;
+        dbHandler = DatabaseHandler.getInstance(context);
     }
 
     public void setContext(Context context) {
@@ -66,7 +74,12 @@ public class BaseActivity extends AppCompatActivity {
                     dialog.setCancelable(false);
                     dialog.setCanceledOnTouchOutside(false);
                     dialog.show();
-                    getUsers();
+
+                    if (Common.isNetworkAvailable(context))
+                        syncDatabase();
+                    else
+                        Common.showNETWORDDisabledAlert(context);
+
                 } else {
                     Toast.makeText(context, "No internet available.", Toast.LENGTH_LONG).show();
                 }
@@ -74,6 +87,94 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void syncDatabase() {
+
+
+        Cursor receiptCursor = dbHandler.getRevenueReceipt();
+        Cursor adjustmentCursor = dbHandler.getAdjustment();
+        if (receiptCursor != null && receiptCursor.getCount() > 0) {
+            receiptCursor.moveToFirst();
+            JSONArray receiptArray = new JSONArray();
+
+            try {
+                while (!receiptCursor.isAfterLast()) {
+                    JSONObject receiptObject = new JSONObject();
+                    receiptObject.put("RReceiptId", "1");
+//                    receiptObject.put("RReceiptId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_RRECEIPTID)));
+                    receiptObject.put("RevenueTypeId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_REVENUETYPEID)));
+                    receiptObject.put("RCustomerId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_RCUSTOMERID)));
+                    receiptObject.put("CustomerName", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_CUSTOMERNAME)));
+                    receiptObject.put("RReceiptDate", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_RRECEIPTDATE)));
+                    receiptObject.put("ReceiptNo", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_RECEIPTNO)));
+                    receiptObject.put("ReceiptBarcode", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_RECEIPTBARCODE)));
+                    receiptObject.put("RevenueRateID", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_RREVENUERATEID)));
+                    receiptObject.put("RevenueRate", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_REVENUERATE)));
+                    receiptObject.put("TotalUnit", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_TOTALUNIT)));
+                    receiptObject.put("TotalAmount", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_TOTALAMOUNT)));
+                    receiptObject.put("OtherChargse", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_OTHERCHARGSE)));
+                    receiptObject.put("AdjustmentAmt", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_TOTALAMOUNT)));
+                    receiptObject.put("PaidAmount", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_PAIDAMOUNT)));
+                    receiptObject.put("PayType", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_PAYTYPE)));
+                    receiptObject.put("BankName", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_BANKNAME)));
+                    receiptObject.put("ChequeNo", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_CHEQUENO)));
+                    receiptObject.put("PayRemarks", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_PAYREMARKS)));
+                    receiptObject.put("CreatedBy", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_CREATEDBY)));
+                    receiptObject.put("CreatedDate", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_CREATEDDATE)));
+//                receiptObject.put("", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.)));
+                    receiptArray.put(receiptObject);
+                    receiptCursor.moveToNext();
+                }
+                revenueReceiptSync = true;
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("Coll", receiptArray);
+                sendData("RevenueReceiptReceive", jsonObject.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+//            JSONObject finalObject = new JSONObject();
+//            finalObject.p
+
+        } else if (adjustmentCursor != null && adjustmentCursor.getCount() > 0) {
+            JSONArray adjustmentArray = new JSONArray();
+            adjustmentCursor.moveToFirst();
+
+            try {
+                while (!adjustmentCursor.isAfterLast()) {
+                    JSONObject adjustmentObject = new JSONObject();
+                    adjustmentObject.put("AdjustmentId", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_ADJUSTMENTID)));
+                    adjustmentObject.put("CustomerId", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_CUSTOMERID)));
+                    adjustmentObject.put("RevenueTypeId", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_REVENUE_TYPEID)));
+                    adjustmentObject.put("AdjustmentDate", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_ADJUSTMENTDATE)));
+                    adjustmentObject.put("AdjustmentType", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_ADJUSTMENTTYPE)));
+                    adjustmentObject.put("Amount", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_AMOUNT)));
+                    adjustmentObject.put("Remarks", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_REMARKS)));
+                    adjustmentObject.put("CreatedBy", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_CREATEDBY)));
+                    adjustmentObject.put("CreatedDate", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_CREATEDDATE)));
+//                receiptObject.put("", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.)));
+                    adjustmentArray.put(adjustmentObject);
+                    adjustmentCursor.moveToNext();
+                }
+                sendData("AdjustmentReceive", adjustmentArray.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLA_User);
+            dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Adjustment);
+            dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Area);
+            dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Location);
+            dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueCustomer);
+            dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueRate);
+            dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueReceipt);
+            dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueType);
+            getUsers();
+        }
+
+
     }
 
     private void getUsers() {
@@ -313,4 +414,82 @@ public class BaseActivity extends AppCompatActivity {
             dialog.dismiss();
         }
     };
+
+
+//    Send data from db
+
+    private void sendData(String methodUrl, String jsonSend) {
+        Map<String, String> get_sync_contact_params = new HashMap<String, String>();
+        get_sync_contact_params.put("Coll", jsonSend);
+        Map<String, Object> api_params = new HashMap<String, Object>();
+        api_params.put("url", getResources().getString(R.string.api_master) + methodUrl);
+        api_params.put("method_parameters", get_sync_contact_params);
+//        System.out.println(api_params.values().toString());
+        MyClientPost posting = new MyClientPost(this, "Loading...", onSettingsCallComplete);
+        posting.execute(api_params);
+    }
+
+    private MyClientPost.OnPostCallComplete onSettingsCallComplete = new MyClientPost.OnPostCallComplete() {
+        @Override
+        public void response(String result) {
+            boolean success = false;
+            String errorMsg = "";
+            String userId = "";
+
+
+            try {
+                JSONObject jobj = new JSONObject(result);
+                String response_code = jobj.getString("result");
+                if (response_code.equals("1")) {
+                    if (revenueReceiptSync) {
+                        revenueReceiptSync = false;
+                        Cursor adjustmentCursor = dbHandler.getAdjustment();
+                        JSONArray adjustmentArray = new JSONArray();
+                        adjustmentCursor.moveToFirst();
+
+                        try {
+                            while (!adjustmentCursor.isAfterLast()) {
+                                JSONObject adjustmentObject = new JSONObject();
+                                adjustmentObject.put("AdjustmentId", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_ADJUSTMENTID)));
+                                adjustmentObject.put("CustomerId", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_CUSTOMERID)));
+                                adjustmentObject.put("RevenueTypeId", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_REVENUE_TYPEID)));
+                                adjustmentObject.put("AdjustmentDate", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_ADJUSTMENTDATE)));
+                                adjustmentObject.put("AdjustmentType", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_ADJUSTMENTTYPE)));
+                                adjustmentObject.put("Amount", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_AMOUNT)));
+                                adjustmentObject.put("Remarks", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_REMARKS)));
+                                adjustmentObject.put("CreatedBy", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_CREATEDBY)));
+                                adjustmentObject.put("CreatedDate", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_CREATEDDATE)));
+//                receiptObject.put("", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.)));
+                                adjustmentArray.put(adjustmentObject);
+                                adjustmentCursor.moveToNext();
+                            }
+                            sendData("AdjustmentReceive", adjustmentArray.toString());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLA_User);
+                        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Adjustment);
+                        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Area);
+                        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Location);
+                        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueCustomer);
+                        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueRate);
+                        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueReceipt);
+                        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueType);
+                        getUsers();
+                    }
+
+                } else {
+                    dialog.dismiss();
+                }
+                Common.showAlertDialog(context, "", errorMsg, true);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    };
+
+
 }

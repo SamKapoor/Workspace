@@ -49,6 +49,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
     protected static final String TAG = "Print_Application";
     public static PrinterClassSerialPort printerClass = null;
     private Button btnRePrint;
+    private TextView tvPercent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -152,6 +153,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
 
 //        tvBusinessName = (TextView) findViewById(R.id.customer_receipt_frag_tv_business_name);
 //        tvCustomername = (TextView) findViewById(R.id.customer_receipt_frag_tv_customer_name);
+        tvPercent = (TextView) findViewById(R.id.tv_percen);
         tvReceiptDate = (TextView) findViewById(R.id.customer_receipt_frag_tv_date);
         tvReceiptDate.setText("Date: " + Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
 
@@ -227,8 +229,11 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
 
                         edtUnitRate.setText(AppConfig.RevenueRate);
                         if (AppConfig.RevenueRateType.equals("A")) {
+                            tvPercent.setVisibility(View.GONE);
                             edtTotalUnit.setText("1");
                             edtTotalAmount.setText("" + AppConfig.RevenueRate);
+                        }else{
+                            tvPercent.setVisibility(View.VISIBLE);
                         }
 //                        revenueID = revenueCursor.getInt(revenueCursor.getColumnIndex(DatabaseHandler.KEY_REVENUE_TYPEID));
 //                        instantPay = revenueCursor.getString(revenueCursor.getColumnIndex(DatabaseHandler.KEY_INSTANTPAY));
@@ -400,6 +405,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
                 AppConfig.PrintText = printing;
                 boolean printed = printerClass.printText(printing);
                 Common.showAlertDialog(this, "", "Printed . " + printed, true);
+                btnRePrint.setVisibility(View.VISIBLE);
             }
 
             tvReceiptDate.setText("Date: " + Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));

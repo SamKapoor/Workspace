@@ -94,7 +94,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String KEY_RRECEIPTDATE = "RReceiptDate";
     public static final String KEY_RECEIPTNO = "ReceiptNo";
     public static final String KEY_RECEIPTBARCODE = "ReceiptBarcode";
-    //    public static final String KEY_REVENUERATEID = "RevenueRateID";
+        public static final String KEY_RREVENUERATEID = "RevenueRateID";
 //    public static final String KEY_REVENUERATE = "RevenueRate";
     public static final String KEY_TOTALUNIT = "TotalUnit";
     public static final String KEY_TOTALAMOUNT = "TotalAmount";
@@ -190,28 +190,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return -1;
     }
 
-    // Getting not sync user badges
     public Cursor getAreas() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_TBLR_Area, null, null, null, null, null, null, null);
         return cursor;
     }
 
-    // Getting not sync user badges
     public Cursor getLocations() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_TBLR_Location, null, null, null, null, null, null, null);
         return cursor;
     }
 
-    // Getting not sync user badges
     public Cursor getLocationsByID(int locationID) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_TBLR_Location, null, KEY_AREAID + "=?", new String[]{String.valueOf(locationID)}, null, null, null, null);
         return cursor;
     }
 
-    // Getting not sync user badges
     public Cursor getRevenues() {
         SQLiteDatabase db = this.getReadableDatabase();
 //        Cursor cursor = db.query(TABLE_TBLR_RevenueType, null, null, null, null, null, null, null);
@@ -223,6 +219,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public Cursor getUnitType(int revenueID) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_TBLR_RevenueRate, null, KEY_REVENUE_TYPEID + "=?", new String[]{String.valueOf(revenueID)}, null, null, null, null);
+        return cursor;
+    }
+
+    public Cursor getRevenueReceipt() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TBLR_RevenueReceipt, null, null, null, null, null, null, null);
+        return cursor;
+    }
+
+    public Cursor getAdjustment() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TBLR_Adjustment, null, null, null, null, null, null, null);
         return cursor;
     }
 
@@ -272,6 +280,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(sql, null);
         return cursor;
     }
+
+
+    public Cursor getCustomer(String customerId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TBLR_RevenueCustomer, null, KEY_CUSTOMERID + "=?", new String[]{customerId}, null, null, null, null);
+        return cursor;
+    }
+
 /*
     // Limited data original
 
