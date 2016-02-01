@@ -18,8 +18,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Instant Pay"
-                android:textColor="@color/color_lightblue"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
             <!--<TextView-->
             <!--android:id="@+id/customer_receipt_frag_tv_customer_name"-->
@@ -98,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Date: "
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Name: "
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 <EditText
                     android:id="@+id/customer_receipt_frag_edt_name"
@@ -119,7 +118,7 @@
                     android:layout_marginLeft="10dp"
                     android:inputType="textPersonName"
                     android:singleLine="true"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
             </LinearLayout>
 
             <LinearLayout
@@ -133,8 +132,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Unit Type:"
-                    android:layout_gravity="center_vertical"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:layout_centerVertical="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 <Spinner
                     android:id="@+id/customer_receipt_frag_spinner_unit"
@@ -156,7 +155,7 @@
                     android:layout_height="wrap_content"
                     android:text="Unit Rate:"
                     android:layout_centerVertical="true"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 <EditText
                     android:id="@+id/customer_receipt_frag_edt_unit_rate"
@@ -168,7 +167,7 @@
                     android:layout_toRightOf="@+id/tv_rate"
                     android:inputType="numberDecimal"
                     android:singleLine="true"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 <TextView
                     android:id="@+id/tv_percen"
@@ -177,7 +176,7 @@
                     android:padding="10dp"
                     android:layout_alignParentRight="true"
                     android:text="%"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
             </RelativeLayout>
 
@@ -190,8 +189,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Units/Amt:"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:text="Total Units:"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 <EditText
                     android:id="@+id/customer_receipt_frag_edt_total_units"
@@ -200,7 +199,7 @@
                     android:layout_marginLeft="10dp"
                     android:inputType="numberDecimal"
                     android:singleLine="true"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
             </LinearLayout>
 
             <LinearLayout
@@ -213,7 +212,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Total Amount:"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 <EditText
                     android:id="@+id/customer_receipt_frag_edt_total_amount"
@@ -223,7 +222,7 @@
                     android:clickable="false"
                     android:inputType="numberDecimal"
                     android:singleLine="true"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
             </LinearLayout>
 
             <!--<LinearLayout-->
@@ -236,7 +235,7 @@
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:text="Adjustment:"-->
-            <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />-->
+            <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />-->
 
             <!--<EditText-->
             <!--android:id="@+id/customer_receipt_frag_edt_adjustment"-->
@@ -246,7 +245,7 @@
             <!--android:clickable="false"-->
             <!--android:inputType="number"-->
             <!--android:singleLine="true"-->
-            <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />-->
+            <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />-->
             <!--</LinearLayout>-->
 
             <LinearLayout
@@ -259,7 +258,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Paid Amount:"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 <EditText
                     android:id="@+id/customer_receipt_frag_edt_paid_amount"
@@ -269,7 +268,7 @@
                     android:clickable="false"
                     android:inputType="numberDecimal"
                     android:singleLine="true"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
             </LinearLayout>
 
             <LinearLayout
@@ -285,7 +284,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:text="Paid By:"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 <RadioGroup
                     android:id="@+id/radioGroupPaymentType"
@@ -301,7 +300,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                         android:text="Cash" />
 
                     <RadioButton
@@ -309,7 +307,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                         android:text="Cheque" />
                 </RadioGroup>
             </LinearLayout>
@@ -325,7 +322,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cheque Number:"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 <EditText
                     android:id="@+id/customer_receipt_frag_edt_cheque_number"
@@ -335,7 +332,7 @@
                     android:clickable="false"
                     android:inputType="number"
                     android:singleLine="true"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
             </LinearLayout>
 
             <LinearLayout
@@ -349,7 +346,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bank Name:"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 <EditText
                     android:id="@+id/customer_receipt_frag_edt_bank_name"
@@ -359,7 +356,7 @@
                     android:clickable="false"
                     android:inputType="textCapSentences"
                     android:singleLine="true"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
             </LinearLayout>
 
             <LinearLayout
@@ -372,7 +369,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Remarks:"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
                 <EditText
                     android:id="@+id/customer_receipt_frag_edt_remarks"
@@ -385,7 +382,7 @@
                     android:maxLines="3"
                     android:minLines="3"
                     android:singleLine="true"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
             </LinearLayout>
 
             <LinearLayout

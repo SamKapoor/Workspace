@@ -10,6 +10,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
@@ -78,13 +79,16 @@ public class MyClientPost extends AsyncTask<Map<String, Object>, String, String>
 
                 Iterator<Entry<String, String>> iterator = methodParameter.entrySet().iterator();
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(methodParameter.size());
+                String josn = "";
                 while (iterator.hasNext()) {
                     Entry<String, String> param = iterator.next();
                     nameValuePairs.add(new BasicNameValuePair(param.getKey(), param.getValue()));
+                    josn = param.getValue();
                 }
-//                Log.v("TAG", "post latlng " + nameValuePairs.toString());
-                UrlEncodedFormEntity entity = new UrlEncodedFormEntity(nameValuePairs);
-                post.setEntity(entity);
+////                Log.v("TAG", "post latlng " + nameValuePairs.toString());
+//                UrlEncodedFormEntity entity = new UrlEncodedFormEntity(nameValuePairs);
+//                post.setEntity(entity);
+                post.setEntity(new StringEntity(josn));
                 HttpResponse response = client.execute(post);
                 HttpEntity resp_entity = response.getEntity();
                 result = EntityUtils.toString(resp_entity);

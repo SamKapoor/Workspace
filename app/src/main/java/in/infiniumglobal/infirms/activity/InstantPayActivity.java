@@ -232,7 +232,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
                             tvPercent.setVisibility(View.GONE);
                             edtTotalUnit.setText("1");
                             edtTotalAmount.setText("" + AppConfig.RevenueRate);
-                        }else{
+                        } else {
                             tvPercent.setVisibility(View.VISIBLE);
                         }
 //                        revenueID = revenueCursor.getInt(revenueCursor.getColumnIndex(DatabaseHandler.KEY_REVENUE_TYPEID));
@@ -340,7 +340,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
 
             receiptValues.put(DatabaseHandler.KEY_RRECEIPTDATE, Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
             receiptValues.put(DatabaseHandler.KEY_REVENUERATEID, AppConfig.RevenueRateId);
-            receiptValues.put(DatabaseHandler.KEY_REVENUERATE, AppConfig.RevenueRate);
+            receiptValues.put(DatabaseHandler.KEY_REVENUERATE, unitRate);
             receiptValues.put(DatabaseHandler.KEY_TOTALUNIT, totalUnit);
             receiptValues.put(DatabaseHandler.KEY_TOTALAMOUNT, totalAmount);
             receiptValues.put(DatabaseHandler.KEY_PAIDAMOUNT, paidAmount);
@@ -378,8 +378,8 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
             Common.showAlertDialog(this, "", "Data saved. " + rowId, true);
 
             String printing = "";
-            printing += "\tNYANG'HWALE DISTRICT COUNCIL";
-            printing += "\n\t\tP O BOX 352, GEITA";
+            printing += "NYANG'HWALE DISTRICT COUNCIL";
+            printing += "\nP O BOX 352,NYANG'HWALE-GEITA";
             printing += "\n________________________\n";
             printing += "\n\t\t" + AppConfig.revenueItem.toUpperCase();
 
@@ -387,7 +387,11 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
             printing += "\nRECEIPT NO:" + rowId + "  " + Common.getCurrentDate("dd-MM-yy hh:mm");
             if (name.length() > 0)
                 printing += "\n\t\t" + name.toUpperCase();
-            printing += "\n" + AppConfig.RevenueUnit + "\t " + AppConfig.RevenueRate + " * " + totalUnit + "\t " + totalAmount;
+
+            if (tvPercent.getVisibility() == View.VISIBLE)
+                printing += "\n" + AppConfig.RevenueUnit + "\t " + unitRate + " * " + totalUnit + "\t " + totalAmount + "%";
+            else
+                printing += "\n" + AppConfig.RevenueUnit + "\t " + unitRate + " * " + totalUnit + "\t " + totalAmount;
             if (llBankName.getVisibility() == View.VISIBLE) {
                 printing += "\nPaid Amt: " + paidAmount + "\t Cheque : " + edtChequeNumber.getText().toString().trim();
             } else {

@@ -38,6 +38,7 @@ public class RevenueSelectionActivity extends BaseActivity {
         setContentView(R.layout.activity_revenueselection);
 
         setContext(this);
+        pollForUpdates();
         dbHandler = DatabaseHandler.getInstance(RevenueSelectionActivity.this);
 //        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Adjustment);
 //        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Area);
@@ -172,6 +173,7 @@ public class RevenueSelectionActivity extends BaseActivity {
 
     public void setArea() {
         areaCursor = dbHandler.getAreas();
+        areaList.clear();
         if (areaCursor != null && areaCursor.getCount() > 0) {
             System.out.println("area size:" + areaCursor.getCount());
             areaCursor.moveToFirst();
@@ -189,6 +191,7 @@ public class RevenueSelectionActivity extends BaseActivity {
     }
 
     public void setRevenues() {
+        revenueList.clear();
         revenueCursor = dbHandler.getRevenues();
         if (revenueCursor != null && revenueCursor.getCount() > 0) {
             System.out.println("revenue size:" + revenueCursor.getCount());
@@ -235,4 +238,11 @@ public class RevenueSelectionActivity extends BaseActivity {
         finish();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setRevenues();
+        setArea();
+        setLocations(0);
+    }
 }

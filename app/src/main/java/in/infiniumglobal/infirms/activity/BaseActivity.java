@@ -1,13 +1,17 @@
 package in.infiniumglobal.infirms.activity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -16,8 +20,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.client.MyClientGet;
@@ -35,12 +42,14 @@ public class BaseActivity extends AppCompatActivity {
     private ProgressDialog dialog;
     private DatabaseHandler dbHandler;
     private boolean revenueReceiptSync = false;
+    Timer timer = new Timer();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = BaseActivity.this;
         dbHandler = DatabaseHandler.getInstance(context);
+
     }
 
     public void setContext(Context context) {
@@ -69,14 +78,8 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.action_sync:
 //                TODO sync
                 if (Common.isNetworkAvailable(context)) {
-                    dialog = new ProgressDialog(context);
-                    dialog.setMessage("Please wait...");
-                    dialog.setCancelable(false);
-                    dialog.setCanceledOnTouchOutside(false);
-                    dialog.show();
-
                     if (Common.isNetworkAvailable(context))
-                        syncDatabase();
+                        showSyncAlert();
                     else
                         Common.showNETWORDDisabledAlert(context);
 
@@ -89,8 +92,82 @@ public class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void syncDatabase() {
+    //    Show sync Dialog
+    public void pollForUpdates() {
 
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Calendar calendar = Calendar.getInstance();
+                        String timemilli = Common.getStringPrefrences(context, "SyncTime", getString(R.string.app_name));
+                        if (timemilli.length() > 0) {
+                            try {
+                                if (calendar.getTimeInMillis() - Long.parseLong(timemilli) > 3600000) {
+                                    Common.setStringPrefrences(context, "SyncTime", calendar.getTimeInMillis() + "", getString(R.string.app_name));
+                                    if (Common.isNetworkAvailable(context)) {
+                                        showSyncAlert();
+                                    }
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Common.setStringPrefrences(context, "SyncTime", calendar.getTimeInMillis() + "", getString(R.string.app_name));
+                            if (Common.isNetworkAvailable(context)) {
+                                Cursor receiptCursor = dbHandler.getRevenueReceipt();
+                                Cursor adjustmentCursor = dbHandler.getAdjustment();
+                                if ((receiptCursor != null && receiptCursor.getCount() > 0) || (adjustmentCursor != null && adjustmentCursor.getCount() > 0)) {
+                                    showSyncAlert();
+                                }
+                            }
+                        }
+                        Common.setStringPrefrences(context, "SyncTime", calendar.getTimeInMillis() + "", getString(R.string.app_name));
+                    }
+                });
+
+            }
+        }, 0, 1 * 60 * 60 * 1000);
+        Log.i(getClass().getSimpleName(), "Timer started.");
+    }
+
+    private void showSyncAlert() {
+        AlertDialog alertDialog = null;
+        if (!((Activity) context).isFinishing()) {
+            if (alertDialog == null)
+                alertDialog = new AlertDialog.Builder(context).create();
+            // Setting Dialog Title
+            alertDialog.setTitle("Sync Records");
+            // Setting Dialog Message
+            alertDialog.setMessage("Do you want to sync records?");
+            // Setting OK Button
+            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    syncDatabase();
+                    dialog.dismiss();
+                }
+            });
+            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            // Showing Alert Message
+            alertDialog.show();
+        }
+    }
+
+
+    //    Sync Databse tables
+    private void syncDatabase() {
+        dialog = new ProgressDialog(context);
+        dialog.setMessage("Please wait...");
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
 
         Cursor receiptCursor = dbHandler.getRevenueReceipt();
         Cursor adjustmentCursor = dbHandler.getAdjustment();
@@ -101,8 +178,8 @@ public class BaseActivity extends AppCompatActivity {
             try {
                 while (!receiptCursor.isAfterLast()) {
                     JSONObject receiptObject = new JSONObject();
-                    receiptObject.put("RReceiptId", "1");
-//                    receiptObject.put("RReceiptId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_RRECEIPTID)));
+//                    receiptObject.put("RReceiptId", "1");
+                    receiptObject.put("RReceiptId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_ID)));
                     receiptObject.put("RevenueTypeId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_REVENUETYPEID)));
                     receiptObject.put("RCustomerId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_RCUSTOMERID)));
                     receiptObject.put("CustomerName", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_CUSTOMERNAME)));
@@ -114,7 +191,7 @@ public class BaseActivity extends AppCompatActivity {
                     receiptObject.put("TotalUnit", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_TOTALUNIT)));
                     receiptObject.put("TotalAmount", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_TOTALAMOUNT)));
                     receiptObject.put("OtherChargse", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_OTHERCHARGSE)));
-                    receiptObject.put("AdjustmentAmt", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_TOTALAMOUNT)));
+                    receiptObject.put("AdjustmentAmt", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_ADJUSTMENTAMT)));
                     receiptObject.put("PaidAmount", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_PAIDAMOUNT)));
                     receiptObject.put("PayType", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_PAYTYPE)));
                     receiptObject.put("BankName", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_BANKNAME)));
@@ -355,9 +432,12 @@ public class BaseActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            ((RevenueSelectionActivity) context).setRevenues();
-            ((RevenueSelectionActivity) context).setArea();
-            ((RevenueSelectionActivity) context).setLocations(0);
+            if (context instanceof RevenueSelectionActivity) {
+                ((RevenueSelectionActivity) context).setRevenues();
+                ((RevenueSelectionActivity) context).setArea();
+                ((RevenueSelectionActivity) context).setLocations(0);
+            }
+
             dialog.dismiss();
         }
     };
@@ -419,6 +499,7 @@ public class BaseActivity extends AppCompatActivity {
 //    Send data from db
 
     private void sendData(String methodUrl, String jsonSend) {
+        System.out.println("Sync Json : " + jsonSend);
         Map<String, String> get_sync_contact_params = new HashMap<String, String>();
         get_sync_contact_params.put("Coll", jsonSend);
         Map<String, Object> api_params = new HashMap<String, Object>();
@@ -441,7 +522,7 @@ public class BaseActivity extends AppCompatActivity {
                 JSONObject jobj = new JSONObject(result);
                 String response_code = jobj.getString("result");
                 if (response_code.equals("1")) {
-                    if (revenueReceiptSync) {
+                    if (revenueReceiptSync && dbHandler.getAdjustment().getCount() > 0) {
                         revenueReceiptSync = false;
                         Cursor adjustmentCursor = dbHandler.getAdjustment();
                         JSONArray adjustmentArray = new JSONArray();
@@ -482,7 +563,7 @@ public class BaseActivity extends AppCompatActivity {
                 } else {
                     dialog.dismiss();
                 }
-                Common.showAlertDialog(context, "", errorMsg, true);
+//                Common.showAlertDialog(context, "", errorMsg, true);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
