@@ -1,6 +1,7 @@
 package in.infiniumglobal.infirms.activity;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Handler;
 import android.os.Message;
@@ -309,7 +310,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
             String totalAmount = edtTotalAmount.getText().toString().trim();
             String paidAmount = edtPaidAmount.getText().toString().trim();
             String name = edtName.getText().toString().trim();
-
+            String remarks = edtRemarks.getText().toString().trim();
             if (AppConfig.RevenueUnit.trim().length() == 0) {
                 Common.showAlertDialog(this, "", "Please select Unit type.", true);
                 return;
@@ -349,7 +350,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
             if (llBankName.getVisibility() == View.VISIBLE) {
                 String chequeNumber = edtChequeNumber.getText().toString().trim();
                 String bankName = edtBankName.getText().toString().trim();
-                String remarks = edtRemarks.getText().toString().trim();
+
 
                 if (chequeNumber.length() == 0) {
                     Common.showAlertDialog(this, "", "Please enter Cheque Number.", true);
@@ -364,11 +365,16 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
                 }*/
                 receiptValues.put(DatabaseHandler.KEY_CHEQUENO, chequeNumber);
                 receiptValues.put(DatabaseHandler.KEY_BANKNAME, bankName);
-                receiptValues.put(DatabaseHandler.KEY_REMARKS, remarks);
+
+
                 receiptValues.put(DatabaseHandler.KEY_PAYTYPE, "Cheque");
             } else {
                 receiptValues.put(DatabaseHandler.KEY_PAYTYPE, "Cash");
             }
+
+            if (remarks.length() > 0)
+                receiptValues.put(DatabaseHandler.KEY_PAYREMARKS, remarks);
+
             receiptValues.put(DatabaseHandler.KEY_CREATEDBY, Common.getStringPrefrences(this, getString(R.string.pref_userId), getString(R.string.app_name)));
             receiptValues.put(DatabaseHandler.KEY_CREATEDDATE, Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
 
@@ -389,7 +395,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
                 printing += "\n\t\t" + name.toUpperCase();
 
             if (tvPercent.getVisibility() == View.VISIBLE)
-                printing += "\n" + AppConfig.RevenueUnit + "\t " + unitRate + " * " + totalUnit + "\t " + totalAmount + "%";
+                printing += "\n" + AppConfig.RevenueUnit + "\t " + totalUnit + " * " + unitRate + "%\t " + totalAmount;
             else
                 printing += "\n" + AppConfig.RevenueUnit + "\t " + unitRate + " * " + totalUnit + "\t " + totalAmount;
             if (llBankName.getVisibility() == View.VISIBLE) {
@@ -429,5 +435,12 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
 
     private void ShowMsg(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, RevenueSelectionActivity.class));
+        finish();
     }
 }

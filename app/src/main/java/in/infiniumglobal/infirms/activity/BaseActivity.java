@@ -71,7 +71,9 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.action_logout:
                 Common.removeAllPrefrences(this, getString(R.string.app_name));
                 Intent intent = new Intent(this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
                 break;
