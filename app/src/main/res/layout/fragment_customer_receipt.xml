@@ -37,7 +37,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Outstanding:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
@@ -61,7 +61,7 @@
                 android:weightSum="2">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:text="Collection Type:"
@@ -109,7 +109,7 @@
                 android:weightSum="2">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Unit Type:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
@@ -129,7 +129,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Unit Rate:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
@@ -151,7 +151,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Total Units:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
@@ -173,7 +173,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Total Amount:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
@@ -196,7 +196,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Adjustment:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
@@ -219,7 +219,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Paid Amount:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
@@ -244,7 +244,7 @@
                 android:weightSum="2">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:text="Paid Amount:"
@@ -283,7 +283,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Cheque Number:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
@@ -307,7 +307,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Bank Name:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
@@ -330,7 +330,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Remarks:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
