@@ -10,8 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import in.infiniumglobal.infirms.R;
+import in.infiniumglobal.infirms.activity.ReceiptHistoryActivity;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
 import in.infiniumglobal.infirms.utils.AppConfig;
+import in.infiniumglobal.infirms.utils.Common;
 
 
 public class HistoryAdapter extends CursorAdapter {
@@ -56,13 +58,13 @@ public class HistoryAdapter extends CursorAdapter {
         tvReciptNo.setText("No: " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)));
         tvDate.setText(tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_RRECEIPTDATE)));
 
-        String printing = "";
+        String calculations = "";
         if (AppConfig.RevenueRateType.equals("A")) {
-            printing = AppConfig.RevenueUnit + "\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_REVENUERATE)) + " * " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALUNIT)) + "\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALAMOUNT));
+            calculations = AppConfig.RevenueUnit + "\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_REVENUERATE)) + " * " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALUNIT)) + "\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALAMOUNT));
         } else {
-            printing = "\n" + AppConfig.RevenueUnit + "\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALUNIT)) + " * " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_REVENUERATE)) + "%\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALAMOUNT));
+            calculations = "\n" + AppConfig.RevenueUnit + "\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALUNIT)) + " * " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_REVENUERATE)) + "%\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALAMOUNT));
         }
-        tvCalculation.setText(printing);
+        tvCalculation.setText(calculations);
 
         String paid = "";
         if (tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PAYTYPE)).equals("Cheque")) {
@@ -71,6 +73,40 @@ public class HistoryAdapter extends CursorAdapter {
             paid = "\nPaid Amt: " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PAIDAMOUNT)) + "\t Cash";
         }
         tvPaidAmt.setText(paid);
+
+        ivPrint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String printing = "";
+                printing += "NYANG'HWALE DISTRICT COUNCIL";
+                printing += "\nP O BOX 352,NYANG'HWALE-GEITA";
+                printing += "\n________________________\n";
+                printing += "\n\t\t" + AppConfig.revenueItem.toUpperCase();
+
+                printing += "\n________________________\n";
+                printing += "\nRECEIPT NO:" + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)) + "  " + Common.getCurrentDate("dd-MM-yy hh:mm");
+                if (tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CUSTOMERNAME)).length() > 0)
+                    printing += "\n\t\t" + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CUSTOMERNAME)).toUpperCase();
+
+                if (AppConfig.RevenueRateType.equals("A"))
+                    printing += "\n" + AppConfig.RevenueUnit + "\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_REVENUERATE)) + " * " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALUNIT)) + "%\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALAMOUNT));
+                else
+                    printing += "\n" + AppConfig.RevenueUnit + "\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALUNIT)) + " * " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_REVENUERATE)) + "\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALAMOUNT));
+                if (tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PAYTYPE)).equals("Cheque")) {
+                    printing += "\nPaid Amt: " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PAIDAMOUNT)) + "\t Cheque : " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CHEQUENO));
+                } else {
+                    printing += "\nPaid Amt: " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PAIDAMOUNT)) + "\t Cash";
+                }
+                printing += "\n________________________\n";
+                printing += "\n\t\t\tTHANK YOU\n";
+                printing += "\n________________________\n\n" +
+                        "\n" +
+                        "\n" +
+                        "\n" +
+                        "\n";
+                ((ReceiptHistoryActivity) context).print(printing);
+            }
+        });
 
 //        final String id = tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
         /*view.findViewById(R.id.delete_rule).setOnClickListener(new View.OnClickListener() {
