@@ -156,7 +156,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
 //        tvCustomername = (TextView) findViewById(R.id.customer_receipt_frag_tv_customer_name);
         tvPercent = (TextView) findViewById(R.id.tv_percen);
         tvReceiptDate = (TextView) findViewById(R.id.customer_receipt_frag_tv_date);
-        tvReceiptDate.setText("Date: " + Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
+        tvReceiptDate.setText(Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
 
         edtName = (EditText) findViewById(R.id.customer_receipt_frag_edt_name);
         edtUnitRate = (EditText) findViewById(R.id.customer_receipt_frag_edt_unit_rate);
@@ -210,8 +210,9 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
                 unitCursor.moveToNext();
             }
 
-            ArrayAdapter<String> revenueAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, unitList);
-            revenueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter<String> revenueAdapter = new ArrayAdapter<String>(this, R.layout.simple_spinner_dropdown_item, unitList);
+            revenueAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+//            revenueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerUnitType.setAdapter(revenueAdapter);
         }
 
@@ -418,7 +419,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
                 btnRePrint.setVisibility(View.VISIBLE);
             }
 
-            tvReceiptDate.setText("Date: " + Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
+            tvReceiptDate.setText(Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
             edtName.setText("");
             edtTotalUnit.setText("");
             edtTotalAmount.setText("");

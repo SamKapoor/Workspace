@@ -1,7 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="in.infiniumglobal.infirms.activity.CustomerManagementActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/action_sync"
@@ -14,4 +12,11 @@
         android:icon="@drawable/ic_action_exit_to_app"
         android:title="Logout"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_receipt"
+        android:title="Receipt"
+        android:visible="false"
+        app:showAsAction="never" />
+
 </menu>

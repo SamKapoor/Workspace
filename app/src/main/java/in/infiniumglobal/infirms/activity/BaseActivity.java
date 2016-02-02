@@ -59,6 +59,10 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.customer_management, menu);
+        MenuItem item = menu.findItem(R.id.action_receipt);
+        if (context instanceof InstantPayActivity) {
+            item.setVisible(true);
+        }
         return true;
     }
 
@@ -88,6 +92,14 @@ public class BaseActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(context, "No internet available.", Toast.LENGTH_LONG).show();
                 }
+                break;
+            case R.id.action_receipt:
+                Intent intent1 = new Intent(this, LoginActivity.class);
+                intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent1);
+                finish();
                 break;
         }
 

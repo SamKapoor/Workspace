@@ -4,8 +4,11 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.serialport.api.SerialPort;
 import android.serialport.api.SerialPortFinder;
+import android.util.Log;
+import android.view.ViewConfiguration;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.security.InvalidParameterException;
 
 import in.infiniumglobal.infirms.db.DatabaseHandler;
@@ -34,6 +37,20 @@ public class InfiRmsApplication extends Application {
         return mSerialPort;
     }
 
+    private void makeActionOverflowMenuShown() {
+        //devices with hardware menu button (e.g. Samsung Note) don't show action overflow menu
+        try {
+            ViewConfiguration config = ViewConfiguration.get(this);
+            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+            if (menuKeyField != null) {
+                menuKeyField.setAccessible(true);
+                menuKeyField.setBoolean(config, false);
+            }
+        } catch (Exception e) {
+            Log.d("Tag", e.getLocalizedMessage());
+        }
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,5 +61,6 @@ public class InfiRmsApplication extends Application {
             e.printStackTrace();
         }
         dbHelper.openDataBase();
+        makeActionOverflowMenuShown();
     }
 }

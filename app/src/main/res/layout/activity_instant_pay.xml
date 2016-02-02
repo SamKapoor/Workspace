@@ -18,8 +18,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Instant Pay"
-                android:textColor="@color/color_lightblue"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
+                android:textColor="@color/color_lightblue" />
 
             <!--<TextView-->
             <!--android:id="@+id/customer_receipt_frag_tv_customer_name"-->
@@ -92,13 +92,25 @@
             <!--</RadioGroup>-->
             <!--</LinearLayout>-->
 
-            <TextView
-                android:id="@+id/customer_receipt_frag_tv_date"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Date: "
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="Date: "
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+                <TextView
+                    android:id="@+id/customer_receipt_frag_tv_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -107,7 +119,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Name: "
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
@@ -116,7 +128,6 @@
                     android:id="@+id/customer_receipt_frag_edt_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:inputType="textPersonName"
                     android:singleLine="true"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
@@ -130,17 +141,16 @@
                 android:weightSum="2">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:text="Unit Type:"
                     android:layout_gravity="center_vertical"
+                    android:text="Unit Type:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
                 <Spinner
                     android:id="@+id/customer_receipt_frag_spinner_unit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:prompt="@string/spinner_title" />
             </LinearLayout>
 
@@ -152,19 +162,18 @@
 
                 <TextView
                     android:id="@+id/tv_rate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:text="Unit Rate:"
                     android:layout_centerVertical="true"
+                    android:text="Unit Rate:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
                 <EditText
                     android:id="@+id/customer_receipt_frag_edt_unit_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toLeftOf="@+id/tv_percen"
                     android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tv_percen"
                     android:layout_toRightOf="@+id/tv_rate"
                     android:inputType="numberDecimal"
                     android:singleLine="true"
@@ -174,8 +183,8 @@
                     android:id="@+id/tv_percen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:layout_alignParentRight="true"
+                    android:padding="10dp"
                     android:text="%"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
@@ -188,7 +197,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:text="Total Units/Amt:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
@@ -197,7 +206,6 @@
                     android:id="@+id/customer_receipt_frag_edt_total_units"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:inputType="numberDecimal"
                     android:singleLine="true"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
@@ -210,7 +218,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Total Amount:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
@@ -219,7 +227,6 @@
                     android:id="@+id/customer_receipt_frag_edt_total_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:clickable="false"
                     android:inputType="numberDecimal"
                     android:singleLine="true"
@@ -256,7 +263,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Paid Amount:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
@@ -265,7 +272,6 @@
                     android:id="@+id/customer_receipt_frag_edt_paid_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:clickable="false"
                     android:inputType="numberDecimal"
                     android:singleLine="true"
@@ -281,9 +287,8 @@
                 android:weightSum="2">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
                     android:text="Paid By:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
@@ -291,26 +296,24 @@
                     android:id="@+id/radioGroupPaymentType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:gravity="left"
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/customer_receipt_frag_rb_cash"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:checked="true"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                        android:text="Cash" />
+                        android:text="Cash"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
                     <RadioButton
                         android:id="@+id/customer_receipt_frag_rb_cheque"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                        android:text="Cheque" />
+                        android:layout_marginLeft="5dp"
+                        android:text="Cheque"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -322,7 +325,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Cheque Number:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
@@ -331,7 +334,6 @@
                     android:id="@+id/customer_receipt_frag_edt_cheque_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:clickable="false"
                     android:inputType="number"
                     android:singleLine="true"
@@ -346,7 +348,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Bank Name:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
@@ -355,7 +357,6 @@
                     android:id="@+id/customer_receipt_frag_edt_bank_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:clickable="false"
                     android:inputType="textCapSentences"
                     android:singleLine="true"
@@ -369,7 +370,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Remarks:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
@@ -378,7 +379,6 @@
                     android:id="@+id/customer_receipt_frag_edt_remarks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:clickable="false"
                     android:inputType="textMultiLine"
                     android:lines="3"
