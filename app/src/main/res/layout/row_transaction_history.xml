@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/row_tv_ReciptNo"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="" />
+
+    <ImageView
+        android:id="@+id/row_iv_Print"
+        android:src="@drawable/ic_action_print"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:padding="5dp"
+        android:background="@color/color_lightblue"
+         />
+
+    <TextView
+        android:id="@+id/row_tv_customer_name"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/row_iv_Print"
+        android:padding="5dp"
+        android:text="Customer Name" />
+
+    <TextView
+        android:id="@+id/row_tv_date"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/row_iv_Print"
+        android:padding="5dp"
+        android:text="Date" />
+
+    <TextView
+        android:id="@+id/row_tv_Calculation"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/row_tv_date"
+        android:padding="5dp"
+        android:text="Date" />
+
+    <TextView
+        android:id="@+id/row_tv_PaidAmt"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/row_tv_Calculation"
+        android:padding="5dp"
+        android:text="Date" />
+
+</RelativeLayout>

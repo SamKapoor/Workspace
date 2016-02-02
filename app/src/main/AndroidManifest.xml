@@ -69,6 +69,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.infiniumglobal.infirms.activity.BaseActivity" />
         </activity>
+        <activity
+            android:name=".activity.ReceiptHistoryActivity"
+            android:label="@string/title_activity_receipt_history" >
+        </activity>
     </application>
 
 </manifest>

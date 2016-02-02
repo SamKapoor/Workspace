@@ -94,8 +94,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String KEY_RRECEIPTDATE = "RReceiptDate";
     public static final String KEY_RECEIPTNO = "ReceiptNo";
     public static final String KEY_RECEIPTBARCODE = "ReceiptBarcode";
-        public static final String KEY_RREVENUERATEID = "RevenueRateID";
-//    public static final String KEY_REVENUERATE = "RevenueRate";
+    public static final String KEY_RREVENUERATEID = "RevenueRateID";
+    //    public static final String KEY_REVENUERATE = "RevenueRate";
     public static final String KEY_TOTALUNIT = "TotalUnit";
     public static final String KEY_TOTALAMOUNT = "TotalAmount";
     public static final String KEY_OTHERCHARGSE = "OtherChargse";
@@ -251,6 +251,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return id;
     }
 
+    public Cursor getRevenueReceipt(int revenueId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TBLR_RevenueReceipt, null, KEY_REVENUE_TYPEID + "=?", new String[]{String.valueOf(revenueId)}, null, null, null, null);
+        return cursor;
+    }
+
+    public Cursor getRevenueReceiptTotalAmount(int revenueId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select SUM(TotalAmount) ||  '-' || SUM(PaidAmount) as Total from TBLR_RevenueReceipt where " + KEY_REVENUE_TYPEID + "= " + revenueId, null);
+        return cursor;
+    }
 //    public Cursor searchCustomer(String TIN, String ReceiptNumber, String BusinessName, String CustomerName) {
 //        SQLiteDatabase db = this.getReadableDatabase();
 //        Cursor cursor = db.query(TABLE_TBLR_RevenueCustomer, null, KEY_TINNO + "=? or " + KEY_RCUSTOMERID + "=? or " + KEY_BUSINESSNAME+ "=? or " + KEY_CUSTOMERNAME + "=?", new String[]{TIN, ReceiptNumber, BusinessName, CustomerName}, null, null, null, null);

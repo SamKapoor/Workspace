@@ -161,4 +161,5 @@
         <item>2000</item>
         <item>3000</item>
     </string-array>
+    <string name="title_activity_receipt_history">ReceiptHistoryActivity</string>
 </resources>

@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="in.infiniumglobal.infirms.activity.ReceiptHistoryActivity">
+
+
+    <item
+        android:id="@+id/action_instant_pay"
+        android:icon="@drawable/ic_action_exit_to_app"
+        android:title="Instant Pay"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_action_exit_to_app"
+        android:title="Logout"
+        app:showAsAction="ifRoom" />
+</menu>

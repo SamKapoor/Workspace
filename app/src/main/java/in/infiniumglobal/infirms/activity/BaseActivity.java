@@ -94,7 +94,7 @@ public class BaseActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.action_receipt:
-                Intent intent1 = new Intent(this, LoginActivity.class);
+                Intent intent1 = new Intent(this, ReceiptHistoryActivity.class);
                 intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
