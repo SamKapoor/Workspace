@@ -295,7 +295,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public Cursor getCustomer(String customerId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_TBLR_RevenueCustomer, null, KEY_CUSTOMERID + "=?", new String[]{customerId}, null, null, null, null);
+        Cursor cursor = db.query(TABLE_TBLR_RevenueCustomer, null, KEY_RCUSTOMERID + "=?", new String[]{customerId}, null, null, null, null);
         return cursor;
     }
 

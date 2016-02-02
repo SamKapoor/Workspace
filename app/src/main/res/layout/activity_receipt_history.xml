@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/history_tv_totalAmt"
-        style="@style/Base.TextAppearance.AppCompat.Display1"
+        style="@style/Base.TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/history_tv_paidAmt"
-        style="@style/Base.TextAppearance.AppCompat.Display1"
+        style="@style/Base.TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
