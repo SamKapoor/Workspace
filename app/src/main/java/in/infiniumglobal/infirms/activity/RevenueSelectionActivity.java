@@ -117,7 +117,7 @@ public class RevenueSelectionActivity extends BaseActivity {
                 if (areaCursor != null && locationCursor != null && revenueCursor != null && areaCursor.getCount() > 0 && locationCursor.getCount() > 0 && revenueCursor.getCount() > 0) {
 //                    if (AppConfig.revenueItem.equalsIgnoreCase("PARKING")) {
                     startActivity(new Intent(RevenueSelectionActivity.this, InstantPayActivity.class));
-                    finish();
+//                    finish();
 //                    } else if (instantPay.equals("Y")) {
 //                        startActivity(new Intent(RevenueSelectionActivity.this, InstantPayActivity.class));
 //                    } else {

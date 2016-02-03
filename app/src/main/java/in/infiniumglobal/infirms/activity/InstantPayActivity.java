@@ -444,7 +444,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(this, RevenueSelectionActivity.class));
-        finish();
+//        startActivity(new Intent(this, RevenueSelectionActivity.class));
+//        finish();
     }
 }
