@@ -417,6 +417,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/drawable_button"
                     android:text="Re-Print"
+                    android:visibility="gone"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>

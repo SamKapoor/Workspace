@@ -119,7 +119,7 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
         btnRePrint = (Button) rootView.findViewById(R.id.customer_receipt_frag_btn_reprint);
         btnRePrint.setOnClickListener(this);
         if (AppConfig.PrintText.length() > 0)
-            btnRePrint.setVisibility(View.VISIBLE);
+            btnRePrint.setVisibility(View.GONE);
         else
             btnRePrint.setVisibility(View.GONE);
 
@@ -397,7 +397,7 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
 
             receiptValues.put(DatabaseHandler.KEY_LOCATIONID, AppConfig.locationID);
             receiptValues.put(DatabaseHandler.KEY_AREAID, AppConfig.areaID);
-            
+
             DatabaseHandler dbHandler = DatabaseHandler.getInstance(getActivity());
 
             long rowId = dbHandler.addData(DatabaseHandler.TABLE_TBLR_RevenueReceipt, receiptValues);

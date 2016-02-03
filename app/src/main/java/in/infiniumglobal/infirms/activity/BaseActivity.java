@@ -516,7 +516,7 @@ public class BaseActivity extends AppCompatActivity {
 //    Send data from db
 
     private void sendData(String methodUrl, String jsonSend) {
-      /*  System.out.println("Sync Json : " + jsonSend);
+        System.out.println("Sync Json : " + jsonSend);
         Map<String, String> get_sync_contact_params = new HashMap<String, String>();
         get_sync_contact_params.put("Coll", jsonSend);
         Map<String, Object> api_params = new HashMap<String, Object>();
@@ -524,8 +524,8 @@ public class BaseActivity extends AppCompatActivity {
         api_params.put("method_parameters", get_sync_contact_params);
 //        System.out.println(api_params.values().toString());
         MyClientPost posting = new MyClientPost(this, "Loading...", onSettingsCallComplete);
-        posting.execute(api_params);*/
-        getUsers(); //TODO remove comments and call method for sync data
+        posting.execute(api_params);
+//        getUsers(); //TODO remove comments and call method for sync data
     }
 
     private MyClientPost.OnPostCallComplete onSettingsCallComplete = new MyClientPost.OnPostCallComplete() {

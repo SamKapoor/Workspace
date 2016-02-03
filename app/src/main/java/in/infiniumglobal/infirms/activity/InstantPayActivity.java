@@ -175,7 +175,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
         btnRePrint = (Button) findViewById(R.id.customer_receipt_frag_btn_reprint);
         btnRePrint.setOnClickListener(this);
         if (AppConfig.PrintText.length() > 0)
-            btnRePrint.setVisibility(View.VISIBLE);
+            btnRePrint.setVisibility(View.GONE);
         else
             btnRePrint.setVisibility(View.GONE);
 
