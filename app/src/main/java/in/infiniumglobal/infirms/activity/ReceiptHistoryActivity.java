@@ -1,5 +1,8 @@
 package in.infiniumglobal.infirms.activity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Handler;
@@ -149,22 +152,68 @@ public class ReceiptHistoryActivity extends AppCompatActivity {
         HistoryAdapter historyAdapter = new HistoryAdapter(this, historyCursor, 0);
         lvHistory.setAdapter(historyAdapter);
 
-        /*lvCustomers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvHistory.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-*//*                Cursor cursor1 = ((SearchAdapter) adapterView.getAdapter()).getCursor();
-                cursor1.moveToPosition(position);*//*
-                AppConfig.customerData.moveToPosition(position);
-                AppConfig.customerID = AppConfig.customerData.getInt(AppConfig.customerData.getColumnIndex(DatabaseHandler.KEY_RCUSTOMERID));
-                startActivity(new Intent(CustomerListActivity.this, CustomerManagementActivity.class));
+            public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog alertDialog = null;
+                if (alertDialog == null)
+                    alertDialog = new AlertDialog.Builder(ReceiptHistoryActivity.this).create();
+                // Setting Dialog Title
+                alertDialog.setTitle("Print Receipt");
+                // Setting Dialog Message
+                alertDialog.setMessage("Are you sure you want to print receipt?");
+                // Setting OK Button
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Cursor tempCursor = ((HistoryAdapter) parent.getAdapter()).getCursor();
+                        tempCursor.moveToPosition(position);
+                        String printing = "";
+                        printing += "NYANG'HWALE DISTRICT COUNCIL";
+                        printing += "\nP O BOX 352,NYANG'HWALE-GEITA";
+                        printing += "\n________________________\n";
+                        printing += "\n\t\t" + AppConfig.revenueItem.toUpperCase();
 
+                        printing += "\n________________________\n";
+                        printing += "\nRECEIPT NO:" + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)) + "  " + Common.getCurrentDate("dd-MM-yy hh:mm");
+                        if (tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CUSTOMERNAME)).length() > 0)
+                            printing += "\n\t\t" + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CUSTOMERNAME)).toUpperCase();
+
+                        if (AppConfig.RevenueRateType.equals("A"))
+                            printing += "\n" + AppConfig.RevenueUnit + "\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_REVENUERATE)) + " * " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALUNIT)) + "%\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALAMOUNT));
+                        else
+                            printing += "\n" + AppConfig.RevenueUnit + "\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALUNIT)) + " * " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_REVENUERATE)) + "\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALAMOUNT));
+                        if (tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PAYTYPE)).equals("Cheque")) {
+                            printing += "\nPaid Amt: " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PAIDAMOUNT)) + "\t Cheque : " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CHEQUENO));
+                        } else {
+                            printing += "\nPaid Amt: " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PAIDAMOUNT)) + "\t Cash";
+                        }
+                        printing += "\n________________________\n";
+                        printing += "\n\t\t\tTHANK YOU\n";
+                        printing += "\n________________________\n\n" +
+                                "\n" +
+                                "\n" +
+                                "\n" +
+                                "\n";
+                        print(printing);
+                        dialog.dismiss();
+                    }
+                });
+                alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                // Showing Alert Message
+                alertDialog.show();
+                return true;
             }
-        });*/
+        });
     }
 
 
     public void print(String printText) {
-//        printerClass.printText(printText); //TODO remove for printing start
+//        Log.e(TAG, "print: " + printText);
+        printerClass.printText(printText); //TODO remove for printing start
     }
 
     private void ShowMsg(String msg) {

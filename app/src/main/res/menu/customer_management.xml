@@ -8,15 +8,13 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_logout"
-        android:icon="@drawable/ic_action_exit_to_app"
-        android:title="Logout"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/action_receipt"
         android:title="Receipt"
         android:visible="false"
         app:showAsAction="never" />
-
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_action_exit_to_app"
+        android:title="Logout"
+        app:showAsAction="ifRoom" />
 </menu>

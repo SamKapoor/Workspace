@@ -15,12 +15,14 @@
 
     <ImageView
         android:id="@+id/row_iv_Print"
-        android:src="@drawable/ic_action_print"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/row_tv_ReciptNo"
         android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/row_tv_ReciptNo"
         android:background="@color/color_lightblue"
-         />
+        android:src="@drawable/ic_action_print"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/row_tv_customer_name"
