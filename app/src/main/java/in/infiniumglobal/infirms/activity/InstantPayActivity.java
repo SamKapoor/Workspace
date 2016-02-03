@@ -379,6 +379,9 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
             receiptValues.put(DatabaseHandler.KEY_CREATEDBY, Common.getStringPrefrences(this, getString(R.string.pref_userId), getString(R.string.app_name)));
             receiptValues.put(DatabaseHandler.KEY_CREATEDDATE, Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
 
+            receiptValues.put(DatabaseHandler.KEY_LOCATIONID, AppConfig.locationID);
+            receiptValues.put(DatabaseHandler.KEY_AREAID, AppConfig.areaID);
+
             DatabaseHandler dbHandler = DatabaseHandler.getInstance(InstantPayActivity.this);
 
             long rowId = dbHandler.addData(DatabaseHandler.TABLE_TBLR_RevenueReceipt, receiptValues);

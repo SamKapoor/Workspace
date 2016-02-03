@@ -395,6 +395,9 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
             receiptValues.put(DatabaseHandler.KEY_CREATEDBY, Common.getStringPrefrences(getActivity(), getString(R.string.pref_userId), getString(R.string.app_name)));
             receiptValues.put(DatabaseHandler.KEY_CREATEDDATE, Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
 
+            receiptValues.put(DatabaseHandler.KEY_LOCATIONID, AppConfig.locationID);
+            receiptValues.put(DatabaseHandler.KEY_AREAID, AppConfig.areaID);
+            
             DatabaseHandler dbHandler = DatabaseHandler.getInstance(getActivity());
 
             long rowId = dbHandler.addData(DatabaseHandler.TABLE_TBLR_RevenueReceipt, receiptValues);

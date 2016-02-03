@@ -214,6 +214,8 @@ public class BaseActivity extends AppCompatActivity {
                     receiptObject.put("PayRemarks", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_PAYREMARKS)));
                     receiptObject.put("CreatedBy", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_CREATEDBY)));
                     receiptObject.put("CreatedDate", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_CREATEDDATE)));
+                    receiptObject.put("LocationId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_LOCATIONID)));
+                    receiptObject.put("AreaId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_AREAID)));
 //                receiptObject.put("", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.)));
                     receiptArray.put(receiptObject);
                     receiptCursor.moveToNext();
