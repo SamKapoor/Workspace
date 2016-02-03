@@ -1,7 +1,11 @@
 package in.infiniumglobal.infirms.fragment;
 
+import android.content.ContentValues;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +15,21 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import in.infiniumglobal.infirms.R;
+import in.infiniumglobal.infirms.db.DatabaseHandler;
+import in.infiniumglobal.infirms.utils.AppConfig;
+import in.infiniumglobal.infirms.utils.Common;
+import print.pda3505.helper.printer.PrintService;
+import print.pda3505.helper.printer.PrinterClass;
+import print.pda3505.printer.PrinterClassSerialPort;
 
 
 /**
  * Created by Hiral on 1/26/2016.
  */
-public class CustomerReceiptFragment extends Fragment {
+public class CustomerReceiptFragment extends Fragment implements View.OnClickListener {
 
     private LinearLayout llChequeNumber, llBankName;
     TextView tvBusinessName, tvCustomername, tvReceiptDate;
@@ -26,12 +37,17 @@ public class CustomerReceiptFragment extends Fragment {
     RadioGroup radioGroupCollection, radioGroupPaymentType;
     Spinner spinnerUnitType;
     Button btnScanAndPrint;
+    public static PrinterClassSerialPort printerClass = null;
+    private String TAG = "app";
+    private TextView tvPercent;
+    private Button btnRePrint;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_customer_receipt, container, false);
+        tvPercent = (TextView) rootView.findViewById(R.id.tv_percen);
         llChequeNumber = (LinearLayout) rootView.findViewById(R.id.llChequeNumber);
         llBankName = (LinearLayout) rootView.findViewById(R.id.llBankName);
 
@@ -89,6 +105,239 @@ public class CustomerReceiptFragment extends Fragment {
 
             }
         });
+
+        btnRePrint = (Button) rootView.findViewById(R.id.customer_receipt_frag_btn_reprint);
+        btnRePrint.setOnClickListener(this);
+        if (AppConfig.PrintText.length() > 0)
+            btnRePrint.setVisibility(View.VISIBLE);
+        else
+            btnRePrint.setVisibility(View.GONE);
+
+        Handler mhandler = new Handler() {
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case PrinterClass.MESSAGE_READ:
+                        byte[] readBuf = (byte[]) msg.obj;
+                        Log.i(TAG, "readBuf:" + readBuf[0]);
+                        if (readBuf[0] == 0x13) {
+                            // PrintService.isFUll = true;
+                            // ShowMsg(getResources().getString(R.string.str_printer_state)+":"+getResources().getString(R.string.str_printer_bufferfull));
+                        } else if (readBuf[0] == 0x11) {
+                            // PrintService.isFUll = false;
+                            // ShowMsg(getResources().getString(R.string.str_printer_state)+":"+getResources().getString(R.string.str_printer_buffernull));
+                        } else if (readBuf[0] == 0x08) {
+                            ShowMsg(getResources().getString(
+                                    R.string.str_printer_state)
+                                    + ":"
+                                    + getResources().getString(
+                                    R.string.str_printer_nopaper));
+                        } else if (readBuf[0] == 0x01) {
+                            // ShowMsg(getResources().getString(R.string.str_printer_state)+":"+getResources().getString(R.string.str_printer_printing));
+                        } else if (readBuf[0] == 0x04) {
+                            ShowMsg(getResources().getString(
+                                    R.string.str_printer_state)
+                                    + ":"
+                                    + getResources().getString(
+                                    R.string.str_printer_hightemperature));
+                        } else if (readBuf[0] == 0x02) {
+                            ShowMsg(getResources().getString(
+                                    R.string.str_printer_state)
+                                    + ":"
+                                    + getResources().getString(
+                                    R.string.str_printer_lowpower));
+                        } else {
+                            String readMessage = new String(readBuf, 0, msg.arg1);
+                            if (readMessage.contains("800"))// 80mm paper
+                            {
+                                PrintService.imageWidth = 72;
+                                Toast.makeText(getActivity(), "80mm",
+                                        Toast.LENGTH_SHORT).show();
+                            } else if (readMessage.contains("580"))// 58mm paper
+                            {
+                                PrintService.imageWidth = 48;
+                                Toast.makeText(getActivity(), "58mm",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+
+                            }
+                        }
+                        break;
+                    case PrinterClass.MESSAGE_STATE_CHANGE:// 6��l��״
+                        switch (msg.arg1) {
+                            case PrinterClass.STATE_CONNECTED:// �Ѿ�l��
+                                break;
+                            case PrinterClass.STATE_CONNECTING:// ����l��
+                                Toast.makeText(getActivity(),
+                                        "STATE_CONNECTING", Toast.LENGTH_SHORT).show();
+                                break;
+                            case PrinterClass.STATE_LISTEN:
+                            case PrinterClass.STATE_NONE:
+                                break;
+                            case PrinterClass.SUCCESS_CONNECT:
+                                printerClass.write(new byte[]{0x1b, 0x2b});// ����ӡ���ͺ�
+                                Toast.makeText(getActivity(),
+                                        "SUCCESS_CONNECT", Toast.LENGTH_SHORT).show();
+                                break;
+                            case PrinterClass.FAILED_CONNECT:
+                                Toast.makeText(getActivity(),
+                                        "FAILED_CONNECT", Toast.LENGTH_SHORT).show();
+
+                                break;
+                            case PrinterClass.LOSE_CONNECT:
+                                Toast.makeText(getActivity(), "LOSE_CONNECT",
+                                        Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case PrinterClass.MESSAGE_WRITE:
+
+                        break;
+                }
+                super.handleMessage(msg);
+            }
+        };
+        printerClass = new PrinterClassSerialPort(mhandler);
+        printerClass.open(getActivity());
         return rootView;
+    }
+
+    private void ShowMsg(String msg) {
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == btnScanAndPrint) {
+            ContentValues receiptValues = new ContentValues();
+
+            String unitRate = edtUnitRate.getText().toString().trim();
+            String totalUnit = edtTotalUnit.getText().toString().trim();
+            String totalAmount = edtTotalAmount.getText().toString().trim();
+            String paidAmount = edtPaidAmount.getText().toString().trim();
+            String businessName = tvBusinessName.getText().toString().trim();
+            String customerName = tvCustomername.getText().toString().trim();
+            String remarks = edtRemarks.getText().toString().trim();
+            if (AppConfig.RevenueUnit.trim().length() == 0) {
+                Common.showAlertDialog(getActivity(), "", "Please select Unit type.", true);
+                return;
+            }
+
+            if (unitRate.length() == 0) {
+                Common.showAlertDialog(getActivity(), "", "Please enter Unit rate.", true);
+                return;
+            } else if (totalUnit.length() == 0) {
+                Common.showAlertDialog(getActivity(), "", "Please enter Total unit.", true);
+                return;
+            } else if (totalAmount.length() == 0) {
+                Common.showAlertDialog(getActivity(), "", "Please enter Total amount.", true);
+                return;
+            } else if (paidAmount.length() == 0) {
+                Common.showAlertDialog(getActivity(), "", "Please enter Paid amount.", true);
+                return;
+            } else if (Double.parseDouble(paidAmount) > Double.parseDouble(totalAmount)) {
+                Common.showAlertDialog(getActivity(), "", "Paid amount must be less than total amount.", true);
+                return;
+            }
+
+
+//            receiptValues.put(DatabaseHandler.KEY_, unitRate);
+            receiptValues.put(DatabaseHandler.KEY_REVENUE_TYPEID, AppConfig.revenueID);
+            if (!businessName.isEmpty())
+                receiptValues.put(DatabaseHandler.KEY_BUSINESSNAME, businessName);
+            if (!customerName.isEmpty())
+                receiptValues.put(DatabaseHandler.KEY_CUSTOMERNAME, customerName);
+
+            receiptValues.put(DatabaseHandler.KEY_RRECEIPTDATE, Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
+            receiptValues.put(DatabaseHandler.KEY_REVENUERATEID, AppConfig.RevenueRateId);
+            receiptValues.put(DatabaseHandler.KEY_REVENUERATE, unitRate);
+            receiptValues.put(DatabaseHandler.KEY_TOTALUNIT, totalUnit);
+            receiptValues.put(DatabaseHandler.KEY_TOTALAMOUNT, totalAmount);
+            receiptValues.put(DatabaseHandler.KEY_PAIDAMOUNT, paidAmount);
+
+
+            if (llBankName.getVisibility() == View.VISIBLE) {
+                String chequeNumber = edtChequeNumber.getText().toString().trim();
+                String bankName = edtBankName.getText().toString().trim();
+
+
+                if (chequeNumber.length() == 0) {
+                    Common.showAlertDialog(getActivity(), "", "Please enter Cheque Number.", true);
+                    return;
+                } else if (bankName.length() == 0) {
+                    Common.showAlertDialog(getActivity(), "", "Please enter Bank Name.", true);
+                    return;
+                }
+                /*else if (remarks.length() == 0) {
+                    Common.showAlertDialog(getActivity(), "", "Please enter Remark.", true);
+                    return;
+                }*/
+                receiptValues.put(DatabaseHandler.KEY_CHEQUENO, chequeNumber);
+                receiptValues.put(DatabaseHandler.KEY_BANKNAME, bankName);
+
+
+                receiptValues.put(DatabaseHandler.KEY_PAYTYPE, "Cheque");
+            } else {
+                receiptValues.put(DatabaseHandler.KEY_PAYTYPE, "Cash");
+            }
+
+            if (remarks.length() > 0)
+                receiptValues.put(DatabaseHandler.KEY_PAYREMARKS, remarks);
+
+            receiptValues.put(DatabaseHandler.KEY_CREATEDBY, Common.getStringPrefrences(getActivity(), getString(R.string.pref_userId), getString(R.string.app_name)));
+            receiptValues.put(DatabaseHandler.KEY_CREATEDDATE, Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
+
+            DatabaseHandler dbHandler = DatabaseHandler.getInstance(getActivity());
+
+            long rowId = dbHandler.addData(DatabaseHandler.TABLE_TBLR_RevenueReceipt, receiptValues);
+            Common.showAlertDialog(getActivity(), "", "Data saved. " + rowId, true);
+
+            String printing = "";
+            printing += "NYANG'HWALE DISTRICT COUNCIL";
+            printing += "\nP O BOX 352,NYANG'HWALE-GEITA";
+            printing += "\n________________________\n";
+            printing += "\n\t\t" + AppConfig.revenueItem.toUpperCase();
+
+            printing += "\n________________________\n";
+            printing += "\nRECEIPT NO:" + rowId + "  " + Common.getCurrentDate("dd-MM-yy hh:mm");
+            if (businessName.length() > 0)
+                printing += "\n\t\t" + businessName.toUpperCase();
+            if (customerName.length() > 0)
+                printing += "\n\t\t" + customerName.toUpperCase();
+
+            if (tvPercent.getVisibility() == View.VISIBLE)
+                printing += "\n" + AppConfig.RevenueUnit + "\t " + totalUnit + " * " + unitRate + "%\t " + totalAmount;
+            else
+                printing += "\n" + AppConfig.RevenueUnit + "\t " + unitRate + " * " + totalUnit + "\t " + totalAmount;
+            if (llBankName.getVisibility() == View.VISIBLE) {
+                printing += "\nPaid Amt: " + paidAmount + "\t Cheque : " + edtChequeNumber.getText().toString().trim();
+            } else {
+                printing += "\nPaid Amt: " + paidAmount + "\t Cash";
+            }
+            printing += "\n________________________\n";
+            printing += "\n\t\t\tTHANK YOU\n";
+            printing += "\n________________________\n\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n";
+
+            if (printing.length() > 0) {
+                AppConfig.PrintText = printing;
+                boolean printed = printerClass.printText(printing);
+                Common.showAlertDialog(getActivity(), "", "Printed . " + printed, true);
+                btnRePrint.setVisibility(View.VISIBLE);
+            }
+
+            tvReceiptDate.setText(Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
+//            edtName.setText("");
+            edtTotalUnit.setText("");
+            edtTotalAmount.setText("");
+            edtPaidAmount.setText("");
+            edtBankName.setText("");
+            edtChequeNumber.setText("");
+            edtRemarks.setText("");
+
+        } else if (v == btnRePrint) {
+            boolean printed = printerClass.printText(AppConfig.PrintText);
+        }
     }
 }

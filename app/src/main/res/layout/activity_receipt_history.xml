@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/history_tv_totalAmt"
-        style="@style/Base.TextAppearance.AppCompat.Title"
+        style="@style/Base.TextAppearance.AppCompat.Subhead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/history_tv_paidAmt"
-        style="@style/Base.TextAppearance.AppCompat.Title"
+        style="@style/Base.TextAppearance.AppCompat.Subhead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -30,6 +30,7 @@
         android:id="@+id/history_lv_receipt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/history_tv_totalAmt" />
+        android:layout_below="@+id/history_tv_totalAmt"
+        android:layout_marginTop="10dp" />
 
 </RelativeLayout>

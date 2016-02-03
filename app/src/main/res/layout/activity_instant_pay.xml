@@ -327,7 +327,7 @@
                 <TextView
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:text="Cheque Number:"
+                    android:text="Cheque No:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
                 <EditText
@@ -397,7 +397,7 @@
 
                 <Button
                     android:id="@+id/customer_receipt_frag_btn_save_print"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
@@ -409,7 +409,7 @@
 
                 <Button
                     android:id="@+id/customer_receipt_frag_btn_reprint"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"

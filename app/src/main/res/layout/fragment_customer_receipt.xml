@@ -58,6 +58,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:weightSum="2">
 
                 <TextView
@@ -78,16 +79,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                        android:text="New" />
+                        android:text="New"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
                     <RadioButton
                         android:id="@+id/customer_receipt_frag_rb_remaining"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                        android:text="Remain" />
+                        android:text="Remain"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -282,24 +283,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left|center_vertical"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/customer_receipt_frag_rb_cash"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                        android:text="Cash" />
+                        android:text="Cash"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
                     <RadioButton
-                        android:layout_marginLeft="5dp"
                         android:id="@+id/customer_receipt_frag_rb_cheque"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                        android:text="Cheque" />
+                        android:layout_marginLeft="5dp"
+                        android:text="Cheque"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -313,7 +313,7 @@
                 <TextView
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:text="Cheque Number:"
+                    android:text="Cheque No:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
                 <EditText
@@ -377,17 +377,38 @@
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/customer_receipt_frag_btn_save_print"
-                android:layout_width="200dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/drawable_button"
-                android:text="Save &amp; Print"
-                android:textColor="@android:color/white" />
+                android:orientation="horizontal"
+                android:weightSum="2">
 
+                <Button
+                    android:id="@+id/customer_receipt_frag_btn_save_print"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/drawable_button"
+                    android:text="Save &amp; Print"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/customer_receipt_frag_btn_reprint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/drawable_button"
+                    android:text="Re-Print"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
