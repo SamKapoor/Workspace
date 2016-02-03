@@ -134,9 +134,15 @@ public class ReceiptHistoryActivity extends AppCompatActivity {
         Cursor totalAmountCursor = dbHandler.getRevenueReceiptTotalAmount(AppConfig.revenueID);
         if (totalAmountCursor != null && totalAmountCursor.getCount() > 0) {
             totalAmountCursor.moveToFirst();
-            String total[] = totalAmountCursor.getString(totalAmountCursor.getColumnIndex("Total")).split("-");
-            tvTotalAmount.setText("Total Amt \n" + total[0]);
-            tvPaidAmount.setText("Paid Amt \n" + total[1]);
+            try {
+                String total[] = totalAmountCursor.getString(totalAmountCursor.getColumnIndex("Total")).split("-");
+                tvTotalAmount.setText("Total Amt \n" + total[0]);
+                tvPaidAmount.setText("Paid Amt \n" + total[1]);
+            } catch (Exception e) {
+                e.printStackTrace();
+                tvTotalAmount.setText("Total Amt ");
+                tvPaidAmount.setText("Paid Amt ");
+            }
         }
         Cursor historyCursor = dbHandler.getRevenueReceipt(AppConfig.revenueID);
 
@@ -157,8 +163,8 @@ public class ReceiptHistoryActivity extends AppCompatActivity {
     }
 
 
-    public void print(String printText){
-        printerClass.printText(printText);
+    public void print(String printText) {
+//        printerClass.printText(printText); //TODO remove for printing start
     }
 
     private void ShowMsg(String msg) {

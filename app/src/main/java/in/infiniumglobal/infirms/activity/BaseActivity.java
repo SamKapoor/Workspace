@@ -70,7 +70,8 @@ public class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                if (!(context instanceof CustomerManagementActivity))
+                    finish();
                 break;
             case R.id.action_logout:
                 Common.removeAllPrefrences(this, getString(R.string.app_name));
@@ -95,11 +96,11 @@ public class BaseActivity extends AppCompatActivity {
                 break;
             case R.id.action_receipt:
                 Intent intent1 = new Intent(this, ReceiptHistoryActivity.class);
-                intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent1);
-                finish();
+//                finish();
                 break;
         }
 
@@ -513,7 +514,7 @@ public class BaseActivity extends AppCompatActivity {
 //    Send data from db
 
     private void sendData(String methodUrl, String jsonSend) {
-        System.out.println("Sync Json : " + jsonSend);
+      /*  System.out.println("Sync Json : " + jsonSend);
         Map<String, String> get_sync_contact_params = new HashMap<String, String>();
         get_sync_contact_params.put("Coll", jsonSend);
         Map<String, Object> api_params = new HashMap<String, Object>();
@@ -521,7 +522,8 @@ public class BaseActivity extends AppCompatActivity {
         api_params.put("method_parameters", get_sync_contact_params);
 //        System.out.println(api_params.values().toString());
         MyClientPost posting = new MyClientPost(this, "Loading...", onSettingsCallComplete);
-        posting.execute(api_params);
+        posting.execute(api_params);*/
+        getUsers(); //TODO remove comments and call method for sync data
     }
 
     private MyClientPost.OnPostCallComplete onSettingsCallComplete = new MyClientPost.OnPostCallComplete() {

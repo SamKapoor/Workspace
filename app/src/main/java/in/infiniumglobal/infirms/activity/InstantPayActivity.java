@@ -57,7 +57,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instant_pay);
 
-
+        setContext(this);
         getSupportActionBar().setTitle(AppConfig.revenueItem);
 
         Handler mhandler = new Handler() {

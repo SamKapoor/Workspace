@@ -21,6 +21,7 @@ import in.infiniumglobal.infirms.fragment.CustomerDetailsFragment;
 import in.infiniumglobal.infirms.fragment.CustomerHistoryFragment;
 import in.infiniumglobal.infirms.fragment.CustomerReceiptFragment;
 import in.infiniumglobal.infirms.fragment.NavigationDrawerFragment;
+import in.infiniumglobal.infirms.utils.AppConfig;
 import in.infiniumglobal.infirms.utils.Common;
 
 public class CustomerManagementActivity extends BaseActivity
@@ -41,6 +42,7 @@ public class CustomerManagementActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_management);
 
+        setContext(this);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -49,6 +51,7 @@ public class CustomerManagementActivity extends BaseActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+        getSupportActionBar().setTitle(AppConfig.revenueItem);
     }
 
     @Override

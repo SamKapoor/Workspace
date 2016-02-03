@@ -25,6 +25,7 @@ public class CustomerListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customerlist);
 
+        setContext(this);
         lvCustomers = (ListView) findViewById(R.id.customerlist_lv_customers);
 
         SearchAdapter searchAdapter = new SearchAdapter(this, AppConfig.customerData, 0);

@@ -51,7 +51,6 @@
 
         <activity
             android:name=".activity.CustomerManagementActivity"
-            android:label="@string/title_activity_customer_management"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CustomerSearchActivity"

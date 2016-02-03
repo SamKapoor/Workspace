@@ -1,14 +1,19 @@
 package in.infiniumglobal.infirms.fragment;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -16,6 +21,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
@@ -41,6 +48,8 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
     private String TAG = "app";
     private TextView tvPercent;
     private Button btnRePrint;
+    private Cursor unitCursor;
+    private ArrayList<String> unitList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +63,7 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
         tvBusinessName = (TextView) rootView.findViewById(R.id.customer_receipt_frag_tv_business_name);
         tvCustomername = (TextView) rootView.findViewById(R.id.customer_receipt_frag_tv_customer_name);
         tvReceiptDate = (TextView) rootView.findViewById(R.id.customer_receipt_frag_tv_date);
+        tvReceiptDate.setText(Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
 
         edtUnitRate = (EditText) rootView.findViewById(R.id.customer_receipt_frag_edt_unit_rate);
         edtTotalUnit = (EditText) rootView.findViewById(R.id.customer_receipt_frag_edt_total_units);
@@ -112,6 +122,105 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
             btnRePrint.setVisibility(View.VISIBLE);
         else
             btnRePrint.setVisibility(View.GONE);
+
+        DatabaseHandler dbHandler = DatabaseHandler.getInstance(getActivity());
+        unitCursor = dbHandler.getUnitType(AppConfig.revenueID);
+        if (unitCursor != null && unitCursor.getCount() > 0) {
+            System.out.println("revenue size:" + unitCursor.getCount());
+            unitCursor.moveToFirst();
+            while (!unitCursor.isAfterLast()) {
+                unitList.add(unitCursor.getString(unitCursor.getColumnIndex(DatabaseHandler.KEY_REVENUEUNIT))); //add the item
+                unitCursor.moveToNext();
+            }
+
+            ArrayAdapter<String> revenueAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simple_spinner_dropdown_item, unitList);
+            revenueAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+//            revenueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerUnitType.setAdapter(revenueAdapter);
+        }
+
+        spinnerUnitType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String unitItem = parent.getItemAtPosition(position).toString();
+
+                unitCursor.moveToFirst();
+                while (!unitCursor.isAfterLast()) {
+                    if (unitCursor.getString(unitCursor.getColumnIndex(DatabaseHandler.KEY_REVENUEUNIT)).equals(unitItem)) {
+                        AppConfig.RevenueRateType = unitCursor.getString(unitCursor.getColumnIndex(DatabaseHandler.KEY_REVENUERATETYPE));
+                        AppConfig.RevenueRate = unitCursor.getString(unitCursor.getColumnIndex(DatabaseHandler.KEY_REVENUERATE));
+                        AppConfig.RevenueRateId = unitCursor.getString(unitCursor.getColumnIndex(DatabaseHandler.KEY_REVENUERATEID));
+                        AppConfig.RevenueUnit = unitItem;
+
+                        edtUnitRate.setText(AppConfig.RevenueRate);
+                        if (AppConfig.RevenueRateType.equals("A")) {
+                            tvPercent.setVisibility(View.GONE);
+                            edtTotalUnit.setText("1");
+                            edtTotalAmount.setText("" + AppConfig.RevenueRate);
+                        } else {
+                            tvPercent.setVisibility(View.VISIBLE);
+                        }
+//                        revenueID = revenueCursor.getInt(revenueCursor.getColumnIndex(DatabaseHandler.KEY_REVENUE_TYPEID));
+//                        instantPay = revenueCursor.getString(revenueCursor.getColumnIndex(DatabaseHandler.KEY_INSTANTPAY));
+                    }
+                    unitCursor.moveToNext();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        edtUnitRate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                edtTotalUnit.setText("");
+                edtTotalAmount.setText("");
+                edtPaidAmount.setText("");
+            }
+        });
+
+        edtTotalUnit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (AppConfig.RevenueRateType.equals("A")) {
+                    try {
+                        double total = Double.parseDouble(edtUnitRate.getText().toString()) * Double.parseDouble(edtTotalUnit.getText().toString());
+                        edtTotalAmount.setText("" + String.format("%.2f", total));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (AppConfig.RevenueRateType.equals("P")) {
+                    try {
+                        double total = Double.parseDouble(edtUnitRate.getText().toString()) * Double.parseDouble(edtTotalUnit.getText().toString());
+                        edtTotalAmount.setText("" + String.format("%.2f", total / 100));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
         Handler mhandler = new Handler() {
             public void handleMessage(Message msg) {
@@ -195,6 +304,7 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
                 super.handleMessage(msg);
             }
         };
+
         printerClass = new PrinterClassSerialPort(mhandler);
         printerClass.open(getActivity());
         return rootView;
