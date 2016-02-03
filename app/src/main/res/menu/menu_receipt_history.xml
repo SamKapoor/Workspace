@@ -6,7 +6,6 @@
 
     <item
         android:id="@+id/action_instant_pay"
-        android:icon="@drawable/ic_action_exit_to_app"
         android:title="Instant Pay"
         app:showAsAction="ifRoom" />
 
