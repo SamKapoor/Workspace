@@ -76,6 +76,7 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
         edtRemarks = (EditText) rootView.findViewById(R.id.customer_receipt_frag_edt_remarks);
 
         btnScanAndPrint = (Button) rootView.findViewById(R.id.customer_receipt_frag_btn_save_print);
+        btnScanAndPrint.setOnClickListener(this);
 
         spinnerUnitType = (Spinner) rootView.findViewById(R.id.customer_receipt_frag_spinner_unit);
 
@@ -84,6 +85,19 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
 
         llBankName.setVisibility(View.GONE);
         llChequeNumber.setVisibility(View.GONE);
+
+        Cursor customerCursor = AppConfig.customerData;
+        String businessName = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_BUSINESSNAME));
+        String customerName = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_CUSTOMERNO));
+        String ownerName = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_OWNERNAME));
+        String businessLicNo = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_BUSINESSLICNO));
+        String tinNo = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_TINNO));
+        String vrnNo = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_VNRNO));
+        String outstanding = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_OUTSTANDINGAMT));
+        String contactNo = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_CONTACTNO));
+
+        tvBusinessName.setText(businessName);
+        tvCustomername.setText(customerName);
 
         radioGroupPaymentType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -106,13 +120,6 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
                 } else if (checkedId == R.id.customer_receipt_frag_rb_remaining) {
 
                 }
-            }
-        });
-
-        btnScanAndPrint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
 
