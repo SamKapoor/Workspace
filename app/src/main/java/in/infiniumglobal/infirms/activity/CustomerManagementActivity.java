@@ -1,28 +1,25 @@
 package in.infiniumglobal.infirms.activity;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
 
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.fragment.CustomerCreditFragment;
+import in.infiniumglobal.infirms.fragment.CustomerDebitFragment;
 import in.infiniumglobal.infirms.fragment.CustomerDetailsFragment;
 import in.infiniumglobal.infirms.fragment.CustomerHistoryFragment;
 import in.infiniumglobal.infirms.fragment.CustomerReceiptFragment;
 import in.infiniumglobal.infirms.fragment.NavigationDrawerFragment;
 import in.infiniumglobal.infirms.utils.AppConfig;
-import in.infiniumglobal.infirms.utils.Common;
 
 public class CustomerManagementActivity extends BaseActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -71,7 +68,7 @@ public class CustomerManagementActivity extends BaseActivity
                 fragment = new CustomerCreditFragment();
                 break;
             case 3:
-                fragment = new CustomerHistoryFragment();
+                fragment = new CustomerDebitFragment();
                 break;
             case 4:
                 fragment = new CustomerHistoryFragment();

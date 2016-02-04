@@ -18,7 +18,7 @@ import in.infiniumglobal.infirms.utils.Common;
 /**
  * Created by Hiral on 1/26/2016.
  */
-public class CustomerCreditFragment extends Fragment implements View.OnClickListener {
+public class CustomerDebitFragment extends Fragment implements View.OnClickListener {
 
     private EditText edtRemarks, edtPaidAmt;
     private TextView tvDate, tvCustomerName, tvTitle;
@@ -31,6 +31,7 @@ public class CustomerCreditFragment extends Fragment implements View.OnClickList
         View rootView = inflater.inflate(R.layout.fragment_customer_credit, container, false);
 
         tvTitle = (TextView) rootView.findViewById(R.id.tvTitle);
+        tvTitle.setText("Debit Note");
         tvCustomerName = (TextView) rootView.findViewById(R.id.customer_receipt_frag_tv_customer_name);
         tvCustomerName.setText(AppConfig.customerData.getString(AppConfig.customerData.getColumnIndex(DatabaseHandler.KEY_CUSTOMERNAME)));
         tvDate = (TextView) rootView.findViewById(R.id.customer_receipt_frag_tv_date);
@@ -57,7 +58,7 @@ public class CustomerCreditFragment extends Fragment implements View.OnClickList
             values.put(DatabaseHandler.KEY_CUSTOMERID, AppConfig.customerID);
             values.put(DatabaseHandler.KEY_REVENUE_TYPEID, AppConfig.revenueID);
             values.put(DatabaseHandler.KEY_ADJUSTMENTDATE, AppConfig.revenueID);
-            values.put(DatabaseHandler.KEY_ADJUSTMENTTYPE, "C");
+            values.put(DatabaseHandler.KEY_ADJUSTMENTTYPE, "D");
             values.put(DatabaseHandler.KEY_CREATEDBY, Common.getStringPrefrences(getActivity(), getString(R.string.pref_userId), getString(R.string.app_name)));
             values.put(DatabaseHandler.KEY_CREATEDDATE, Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
             if (remarks.length() > 0) {
