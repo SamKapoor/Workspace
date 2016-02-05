@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import in.infiniumglobal.infirms.utils.Common;
+
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Database Version
@@ -122,6 +124,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // User Table Columns names
     public static final String KEY_ID = "_id";
     private Context mContext;
+    private String KEY_ISDELETE = "IsDelete";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -233,6 +236,43 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_TBLR_Adjustment, null, null, null, null, null, null, null);
         return cursor;
     }
+
+    public boolean removeOldRecords(String tableName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "";
+        Cursor cursor = null;
+        selectQuery = "SELECT  * FROM " + tableName;
+        cursor = db.rawQuery(selectQuery, null);
+
+        String date, id;
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                date = cursor.getString(cursor.getColumnIndex(KEY_CREATEDDATE));
+                id = cursor.getString(cursor.getColumnIndex(KEY_ID));
+
+                if (Common.compareDates(date) > 1) {
+                    db.delete(tableName, KEY_ID + "=?", new String[]{id});
+                } else {
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_ISDELETE, "D");
+                    db.update(tableName, values, KEY_ID + " = ? ", new String[]{id});
+                }
+                cursor.moveToNext();
+            }
+        }
+        return true;
+    }
+//                if (tableName.equalsIgnoreCase(TABLE_TBLR_RevenueReceipt)) {
+//                } else if (tableName.equalsIgnoreCase(TABLE_TBLR_Adjustment)) {
+//                }
+//        Cursor cursor = db.rawQuery("DELETE FROM " + tableName, null);
+//        if (cursor == null)
+//            return true;
+//        else if (cursor.getCount() == 0)
+//            return true;
+//        else
+//            return false;
 
     public boolean deleteAllRecords(String tableName) {
         SQLiteDatabase db = this.getReadableDatabase();

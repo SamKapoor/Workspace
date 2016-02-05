@@ -257,13 +257,16 @@ public class BaseActivity extends AppCompatActivity {
 
         } else {
             dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLA_User);
-            dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Adjustment);
             dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Area);
             dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Location);
             dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueCustomer);
             dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueRate);
-            dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueReceipt);
             dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueType);
+//            dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Adjustment);
+//            dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueReceipt);
+            dbHandler.removeOldRecords(DatabaseHandler.TABLE_TBLR_Adjustment);
+            dbHandler.removeOldRecords(DatabaseHandler.TABLE_TBLR_RevenueReceipt);
+
             getUsers();
         }
 

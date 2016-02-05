@@ -93,6 +93,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -1249,7 +1250,7 @@ public class Common {
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
 //                Log.d(IMAGE_DIRECTORY_NAME, "Oops! Failed create "
-                  //      + IMAGE_DIRECTORY_NAME + " directory");
+                //      + IMAGE_DIRECTORY_NAME + " directory");
                 return null;
             }
         }
@@ -1697,6 +1698,30 @@ public class Common {
     }
 
 
+    /**
+     * get difference from current date
+     *
+     * @return
+     */
+    public static long compareDates(String strPrevDate) {
+        String strCurrentDate = getCurrentDate("yyyy-MM-dd hh:mm:ss");
+        System.out.println("dates to compare: " + strPrevDate + " : current: " + strCurrentDate);
+        long diff = 0;
+        long days = 0;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date convertedCurrDate = new Date();
+        Date convertedPrevDate = new Date();
+        try {
+            convertedCurrDate = dateFormat.parse(strCurrentDate);
+            convertedPrevDate = dateFormat.parse(strPrevDate);
+            diff = Math.abs(convertedCurrDate.getTime() - convertedPrevDate.getTime());
+            days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+            System.out.println("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return days;
+    }
 }
 
 
