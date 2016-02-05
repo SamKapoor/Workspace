@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -238,7 +237,7 @@ public class BaseActivity extends AppCompatActivity {
             try {
                 while (!adjustmentCursor.isAfterLast()) {
                     JSONObject adjustmentObject = new JSONObject();
-                    adjustmentObject.put("AdjustmentId", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_ADJUSTMENTID)));
+                    adjustmentObject.put("AdjustmentId", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_ID)));
                     adjustmentObject.put("CustomerId", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_CUSTOMERID)));
                     adjustmentObject.put("RevenueTypeId", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_REVENUE_TYPEID)));
                     adjustmentObject.put("AdjustmentDate", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_ADJUSTMENTDATE)));
@@ -549,7 +548,7 @@ public class BaseActivity extends AppCompatActivity {
                         try {
                             while (!adjustmentCursor.isAfterLast()) {
                                 JSONObject adjustmentObject = new JSONObject();
-                                adjustmentObject.put("AdjustmentId", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_ADJUSTMENTID)));
+                                adjustmentObject.put("AdjustmentId", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_ID)));
                                 adjustmentObject.put("CustomerId", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_CUSTOMERID)));
                                 adjustmentObject.put("RevenueTypeId", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_REVENUE_TYPEID)));
                                 adjustmentObject.put("AdjustmentDate", adjustmentCursor.getString(adjustmentCursor.getColumnIndex(DatabaseHandler.KEY_ADJUSTMENTDATE)));
