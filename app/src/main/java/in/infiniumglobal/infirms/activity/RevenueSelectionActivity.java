@@ -3,9 +3,6 @@ package in.infiniumglobal.infirms.activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +15,6 @@ import java.util.ArrayList;
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
 import in.infiniumglobal.infirms.utils.AppConfig;
-import in.infiniumglobal.infirms.utils.Common;
 
 public class RevenueSelectionActivity extends BaseActivity {
 
@@ -115,15 +111,15 @@ public class RevenueSelectionActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (areaCursor != null && locationCursor != null && revenueCursor != null && areaCursor.getCount() > 0 && locationCursor.getCount() > 0 && revenueCursor.getCount() > 0) {
-//                    if (AppConfig.revenueItem.equalsIgnoreCase("PARKING")) {
-                    startActivity(new Intent(RevenueSelectionActivity.this, InstantPayActivity.class));
-//                    finish();
-//                    } else if (instantPay.equals("Y")) {
-//                        startActivity(new Intent(RevenueSelectionActivity.this, InstantPayActivity.class));
-//                    } else {
-//                        startActivity(new Intent(RevenueSelectionActivity.this, CustomerSearchActivity.class));
+                    if (AppConfig.revenueItem.equalsIgnoreCase("PARKING")) {
+                        startActivity(new Intent(RevenueSelectionActivity.this, InstantPayActivity.class));
 //                        finish();
-//                    }
+                    } else if (instantPay.equals("Y")) {
+                        startActivity(new Intent(RevenueSelectionActivity.this, InstantPayActivity.class));
+                    } else {
+                        startActivity(new Intent(RevenueSelectionActivity.this, CustomerSearchActivity.class));
+//                        finish();
+                    }
                 } else {
                     Toast.makeText(RevenueSelectionActivity.this, "Please sync..", Toast.LENGTH_SHORT).show();
                 }

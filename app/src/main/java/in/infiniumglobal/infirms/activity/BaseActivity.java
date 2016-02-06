@@ -593,4 +593,31 @@ public class BaseActivity extends AppCompatActivity {
     };
 
 
+    private String getReceiptNo(String devicecode, String revenuecode, String receiptcode) {
+
+        //Parameter value like devicecode="01",  revenuecode="02",  receiptcode="010216027002513"
+
+        String date = Common.getCurrentDate("yyMM");
+        String tReceiptCode = "";
+        String ttReceiptCode = "";
+
+
+//        year = DateTime.Now.Date.ToString("yy"); //Result:16, Description : 16 is current year
+//        month = DateTime.Now.Date.ToString("MM"); //Result:02, Description : 02 is current month with 2 digit
+        tReceiptCode = devicecode + revenuecode + date; //Result:01021602,
+
+
+        ttReceiptCode = receiptcode.substring(0, 8); //Result:01021602,Description :Receipt first 8 chars
+        if (tReceiptCode.equals(ttReceiptCode)) {
+            // compare
+            int temp = Integer.parseInt(receiptcode.substring(receiptcode.length() - 7)) + 1; //Result:7002513+1=7002514
+            String stemp = "000000" + temp; //Result:0000007002514
+            stemp = stemp.substring(stemp.length() - 7, 7); // Result: 7002514 ,Description : get last 7 chars
+            receiptcode = devicecode + revenuecode + date + stemp;//Result:010216027002514
+        } else {
+            receiptcode = devicecode + revenuecode + date + "0000001";
+        }
+        return receiptcode;
+    }
+
 }

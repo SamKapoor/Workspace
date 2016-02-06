@@ -32,7 +32,7 @@ public class CustomerCreditFragment extends Fragment implements View.OnClickList
 
         tvTitle = (TextView) rootView.findViewById(R.id.tvTitle);
         tvCustomerName = (TextView) rootView.findViewById(R.id.customer_receipt_frag_tv_customer_name);
-        tvCustomerName.setText(AppConfig.customerData.getString(AppConfig.customerData.getColumnIndex(DatabaseHandler.KEY_CUSTOMERNAME)));
+        tvCustomerName.setText(AppConfig.customerData.getString(AppConfig.customerData.getColumnIndex(DatabaseHandler.KEY_OWNERNAME)));
         tvDate = (TextView) rootView.findViewById(R.id.customer_receipt_frag_tv_date);
         tvDate.setText(Common.getCurrentDate("dd-MM-yy hh:mm"));
         edtPaidAmt = (EditText) rootView.findViewById(R.id.customer_receipt_frag_edt_paid_amount);

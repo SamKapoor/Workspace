@@ -35,6 +35,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String TABLE_TBLR_RevenueCustomer = "TBLR_RevenueCustomer";
     public static final String TABLE_TBLR_RevenueReceipt = "TBLR_RevenueReceipt";
     public static final String TABLE_TBLR_Adjustment = "TBLR_Adjustment";
+    public static final String TABLE_TBLB_Company = "TBLB_Company";
 
     //    TBLA_User
     public static final String KEY_USERID = "UserID";
@@ -125,6 +126,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String KEY_ID = "_id";
     private Context mContext;
     private String KEY_ISDELETE = "IsDelete";
+
+
+    // Table TBLB_Company
+
+    public static final String KEY_CompID = "CompID";
+    public static final String KEY_CompDisplayName = "CompDisplayName";
+    public static final String KEY_CompAddress = "CompAddress";
+    public static final String KEY_CompPhone1 = "CompPhone1";
+    public static final String KEY_CompEmail = "CompEmail";
+    public static final String KEY_CompLogo = "CompLogo";
+    public static final String KEY_DeviceCode = "DeviceCode";
+    public static final String KEY_DeviceUID = "DeviceUID";
+
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

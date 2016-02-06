@@ -324,3 +324,27 @@ INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[Revenue
 INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (47,47,53,'PER SQUARE METER','A',NULL )
 INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (48,48,39,'GOAT OR SHEEP','A','1500.00' )
 INSERT INTO  [TBLR_RevenueRate] ([_id] ,[RevenueRateId],[RevenueTypeId],[RevenueUnit],[RevenueRateType],[RevenueRate]) VALUES (49,49,40,' GOAT OR SHEEP','A','1000.00' )
+
+
+
+
+
+
+
+
+  Create Table TBLB_Company
+
+CompID                int
+
+CompDisplayName         varchar(250)
+
+CompAddress   varchar(300)
+
+CompPhone1    varchar(20)
+
+CompEmail         varchar(100)
+
+CompLogo          varchar (200)
+
+       DeviceCode varchar(5)
+       DeviceUID     varchar(50)
