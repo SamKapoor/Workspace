@@ -400,7 +400,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
             printing += "\n\t\t" + AppConfig.revenueItem.toUpperCase();
 
             printing += "\n________________________\n";
-            printing += "\nRECEIPT NO:" + receiptNo + "  " + Common.getCurrentDate("dd-MM-yy hh:mm");
+            printing += "\nRECEIPT NO:" + receiptNo + " \n" + Common.getCurrentDate("dd-MM-yy hh:mm");
             if (name.length() > 0)
                 printing += "\n\t\t" + name.toUpperCase();
 

@@ -90,7 +90,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -1753,9 +1752,13 @@ public class Common {
         try {
             convertedCurrDate = dateFormat.parse(strCurrentDate);
             convertedPrevDate = dateFormat.parse(strPrevDate);
-            diff = Math.abs(convertedCurrDate.getTime() - convertedPrevDate.getTime());
-            days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-            System.out.println("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+            if (convertedCurrDate.getDate() == convertedPrevDate.getDate())
+                return 0;
+            else
+                return 2;
+//            diff = Math.abs(convertedCurrDate.getTime() - convertedPrevDate.getTime());
+//            days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+//            System.out.println("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
         } catch (ParseException e) {
             e.printStackTrace();
         }

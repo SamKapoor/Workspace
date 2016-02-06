@@ -49,6 +49,11 @@ public class CustomerManagementActivity extends BaseActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         getSupportActionBar().setTitle(AppConfig.revenueItem);
+//        int upId = Resources.getSystem().getIdentifier("up", "id", "android");
+//        if (upId > 0) {
+//            ImageView up = (ImageView) findViewById(upId);
+//            up.setImageResource(R.drawable.ic_navigation_menu);
+//        }
     }
 
     @Override
