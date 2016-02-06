@@ -3,12 +3,12 @@ package in.infiniumglobal.infirms.client;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -69,6 +69,7 @@ public class MyClientPost extends AsyncTask<Map<String, Object>, String, String>
             String serverUrl = (String) passed_params.get("url");
 //            Log.v("TAG", "API url: " + serverUrl);
             serverUrl = serverUrl.replace(" ", "%20");
+            Log.e("URL: ", serverUrl);
             // parameter data to send
             @SuppressWarnings("unchecked")
             Map<String, String> methodParameter = (Map<String, String>) passed_params.get("method_parameters");
@@ -92,6 +93,7 @@ public class MyClientPost extends AsyncTask<Map<String, Object>, String, String>
                 HttpResponse response = client.execute(post);
                 HttpEntity resp_entity = response.getEntity();
                 result = EntityUtils.toString(resp_entity);
+                Log.e("URL: ", result);
                 // System.out.println("result in post 80: "+result);
                 if (response.getStatusLine().getStatusCode() != 200) {
 //                    Log.v("TAG", "post  status code " + response.getStatusLine().getStatusCode());

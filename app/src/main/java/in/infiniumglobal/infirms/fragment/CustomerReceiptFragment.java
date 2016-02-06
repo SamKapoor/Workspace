@@ -25,6 +25,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import in.infiniumglobal.infirms.R;
+import in.infiniumglobal.infirms.activity.BaseActivity;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
 import in.infiniumglobal.infirms.utils.AppConfig;
 import in.infiniumglobal.infirms.utils.Common;
@@ -338,6 +339,10 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
                 return;
             }
 
+            String receiptNo = BaseActivity.getReceiptNo(AppConfig.DeviceCode, AppConfig.revenueCode, AppConfig.receiptCode);
+            receiptValues.put(DatabaseHandler.KEY_RECEIPTNO, receiptNo);
+            AppConfig.receiptCode = receiptNo;
+
             if (unitRate.length() == 0) {
                 Common.showAlertDialog(getActivity(), "", "Please enter Unit rate.", true);
                 return;
@@ -369,7 +374,7 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
             receiptValues.put(DatabaseHandler.KEY_TOTALUNIT, totalUnit);
             receiptValues.put(DatabaseHandler.KEY_TOTALAMOUNT, totalAmount);
             receiptValues.put(DatabaseHandler.KEY_PAIDAMOUNT, paidAmount);
-
+            receiptValues.put(DatabaseHandler.KEY_DeviceCode, AppConfig.DeviceCode);
 
             if (llBankName.getVisibility() == View.VISIBLE) {
                 String chequeNumber = edtChequeNumber.getText().toString().trim();
@@ -407,8 +412,12 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
 
             DatabaseHandler dbHandler = DatabaseHandler.getInstance(getActivity());
 
+            ContentValues values = new ContentValues();
+            values.put(DatabaseHandler.KEY_RECEIPTCODE, receiptNo);
+            dbHandler.updateRevenues(AppConfig.revenueID + "", values);
+
             long rowId = dbHandler.addData(DatabaseHandler.TABLE_TBLR_RevenueReceipt, receiptValues);
-            Common.showAlertDialog(getActivity(), "", "Data saved. " + rowId, true);
+            Common.showAlertDialog(getActivity(), "", "Data saved. " + receiptNo, true);
 
             String printing = "";
             printing += "NYANG'HWALE DISTRICT COUNCIL";
@@ -417,7 +426,7 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
             printing += "\n\t\t" + AppConfig.revenueItem.toUpperCase();
 
             printing += "\n________________________\n";
-            printing += "\nRECEIPT NO:" + rowId + "  " + Common.getCurrentDate("dd-MM-yy hh:mm");
+            printing += "\nRECEIPT NO:" + receiptNo + "  " + Common.getCurrentDate("dd-MM-yy hh:mm");
             if (businessName.length() > 0)
                 printing += "\n\t\t" + businessName.toUpperCase();
             if (customerName.length() > 0)
@@ -444,7 +453,7 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
                 AppConfig.PrintText = printing;
                 boolean printed = printerClass.printText(printing);
                 Common.showAlertDialog(getActivity(), "", "Printed . " + printed, true);
-                btnRePrint.setVisibility(View.VISIBLE);
+                btnRePrint.setVisibility(View.GONE);
             }
 
             tvReceiptDate.setText(Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));

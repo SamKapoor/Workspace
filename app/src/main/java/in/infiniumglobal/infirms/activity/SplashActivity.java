@@ -1,14 +1,23 @@
 package in.infiniumglobal.infirms.activity;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import android.provider.Settings;
 import android.view.Window;
 import android.view.WindowManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import in.infiniumglobal.infirms.R;
+import in.infiniumglobal.infirms.client.MyClientGet;
+import in.infiniumglobal.infirms.db.DatabaseHandler;
+import in.infiniumglobal.infirms.utils.AppConfig;
 import in.infiniumglobal.infirms.utils.Common;
 
 /**
@@ -17,6 +26,8 @@ import in.infiniumglobal.infirms.utils.Common;
 
 public class SplashActivity extends Activity {
 
+    private MyClientGet myclientget;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +35,29 @@ public class SplashActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splashscreen);
 
+        AppConfig.ANDROID_ID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        DatabaseHandler dbHandler = DatabaseHandler.getInstance(this);
+        Cursor company = dbHandler.getCompany();
+        if (company != null && company.getCount() > 0) {
+            company.moveToFirst();
+            AppConfig.DeviceCode = company.getString(company.getColumnIndex(DatabaseHandler.KEY_DeviceCode));
+            executeSplash();
+        } else {
+            if (Common.isNetworkAvailable(this)) {
+                dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLB_Company);
+                getCompany();
+            } else {
+                Intent mIntent;
+                mIntent = new Intent(SplashActivity.this, LoginActivity.class);
+                mIntent.putExtra("showId", true);
+                startActivity(mIntent);
+                finish();
+            }
+        }
+    }
+
+    private void executeSplash() {
         new Handler().postDelayed(new Runnable() {
 
             @Override
@@ -39,4 +73,61 @@ public class SplashActivity extends Activity {
             }
         }, 3000);
     }
+
+
+    public void getCompany() {
+        myclientget = new MyClientGet(SplashActivity.this, "", onCompanySyncComplete);
+        myclientget.execute(getResources().getString(R.string.api_master) + "Company?DeviceUID=" + AppConfig.ANDROID_ID);
+    }
+
+    MyClientGet.OnGetCallComplete onCompanySyncComplete = new MyClientGet.OnGetCallComplete() {
+        @Override
+        public void response(String result) {
+            try {
+                JSONObject jobj = new JSONObject(result);
+                String response_code = jobj.getString("result");
+                if (response_code.equals("1")) {
+                    JSONArray userArray = new JSONArray();
+                    userArray = jobj.getJSONArray("detail");
+                    JSONObject userJsonObject;
+                    DatabaseHandler dbHandler = DatabaseHandler.getInstance(SplashActivity.this);
+                    ContentValues contentValues;
+
+                    if (userArray.length() > 0) {
+                        for (int i = 0; i < userArray.length(); i++) {
+                            userJsonObject = userArray.getJSONObject(i);
+                            contentValues = new ContentValues();
+                            contentValues.put(DatabaseHandler.KEY_CompID, userJsonObject.optString(DatabaseHandler.KEY_CompID));
+                            contentValues.put(DatabaseHandler.KEY_CompDisplayName, userJsonObject.optString(DatabaseHandler.KEY_CompDisplayName));
+                            contentValues.put(DatabaseHandler.KEY_CompAddress, userJsonObject.optString(DatabaseHandler.KEY_CompAddress));
+                            contentValues.put(DatabaseHandler.KEY_CompPhone1, userJsonObject.optString(DatabaseHandler.KEY_CompPhone1));
+                            contentValues.put(DatabaseHandler.KEY_CompEmail, userJsonObject.optString(DatabaseHandler.KEY_CompEmail));
+                            contentValues.put(DatabaseHandler.KEY_CompLogo, userJsonObject.optString(DatabaseHandler.KEY_CompLogo));
+                            contentValues.put(DatabaseHandler.KEY_DeviceCode, userJsonObject.optString(DatabaseHandler.KEY_DeviceCode));
+                            contentValues.put(DatabaseHandler.KEY_DeviceUID, AppConfig.ANDROID_ID);
+                            AppConfig.DeviceCode = userJsonObject.optString(DatabaseHandler.KEY_DeviceCode);
+                            long response = dbHandler.addData(DatabaseHandler.TABLE_TBLB_Company, contentValues);
+                            System.out.println("response user:" + response);
+                            executeSplash();
+                        }
+                    } else {
+                        Intent mIntent;
+                        mIntent = new Intent(SplashActivity.this, LoginActivity.class);
+                        mIntent.putExtra("showId", true);
+                        startActivity(mIntent);
+                        finish();
+                    }
+                } else {
+                    Intent mIntent;
+                    mIntent = new Intent(SplashActivity.this, LoginActivity.class);
+                    mIntent.putExtra("showId", true);
+                    startActivity(mIntent);
+                    finish();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
 }

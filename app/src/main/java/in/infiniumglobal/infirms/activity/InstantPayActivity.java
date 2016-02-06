@@ -1,17 +1,13 @@
 package in.infiniumglobal.infirms.activity;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
@@ -340,12 +335,19 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
             if (!name.isEmpty())
                 receiptValues.put(DatabaseHandler.KEY_CUSTOMERNAME, name);
 
+
+            String receiptNo = getReceiptNo(AppConfig.DeviceCode, AppConfig.revenueCode, AppConfig.receiptCode);
+            receiptValues.put(DatabaseHandler.KEY_RECEIPTNO, receiptNo);
+            AppConfig.receiptCode = receiptNo;
+
+
             receiptValues.put(DatabaseHandler.KEY_RRECEIPTDATE, Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
             receiptValues.put(DatabaseHandler.KEY_REVENUERATEID, AppConfig.RevenueRateId);
             receiptValues.put(DatabaseHandler.KEY_REVENUERATE, unitRate);
             receiptValues.put(DatabaseHandler.KEY_TOTALUNIT, totalUnit);
             receiptValues.put(DatabaseHandler.KEY_TOTALAMOUNT, totalAmount);
             receiptValues.put(DatabaseHandler.KEY_PAIDAMOUNT, paidAmount);
+            receiptValues.put(DatabaseHandler.KEY_DeviceCode, AppConfig.DeviceCode);
 
 
             if (llBankName.getVisibility() == View.VISIBLE) {
@@ -384,8 +386,12 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
 
             DatabaseHandler dbHandler = DatabaseHandler.getInstance(InstantPayActivity.this);
 
+            ContentValues values = new ContentValues();
+            values.put(DatabaseHandler.KEY_RECEIPTCODE, receiptNo);
+            dbHandler.updateRevenues(AppConfig.revenueID + "", values);
+
             long rowId = dbHandler.addData(DatabaseHandler.TABLE_TBLR_RevenueReceipt, receiptValues);
-            Common.showAlertDialog(this, "", "Data saved. " + rowId, true);
+            Common.showAlertDialog(this, "", "Data saved. " + receiptNo, true);
 
             String printing = "";
             printing += "NYANG'HWALE DISTRICT COUNCIL";
@@ -394,7 +400,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
             printing += "\n\t\t" + AppConfig.revenueItem.toUpperCase();
 
             printing += "\n________________________\n";
-            printing += "\nRECEIPT NO:" + rowId + "  " + Common.getCurrentDate("dd-MM-yy hh:mm");
+            printing += "\nRECEIPT NO:" + receiptNo + "  " + Common.getCurrentDate("dd-MM-yy hh:mm");
             if (name.length() > 0)
                 printing += "\n\t\t" + name.toUpperCase();
 
@@ -419,7 +425,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
                 AppConfig.PrintText = printing;
                 boolean printed = printerClass.printText(printing);
                 Common.showAlertDialog(this, "", "Printed . " + printed, true);
-                btnRePrint.setVisibility(View.VISIBLE);
+                btnRePrint.setVisibility(View.GONE);
             }
 
             tvReceiptDate.setText(Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));

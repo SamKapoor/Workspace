@@ -84,4 +84,14 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:textColor="@color/color_darkblue"
+        android:text="© All Rights Reserved By Infinium Global Solutions \nVersion 1.0.0.0" />
+
 </RelativeLayout>

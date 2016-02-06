@@ -20,4 +20,8 @@ public class AppConfig {
     public static String RevenueRateId = "";
     public static String RevenueUnit = "";
     public static String PrintText = "";
+    public static String ANDROID_ID;
+    public static String DeviceCode = "";
+    public static String revenueCode = "";
+    public static String receiptCode = "";
 }

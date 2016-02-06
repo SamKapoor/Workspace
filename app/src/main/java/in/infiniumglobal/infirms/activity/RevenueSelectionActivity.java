@@ -83,8 +83,7 @@ public class RevenueSelectionActivity extends BaseActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String revenueItem = parent.getItemAtPosition(position).toString();
                 revenueID = getRevenueIdFromCursor(revenueItem);
-                AppConfig.revenueID = revenueID;
-                AppConfig.revenueItem = revenueItem;
+
             }
 
             @Override
@@ -111,10 +110,11 @@ public class RevenueSelectionActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (areaCursor != null && locationCursor != null && revenueCursor != null && areaCursor.getCount() > 0 && locationCursor.getCount() > 0 && revenueCursor.getCount() > 0) {
-                    if (AppConfig.revenueItem.equalsIgnoreCase("PARKING")) {
+                   /* if (AppConfig.revenueItem.equalsIgnoreCase("PARKING")) {
                         startActivity(new Intent(RevenueSelectionActivity.this, InstantPayActivity.class));
 //                        finish();
-                    } else if (instantPay.equals("Y")) {
+                    } else */
+                    if (instantPay.equals("true")) {
                         startActivity(new Intent(RevenueSelectionActivity.this, InstantPayActivity.class));
                     } else {
                         startActivity(new Intent(RevenueSelectionActivity.this, CustomerSearchActivity.class));
@@ -131,9 +131,13 @@ public class RevenueSelectionActivity extends BaseActivity {
         int revenueID = 0;
         revenueCursor.moveToFirst();
         while (!revenueCursor.isAfterLast()) {
-            if (revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME)).equals(item)) {
-                revenueID = revenueCursor.getInt(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_TYPEID));
-                instantPay = revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_INSTANTPAY));
+            if (revenueCursor.getString(revenueCursor.getColumnIndex(DatabaseHandler.KEY_REVENUE_NAME)).equals(item)) {
+                revenueID = revenueCursor.getInt(revenueCursor.getColumnIndex(DatabaseHandler.KEY_REVENUE_TYPEID));
+                instantPay = revenueCursor.getString(revenueCursor.getColumnIndex(DatabaseHandler.KEY_INSTANTPAY));
+                AppConfig.revenueID = revenueID;
+                AppConfig.revenueItem = item;
+                AppConfig.revenueCode = revenueCursor.getString(revenueCursor.getColumnIndex(DatabaseHandler.KEY_REVENUECODE));
+                AppConfig.receiptCode = revenueCursor.getString(revenueCursor.getColumnIndex(DatabaseHandler.KEY_RECEIPTCODE));
             }
             revenueCursor.moveToNext();
         }
@@ -146,8 +150,8 @@ public class RevenueSelectionActivity extends BaseActivity {
         int areaID = 0;
         areaCursor.moveToFirst();
         while (!areaCursor.isAfterLast()) {
-            if (areaCursor.getString(areaCursor.getColumnIndex(dbHandler.KEY_AREANAME)).equals(item)) {
-                areaID = areaCursor.getInt(areaCursor.getColumnIndex(dbHandler.KEY_AREAID));
+            if (areaCursor.getString(areaCursor.getColumnIndex(DatabaseHandler.KEY_AREANAME)).equals(item)) {
+                areaID = areaCursor.getInt(areaCursor.getColumnIndex(DatabaseHandler.KEY_AREAID));
             }
             areaCursor.moveToNext();
         }
@@ -159,8 +163,8 @@ public class RevenueSelectionActivity extends BaseActivity {
         int locationID = 0;
         locationCursor.moveToFirst();
         while (!locationCursor.isAfterLast()) {
-            if (locationCursor.getString(locationCursor.getColumnIndex(dbHandler.KEY_LOCATIONNAME)).equals(item)) {
-                locationID = locationCursor.getInt(locationCursor.getColumnIndex(dbHandler.KEY_LOCATIONID));
+            if (locationCursor.getString(locationCursor.getColumnIndex(DatabaseHandler.KEY_LOCATIONNAME)).equals(item)) {
+                locationID = locationCursor.getInt(locationCursor.getColumnIndex(DatabaseHandler.KEY_LOCATIONID));
             }
             locationCursor.moveToNext();
         }
@@ -175,7 +179,7 @@ public class RevenueSelectionActivity extends BaseActivity {
             System.out.println("area size:" + areaCursor.getCount());
             areaCursor.moveToFirst();
             while (!areaCursor.isAfterLast()) {
-                areaList.add(areaCursor.getString(areaCursor.getColumnIndex(dbHandler.KEY_AREANAME))); //add the item
+                areaList.add(areaCursor.getString(areaCursor.getColumnIndex(DatabaseHandler.KEY_AREANAME))); //add the item
                 areaCursor.moveToNext();
             }
 
@@ -194,7 +198,7 @@ public class RevenueSelectionActivity extends BaseActivity {
             System.out.println("revenue size:" + revenueCursor.getCount());
             revenueCursor.moveToFirst();
             while (!revenueCursor.isAfterLast()) {
-                revenueList.add(revenueCursor.getString(revenueCursor.getColumnIndex(dbHandler.KEY_REVENUE_NAME))); //add the item
+                revenueList.add(revenueCursor.getString(revenueCursor.getColumnIndex(DatabaseHandler.KEY_REVENUE_NAME))); //add the item
                 revenueCursor.moveToNext();
             }
 
@@ -217,7 +221,7 @@ public class RevenueSelectionActivity extends BaseActivity {
             locationCursor.moveToFirst();
             locationList.clear();
             while (!locationCursor.isAfterLast()) {
-                locationList.add(locationCursor.getString(locationCursor.getColumnIndex(dbHandler.KEY_LOCATIONNAME))); //add the item
+                locationList.add(locationCursor.getString(locationCursor.getColumnIndex(DatabaseHandler.KEY_LOCATIONNAME))); //add the item
                 locationCursor.moveToNext();
             }
 

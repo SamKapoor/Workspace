@@ -13,7 +13,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
-import android.bluetooth.BluetoothAdapter;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -44,7 +43,6 @@ import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -59,7 +57,6 @@ import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Patterns;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -1207,9 +1204,51 @@ public class Common {
                 alertDialog.setTitle(title);
                 // Setting Dialog Message
                 alertDialog.setMessage(message);
+                alertDialog.setCancelable(false);
+                alertDialog.setCanceledOnTouchOutside(false);
                 // Setting OK Button
                 alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                // Showing Alert Message
+                alertDialog.show();
+            }
+        }
+    }
+
+    /**
+     * Function to display simple Alert Dialog or Toast
+     *
+     * @param context - application context
+     * @param title   - alert dialog title
+     * @param message - alert message
+     * @param toast   - show as toast or dialog
+     */
+    public static void showAlertDialog(final Context context, String title, String message, boolean toast, final boolean finishActivity) {
+        if (message.length() == 0) {
+            message = "Something went wrong. Please try again.";
+        }
+        if (toast) {
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        } else {
+
+            AlertDialog alertDialog = null;
+            if (!((Activity) context).isFinishing()) {
+                if (alertDialog == null)
+                    alertDialog = new AlertDialog.Builder(context).create();
+                // Setting Dialog Title
+                alertDialog.setTitle(title);
+                // Setting Dialog Message
+                alertDialog.setMessage(message);
+                alertDialog.setCancelable(false);
+                alertDialog.setCanceledOnTouchOutside(false);
+                // Setting OK Button
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (finishActivity)
+                            ((Activity) context).finish();
                         dialog.dismiss();
                     }
                 });

@@ -29,6 +29,7 @@ import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.client.MyClientGet;
 import in.infiniumglobal.infirms.client.MyClientPost;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
+import in.infiniumglobal.infirms.utils.AppConfig;
 import in.infiniumglobal.infirms.utils.Common;
 
 /**
@@ -215,6 +216,7 @@ public class BaseActivity extends AppCompatActivity {
                     receiptObject.put("CreatedDate", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_CREATEDDATE)));
                     receiptObject.put("LocationId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_LOCATIONID)));
                     receiptObject.put("AreaId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_AREAID)));
+                    receiptObject.put(DatabaseHandler.KEY_DeviceCode, receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_DeviceCode)));
 //                receiptObject.put("", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.)));
                     receiptArray.put(receiptObject);
                     receiptCursor.moveToNext();
@@ -272,6 +274,7 @@ public class BaseActivity extends AppCompatActivity {
 
 
     }
+
 
     private void getUsers() {
         myclientget = new MyClientGet(context, "", onUserSyncComplete);
@@ -380,7 +383,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private void getRevenueType() {
         myclientget = new MyClientGet(context, "", onRevenueSyncComplete);
-        myclientget.execute(getResources().getString(R.string.api_master) + "RevenueType");
+        myclientget.execute(getResources().getString(R.string.api_master) + "RevenueType?DeviceCode=" + AppConfig.DeviceCode);
     }
 
     MyClientGet.OnGetCallComplete onRevenueSyncComplete = new MyClientGet.OnGetCallComplete() {
@@ -405,7 +408,9 @@ public class BaseActivity extends AppCompatActivity {
                         contentValues.put(DatabaseHandler.KEY_REVENUETYPEID, revenueJsonObject.optString("RevenueTypeId"));
                         contentValues.put(DatabaseHandler.KEY_REVENUENAME, revenueJsonObject.optString("RevenueName"));
                         contentValues.put(DatabaseHandler.KEY_RECEIPTTYPE, revenueJsonObject.optString("ReceiptType"));
-                        contentValues.put(DatabaseHandler.KEY_INSTANTPAY, revenueJsonObject.optString(""));
+                        contentValues.put(DatabaseHandler.KEY_INSTANTPAY, revenueJsonObject.optString("InstantReceipt"));
+                        contentValues.put(DatabaseHandler.KEY_REVENUECODE, revenueJsonObject.optString(DatabaseHandler.KEY_REVENUECODE));
+                        contentValues.put(DatabaseHandler.KEY_RECEIPTCODE, revenueJsonObject.optString("ReceiptNo"));
                         long response = dbHandler.addData(DatabaseHandler.TABLE_TBLR_RevenueType, contentValues);
                         System.out.println("response revenuetype:" + response);
                     }
@@ -570,13 +575,16 @@ public class BaseActivity extends AppCompatActivity {
                         }
                     } else {
                         dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLA_User);
-                        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Adjustment);
                         dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Area);
                         dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Location);
                         dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueCustomer);
                         dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueRate);
-                        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueReceipt);
+//                        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueReceipt);
+//                        dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_Adjustment);
                         dbHandler.deleteAllRecords(DatabaseHandler.TABLE_TBLR_RevenueType);
+
+                        dbHandler.removeOldRecords(DatabaseHandler.TABLE_TBLR_Adjustment);
+                        dbHandler.removeOldRecords(DatabaseHandler.TABLE_TBLR_RevenueReceipt);
                         getUsers();
                     }
 
@@ -593,7 +601,7 @@ public class BaseActivity extends AppCompatActivity {
     };
 
 
-    private String getReceiptNo(String devicecode, String revenuecode, String receiptcode) {
+    public static String getReceiptNo(String devicecode, String revenuecode, String receiptcode) {
 
         //Parameter value like devicecode="01",  revenuecode="02",  receiptcode="010216027002513"
 

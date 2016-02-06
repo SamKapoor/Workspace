@@ -47,6 +47,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String KEY_REVENUE_TYPEID = "RevenueTypeId";
     public static final String KEY_REVENUE_NAME = "RevenueName";
     public static final String KEY_REVENUE_TYPE = "ReceiptType";
+    public static final String KEY_REVENUECODE = "RevenueCode";
+    public static final String KEY_RECEIPTCODE = "ReceiptCode";
 
     //TBLR_Area
     public static final String KEY_AREAID = "AreaId";
@@ -207,6 +209,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return -1;
     }
 
+    public Cursor getCompany() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TBLB_Company, null, null, null, null, null, null, null);
+        return cursor;
+    }
+
     public Cursor getAreas() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_TBLR_Area, null, null, null, null, null, null, null);
@@ -231,6 +239,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT  * FROM " + TABLE_TBLR_RevenueType;
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
+    }
+
+    public int updateRevenues(String revenueID, ContentValues values) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int count = db.update(TABLE_TBLR_RevenueType, values, KEY_REVENUE_TYPEID + "=?", new String[]{revenueID});
+        return count;
     }
 
     public Cursor getUnitType(int revenueID) {

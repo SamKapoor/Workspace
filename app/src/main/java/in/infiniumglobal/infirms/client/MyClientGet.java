@@ -3,6 +3,7 @@ package in.infiniumglobal.infirms.client;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import in.infiniumglobal.infirms.utils.Common;
 
@@ -25,8 +26,8 @@ public class MyClientGet extends AsyncTask<String, String, String> {
         this.context = ctx;
         this.ongetcallcomplete = onGetCallComplete;
         if (!(message.equals(""))) {
-        dialog = new ProgressDialog(ctx);
-        dialog.setMessage("Loading...");
+            dialog = new ProgressDialog(ctx);
+            dialog.setMessage("Loading...");
         }
     }
 
@@ -34,8 +35,8 @@ public class MyClientGet extends AsyncTask<String, String, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         if (!(message.equals(""))) {
-        dialog.setCancelable(false);
-        dialog.show();
+            dialog.setCancelable(false);
+            dialog.show();
         }
     }
 
@@ -46,6 +47,7 @@ public class MyClientGet extends AsyncTask<String, String, String> {
             String serverurl = params[0];
 //            Log.v("TAG", "API url: " + serverurl);
             serverurl = serverurl.replace(" ", "%20");
+            Log.e("URL: ", serverurl);
             result = Common.NetworkOperation(serverurl);
         }
         return result;
@@ -54,11 +56,12 @@ public class MyClientGet extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
+        Log.e("URL: ", result);
         if (!(message.equals(""))) {
-        if (dialog != null) {
-            dialog.hide();
-            dialog.dismiss();
-        }
+            if (dialog != null) {
+                dialog.hide();
+                dialog.dismiss();
+            }
         }
 //        Log.v("TAG", "Result: " + result);
         ongetcallcomplete.response(result.replace("null", "\"\""));

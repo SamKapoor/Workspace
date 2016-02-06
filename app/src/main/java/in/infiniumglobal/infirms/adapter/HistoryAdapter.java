@@ -10,10 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import in.infiniumglobal.infirms.R;
-import in.infiniumglobal.infirms.activity.ReceiptHistoryActivity;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
 import in.infiniumglobal.infirms.utils.AppConfig;
-import in.infiniumglobal.infirms.utils.Common;
 
 
 public class HistoryAdapter extends CursorAdapter {
@@ -55,7 +53,7 @@ public class HistoryAdapter extends CursorAdapter {
         if (tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CUSTOMERNAME)).length() > 0)
             tvCustomer_name.setText(tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CUSTOMERNAME)));
 
-        tvReciptNo.setText("No: " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)));
+        tvReciptNo.setText("No: " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_RECEIPTNO)));
         tvDate.setText(tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_RRECEIPTDATE)));
 
         String calculations = "";
