@@ -255,13 +255,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public Cursor getRevenueReceipt() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_TBLR_RevenueReceipt, null, null, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_TBLR_RevenueReceipt, null, KEY_ISDELETE + "=?", new String[]{""}, null, null, null, null);
         return cursor;
     }
 
     public Cursor getAdjustment() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_TBLR_Adjustment, null, null, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_TBLR_Adjustment, null, KEY_ISDELETE + "=?", new String[]{""}, null, null, null, null);
         return cursor;
     }
 
