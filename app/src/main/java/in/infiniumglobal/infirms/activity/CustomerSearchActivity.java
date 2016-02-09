@@ -19,7 +19,7 @@ import in.infiniumglobal.infirms.utils.Common;
 public class CustomerSearchActivity extends BaseActivity {
 
     EditText edtTinNumber, edtReceiptNumber, edtBusinessName, edtCustomerName;
-    Button btnSearch;
+    Button btnSearch, btnAddUser;
     private DatabaseHandler dbHandler;
 
     @Override
@@ -37,6 +37,15 @@ public class CustomerSearchActivity extends BaseActivity {
         edtBusinessName = (EditText) findViewById(R.id.edtBusinessName);
         edtCustomerName = (EditText) findViewById(R.id.edtCustomerName);
         btnSearch = (Button) findViewById(R.id.btnSearch);
+        btnAddUser = (Button) findViewById(R.id.btnAddUser);
+
+        btnAddUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CustomerSearchActivity.this, CustomerAddActivity.class));
+                finish();
+            }
+        });
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override

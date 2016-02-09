@@ -17,16 +17,6 @@
         android:inputType="number"
         android:singleLine="true" />
 
-
-    <EditText
-        android:id="@+id/edtReceiptNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Receipt number"
-        android:inputType="number"
-        android:singleLine="true" />
-
-
     <EditText
         android:id="@+id/edtBusinessName"
         android:layout_width="match_parent"
@@ -34,7 +24,6 @@
         android:hint="Business name"
         android:inputType="textCapSentences"
         android:singleLine="true" />
-
 
     <EditText
         android:id="@+id/edtCustomerName"
@@ -49,17 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="1">
 
-        <Button
-            android:id="@+id/btnSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/drawable_button"
-            android:text="Search"
-            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/btnAddUser"
