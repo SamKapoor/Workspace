@@ -116,14 +116,15 @@ public class CustomerManagementActivity extends BaseActivity
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
+        actionBar.setTitle(AppConfig.revenueItem);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
+            // if the drawer is not showing. Otherwise, let the draw    er
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.customer_management, menu);
             restoreActionBar();
