@@ -3,6 +3,7 @@ package in.infiniumglobal.infirms.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -215,6 +216,8 @@ public class CustomerHistoryFragment extends Fragment {
 
     public void print(String printText) {
 //        Log.e(TAG, "print: " + printText);
+        Bitmap btMap = Common.drawableTobitmap(getActivity(), R.drawable.printicon);
+        printerClass.printImage(btMap);
         printerClass.printText(printText); //TODO remove for printing start
     }
 

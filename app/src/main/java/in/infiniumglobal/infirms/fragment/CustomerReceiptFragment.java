@@ -2,6 +2,7 @@ package in.infiniumglobal.infirms.fragment;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -40,8 +41,8 @@ import print.pda3505.printer.PrinterClassSerialPort;
 public class CustomerReceiptFragment extends Fragment implements View.OnClickListener {
 
     private LinearLayout llChequeNumber, llBankName;
-    TextView tvBusinessName, tvCustomername, tvReceiptDate;
-    EditText edtOutStanding, edtUnitRate, edtTotalUnit, edtTotalAmount, edtAdjustment, edtPaidAmount, edtChequeNumber, edtBankName, edtRemarks;
+    TextView tvBusinessName, tvCustomername, tvReceiptDate, tvOutStanding, tvPayableAmt, tvTotalAmount;
+    EditText edtUnitRate, edtTotalUnit, edtAdjustment, edtPaidAmount, edtChequeNumber, edtBankName, edtRemarks;
     RadioGroup radioGroupCollection, radioGroupPaymentType;
     Spinner spinnerUnitType;
     Button btnScanAndPrint;
@@ -65,11 +66,12 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
         tvCustomername = (TextView) rootView.findViewById(R.id.customer_receipt_frag_tv_customer_name);
         tvReceiptDate = (TextView) rootView.findViewById(R.id.customer_receipt_frag_tv_date);
         tvReceiptDate.setText(Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
+        tvOutStanding = (TextView) rootView.findViewById(R.id.customer_receipt_frag_edt_outstanding);
+        tvPayableAmt = (TextView) rootView.findViewById(R.id.customer_receipt_frag_tv_payable);
 
         edtUnitRate = (EditText) rootView.findViewById(R.id.customer_receipt_frag_edt_unit_rate);
         edtTotalUnit = (EditText) rootView.findViewById(R.id.customer_receipt_frag_edt_total_units);
-        edtOutStanding = (EditText) rootView.findViewById(R.id.customer_receipt_frag_edt_outstanding);
-        edtTotalAmount = (EditText) rootView.findViewById(R.id.customer_receipt_frag_edt_total_amount);
+        tvTotalAmount = (TextView) rootView.findViewById(R.id.customer_receipt_frag_tv_total_amount);
         edtAdjustment = (EditText) rootView.findViewById(R.id.customer_receipt_frag_edt_adjustment);
         edtPaidAmount = (EditText) rootView.findViewById(R.id.customer_receipt_frag_edt_paid_amount);
         edtChequeNumber = (EditText) rootView.findViewById(R.id.customer_receipt_frag_edt_cheque_number);
@@ -90,15 +92,16 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
         Cursor customerCursor = AppConfig.customerData;
         String businessName = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_BUSINESSNAME));
         String customerName = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_CUSTOMERNO));
+        String outstandingAmt = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_OUTSTANDINGAMT));
         String ownerName = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_OWNERNAME));
         String businessLicNo = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_BUSINESSLICNO));
         String tinNo = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_TINNO));
         String vrnNo = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_VNRNO));
-        String outstanding = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_OUTSTANDINGAMT));
         String contactNo = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_CONTACTNO));
 
         tvBusinessName.setText(businessName);
         tvCustomername.setText(customerName);
+        tvOutStanding.setText(outstandingAmt);
 
         radioGroupPaymentType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -164,7 +167,7 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
                         if (AppConfig.RevenueRateType.equals("A")) {
                             tvPercent.setVisibility(View.GONE);
                             edtTotalUnit.setText("1");
-                            edtTotalAmount.setText("" + AppConfig.RevenueRate);
+                            tvTotalAmount.setText("" + AppConfig.RevenueRate);
                         } else {
                             tvPercent.setVisibility(View.VISIBLE);
                         }
@@ -194,20 +197,20 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
             @Override
             public void afterTextChanged(Editable editable) {
                 edtTotalUnit.setText("");
-                edtTotalAmount.setText("");
+                tvTotalAmount.setText("");
                 edtPaidAmount.setText("");
+                edtAdjustment.setText("");
+                tvPayableAmt.setText("");
             }
         });
 
         edtTotalUnit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -215,20 +218,46 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
                 if (AppConfig.RevenueRateType.equals("A")) {
                     try {
                         double total = Double.parseDouble(edtUnitRate.getText().toString()) * Double.parseDouble(edtTotalUnit.getText().toString());
-                        edtTotalAmount.setText("" + String.format("%.2f", total));
+                        tvTotalAmount.setText("" + String.format("%.2f", total));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    edtAdjustment.setText("");
+                    edtPaidAmount.setText("");
+                    tvPayableAmt.setText("");
                 } else if (AppConfig.RevenueRateType.equals("P")) {
                     try {
                         double total = Double.parseDouble(edtUnitRate.getText().toString()) * Double.parseDouble(edtTotalUnit.getText().toString());
-                        edtTotalAmount.setText("" + String.format("%.2f", total / 100));
+                        tvTotalAmount.setText("" + String.format("%.2f", total / 100));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
         });
+
+        edtAdjustment.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                try {
+                    double total = Double.parseDouble(tvTotalAmount.getText().toString());
+                    double outstanding = Double.parseDouble(tvOutStanding.getText().toString());
+                    double adjustment = Double.parseDouble(edtAdjustment.getText().toString());
+                    tvPayableAmt.setText((total + outstanding + adjustment) + "");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
         Handler mhandler = new Handler() {
             public void handleMessage(Message msg) {
@@ -329,7 +358,9 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
 
             String unitRate = edtUnitRate.getText().toString().trim();
             String totalUnit = edtTotalUnit.getText().toString().trim();
-            String totalAmount = edtTotalAmount.getText().toString().trim();
+            String totalAmount = tvTotalAmount.getText().toString().trim();
+            String payableAmount = tvPayableAmt.getText().toString().trim();
+            String adjustment = edtAdjustment.getText().toString().trim();
             String paidAmount = edtPaidAmount.getText().toString().trim();
             String businessName = tvBusinessName.getText().toString().trim();
             String customerName = tvCustomername.getText().toString().trim();
@@ -352,10 +383,13 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
             } else if (totalAmount.length() == 0) {
                 Common.showAlertDialog(getActivity(), "", "Please enter Total amount.", true);
                 return;
+            } else if (adjustment.length() == 0) {
+                Common.showAlertDialog(getActivity(), "", "Please enter adjustment.", true);
+                return;
             } else if (paidAmount.length() == 0) {
                 Common.showAlertDialog(getActivity(), "", "Please enter Paid amount.", true);
                 return;
-            } else if (Double.parseDouble(paidAmount) > Double.parseDouble(totalAmount)) {
+            } else if (Double.parseDouble(paidAmount) > Double.parseDouble(payableAmount)) {
                 Common.showAlertDialog(getActivity(), "", "Paid amount must be less than total amount.", true);
                 return;
             }
@@ -373,6 +407,7 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
             receiptValues.put(DatabaseHandler.KEY_REVENUERATE, unitRate);
             receiptValues.put(DatabaseHandler.KEY_TOTALUNIT, totalUnit);
             receiptValues.put(DatabaseHandler.KEY_TOTALAMOUNT, totalAmount);
+            receiptValues.put(DatabaseHandler.KEY_ADJUSTMENTAMT, adjustment);
             receiptValues.put(DatabaseHandler.KEY_PAIDAMOUNT, paidAmount);
             receiptValues.put(DatabaseHandler.KEY_DeviceCode, AppConfig.DeviceCode);
 
@@ -418,7 +453,6 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
 
             long rowId = dbHandler.addData(DatabaseHandler.TABLE_TBLR_RevenueReceipt, receiptValues);
             Common.showAlertDialog(getActivity(), "", "Data saved. " + receiptNo, true);
-
             String printing = "";
             printing += "NYANG'HWALE DISTRICT COUNCIL";
             printing += "\nP O BOX 352,NYANG'HWALE-GEITA";
@@ -451,6 +485,8 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
 
             if (printing.length() > 0) {
                 AppConfig.PrintText = printing;
+                Bitmap btMap = Common.drawableTobitmap(getActivity(), R.drawable.printicon);
+                printerClass.printImage(btMap);
                 boolean printed = printerClass.printText(printing);
                 Common.showAlertDialog(getActivity(), "", "Printed . " + printed, true);
                 btnRePrint.setVisibility(View.GONE);
@@ -459,7 +495,7 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
             tvReceiptDate.setText(Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
 //            edtName.setText("");
             edtTotalUnit.setText("");
-            edtTotalAmount.setText("");
+            tvTotalAmount.setText("");
             edtPaidAmount.setText("");
             edtBankName.setText("");
             edtChequeNumber.setText("");

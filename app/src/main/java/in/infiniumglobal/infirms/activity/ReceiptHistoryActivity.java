@@ -1,14 +1,14 @@
 package in.infiniumglobal.infirms.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.adapter.HistoryAdapter;
-import in.infiniumglobal.infirms.adapter.SearchAdapter;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
 import in.infiniumglobal.infirms.utils.AppConfig;
 import in.infiniumglobal.infirms.utils.Common;
@@ -212,7 +211,9 @@ public class ReceiptHistoryActivity extends AppCompatActivity {
 
 
     public void print(String printText) {
-//        Log.e(TAG, "print: " + printText);
+//        Log.e(TAG, "print: " +
+        Bitmap btMap = Common.drawableTobitmap(this, R.drawable.printicon);
+        printerClass.printImage(btMap);
         printerClass.printText(printText); //TODO remove for printing start
     }
 

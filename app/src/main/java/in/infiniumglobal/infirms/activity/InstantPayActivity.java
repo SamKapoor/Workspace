@@ -2,6 +2,7 @@ package in.infiniumglobal.infirms.activity;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -423,6 +424,8 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
 
             if (printing.length() > 0) {
                 AppConfig.PrintText = printing;
+                Bitmap btMap = Common.drawableTobitmap(this, R.drawable.printicon);
+                printerClass.printImage(btMap);
                 boolean printed = printerClass.printText(printing);
                 Common.showAlertDialog(this, "", "Printed . " + printed, true);
                 btnRePrint.setVisibility(View.GONE);

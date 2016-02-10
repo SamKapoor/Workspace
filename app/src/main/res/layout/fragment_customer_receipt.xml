@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -42,7 +41,7 @@
                     android:text="Outstanding:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
-                <EditText
+                <TextView
                     android:id="@+id/customer_receipt_frag_edt_outstanding"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -206,8 +205,8 @@
                     android:text="Total Amount:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
-                <EditText
-                    android:id="@+id/customer_receipt_frag_edt_total_amount"
+                <TextView
+                    android:id="@+id/customer_receipt_frag_tv_total_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -231,6 +230,29 @@
 
                 <EditText
                     android:id="@+id/customer_receipt_frag_edt_adjustment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="false"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="Payable Amt:"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+                <TextView
+                    android:id="@+id/customer_receipt_frag_tv_payable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
