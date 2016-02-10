@@ -43,7 +43,7 @@ public class CustomerSearchActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(CustomerSearchActivity.this, CustomerAddActivity.class));
-                finish();
+//                finish();
             }
         });
 

@@ -161,6 +161,7 @@ public class BaseActivity extends AppCompatActivity {
             // Setting OK Button
             alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
+                    syncCustomers();
                     syncDatabase();
                     dialog.dismiss();
                 }
@@ -175,6 +176,45 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    private void syncCustomers() {
+        Cursor receiptCursor = dbHandler.getCustomers();
+        if (receiptCursor != null && receiptCursor.getCount() > 0) {
+            receiptCursor.moveToFirst();
+            JSONArray receiptArray = new JSONArray();
+
+            try {
+                while (!receiptCursor.isAfterLast()) {
+                    JSONObject receiptObject = new JSONObject();
+                    receiptObject.put("RCustomerId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_RCUSTOMERID)));
+                    receiptObject.put("CustomerNo", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_CUSTOMERNO)));
+                    receiptObject.put("CustomerBarcode", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_CUSTOMERBARCODE)));
+                    receiptObject.put("RevenueTypeId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_REVENUETYPEID)));
+                    receiptObject.put("BusinessName", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_BUSINESSNAME)));
+                    receiptObject.put("OwnerName", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_OWNERNAME)));
+                    receiptObject.put("BusinessLicNo", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_BUSINESSLICNO)));
+                    receiptObject.put("TINNo", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_TINNO)));
+                    receiptObject.put("VNRNo", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_VNRNO)));
+                    receiptObject.put("OutstandingAmt", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_OUTSTANDINGAMT)));
+                    receiptObject.put("PostalAddress", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_POSTALADDRESS)));
+                    receiptObject.put("Postcode", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_POSTCODE)));
+                    receiptObject.put("ContactPerson", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_CONTACTPERSON)));
+                    receiptObject.put("ContactNo", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_CONTACTNO)));
+                    receiptObject.put("AreaId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_AREAID)));
+                    receiptObject.put("LocationId", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_LOCATIONID)));
+                    receiptObject.put("Email", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_EMAIL)));
+                    receiptObject.put("CreatedBy", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_CREATEDBY)));
+                    receiptObject.put("CreatedDate", receiptCursor.getString(receiptCursor.getColumnIndex(DatabaseHandler.KEY_CREATEDDATE)));
+                    receiptArray.put(receiptObject);
+                    receiptCursor.moveToNext();
+                }
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("Coll", receiptArray);
+                sendData("RevenueCustomerReceive", jsonObject.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     //    Sync Databse tables
     private void syncDatabase() {
@@ -587,7 +627,6 @@ public class BaseActivity extends AppCompatActivity {
                         dbHandler.removeOldRecords(DatabaseHandler.TABLE_TBLR_RevenueReceipt);
                         getUsers();
                     }
-
                 } else {
                     dialog.dismiss();
                 }

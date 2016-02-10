@@ -12,6 +12,7 @@ import android.widget.Toast;
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
 import in.infiniumglobal.infirms.utils.AppConfig;
+import in.infiniumglobal.infirms.utils.Common;
 
 public class CustomerAddActivity extends BaseActivity {
 
@@ -22,7 +23,7 @@ public class CustomerAddActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_search);
+        setContentView(R.layout.activity_customer_add);
 
         setContext(this);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -41,16 +42,18 @@ public class CustomerAddActivity extends BaseActivity {
                         || edtBusinessName.getText().toString().trim().length() > 0
                         || edtCustomerName.getText().toString().trim().length() > 0) {
                     ContentValues contentValues = new ContentValues();
-                    contentValues.put(DatabaseHandler.KEY_USERID, edtTinNumber.getText().toString().trim());
+                    contentValues.put(DatabaseHandler.KEY_TINNO, edtTinNumber.getText().toString().trim());
                     contentValues.put(DatabaseHandler.KEY_BUSINESSNAME, edtBusinessName.getText().toString().trim());
-                    contentValues.put(DatabaseHandler.KEY_CUSTOMERNAME, edtCustomerName.getText().toString().trim());
+                    contentValues.put(DatabaseHandler.KEY_OWNERNAME, edtCustomerName.getText().toString().trim());
                     contentValues.put(DatabaseHandler.KEY_AREAID, AppConfig.areaID);
                     contentValues.put(DatabaseHandler.KEY_LOCATIONID, AppConfig.locationID);
                     contentValues.put(DatabaseHandler.KEY_REVENUETYPEID, AppConfig.revenueID);
+                    contentValues.put(DatabaseHandler.KEY_CREATEDBY, Common.getStringPrefrences(CustomerAddActivity.this, getString(R.string.pref_userId), getString(R.string.app_name)));
+                    contentValues.put(DatabaseHandler.KEY_CREATEDDATE, Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
                     long res = dbHandler.addData(dbHandler.TABLE_TBLR_RevenueCustomer, contentValues);
 
                     if (res != 0) {
-                        startActivity(new Intent(CustomerAddActivity.this, CustomerManagementActivity.class));
+//                        startActivity(new Intent(CustomerAddActivity.this, CustomerManagementActivity.class));
                         finish();
                     } else {
                         Toast.makeText(CustomerAddActivity.this, "Something went wrong.", Toast.LENGTH_LONG).show();
@@ -69,4 +72,9 @@ public class CustomerAddActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }
