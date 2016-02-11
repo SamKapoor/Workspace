@@ -216,8 +216,8 @@ public class CustomerHistoryFragment extends Fragment {
 
     public void print(String printText) {
 //        Log.e(TAG, "print: " + printText);
-        Bitmap btMap = Common.drawableTobitmap(getActivity(), R.drawable.printicon);
-        printerClass.printImage(btMap);
+//        Bitmap btMap = Common.drawableTobitmap(getActivity(), R.drawable.printicon);
+//        printerClass.printImage(btMap);
         printerClass.printText(printText); //TODO remove for printing start
     }
 

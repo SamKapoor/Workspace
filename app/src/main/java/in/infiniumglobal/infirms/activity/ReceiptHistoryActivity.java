@@ -212,8 +212,8 @@ public class ReceiptHistoryActivity extends AppCompatActivity {
 
     public void print(String printText) {
 //        Log.e(TAG, "print: " +
-        Bitmap btMap = Common.drawableTobitmap(this, R.drawable.printicon);
-        printerClass.printImage(btMap);
+//        Bitmap btMap = Common.drawableTobitmap(this, R.drawable.printicon);
+//        printerClass.printImage(btMap);
         printerClass.printText(printText); //TODO remove for printing start
     }
 

@@ -485,8 +485,8 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
 
             if (printing.length() > 0) {
                 AppConfig.PrintText = printing;
-                Bitmap btMap = Common.drawableTobitmap(getActivity(), R.drawable.printicon);
-                printerClass.printImage(btMap);
+//                Bitmap btMap = Common.drawableTobitmap(getActivity(), R.drawable.printicon);
+//                printerClass.printImage(btMap);
                 boolean printed = printerClass.printText(printing);
                 Common.showAlertDialog(getActivity(), "", "Printed . " + printed, true);
                 btnRePrint.setVisibility(View.GONE);

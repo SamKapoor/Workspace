@@ -253,6 +253,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor getCustomers() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TBLR_RevenueCustomer, null, KEY_ISDELETE + "=?", new String[]{""}, null, null, null, null);
+        return cursor;
+    }
+
     public Cursor getRevenueReceipt() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_TBLR_RevenueReceipt, null, KEY_ISDELETE + "=?", new String[]{""}, null, null, null, null);
