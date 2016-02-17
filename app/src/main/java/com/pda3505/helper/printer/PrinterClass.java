@@ -1,4 +1,4 @@
-package print.pda3505.helper.printer;
+package com.pda3505.helper.printer;
 
 import android.bluetooth.BluetoothClass;
 import android.content.Context;

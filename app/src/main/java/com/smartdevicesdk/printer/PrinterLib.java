@@ -1,4 +1,4 @@
-package print.smartdevicesdk.printer;
+package com.smartdevicesdk.printer;
 
 public class PrinterLib {
 	static

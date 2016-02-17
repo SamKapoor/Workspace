@@ -1,4 +1,4 @@
-package print.pda3505.helper.printer;
+package com.pda3505.helper.printer;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -10,7 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import print.smartdevicesdk.printer.PrinterLib;
+import com.smartdevicesdk.printer.PrinterLib;
 
 /**
  * Created by MYPC on 29/01/2016.
