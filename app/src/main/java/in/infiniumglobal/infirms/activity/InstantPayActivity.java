@@ -20,15 +20,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pda3505.helper.printer.PrintService;
+import com.pda3505.helper.printer.PrinterClass;
+import com.pda3505.printer.PrinterClassSerialPort;
+
 import java.util.ArrayList;
 
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
 import in.infiniumglobal.infirms.utils.AppConfig;
 import in.infiniumglobal.infirms.utils.Common;
-import print.pda3505.helper.printer.PrintService;
-import print.pda3505.helper.printer.PrinterClass;
-import print.pda3505.printer.PrinterClassSerialPort;
 
 public class InstantPayActivity extends BaseActivity implements View.OnClickListener {
 
@@ -424,8 +425,8 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
 
             if (printing.length() > 0) {
                 AppConfig.PrintText = printing;
-//                Bitmap btMap = Common.drawableTobitmap(this, R.drawable.printicon);
-//                printerClass.printImage(btMap);
+                Bitmap btMap = Common.drawableTobitmap(this, R.drawable.login_logo);
+                printerClass.printImage(btMap);
                 boolean printed = printerClass.printText(printing);
                 Common.showAlertDialog(this, "", "Printed . " + printed, true);
                 btnRePrint.setVisibility(View.GONE);

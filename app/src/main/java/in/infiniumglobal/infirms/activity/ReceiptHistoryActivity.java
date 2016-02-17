@@ -18,14 +18,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pda3505.helper.printer.PrintService;
+import com.pda3505.helper.printer.PrinterClass;
+import com.pda3505.printer.PrinterClassSerialPort;
+
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.adapter.HistoryAdapter;
 import in.infiniumglobal.infirms.db.DatabaseHandler;
 import in.infiniumglobal.infirms.utils.AppConfig;
 import in.infiniumglobal.infirms.utils.Common;
-import print.pda3505.helper.printer.PrintService;
-import print.pda3505.helper.printer.PrinterClass;
-import print.pda3505.printer.PrinterClassSerialPort;
 
 public class ReceiptHistoryActivity extends AppCompatActivity {
 
@@ -212,8 +213,8 @@ public class ReceiptHistoryActivity extends AppCompatActivity {
 
     public void print(String printText) {
 //        Log.e(TAG, "print: " +
-//        Bitmap btMap = Common.drawableTobitmap(this, R.drawable.printicon);
-//        printerClass.printImage(btMap);
+        Bitmap btMap = Common.drawableTobitmap(this, R.drawable.login_logo);
+        printerClass.printImage(btMap);
         printerClass.printText(printText); //TODO remove for printing start
     }
 
