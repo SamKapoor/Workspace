@@ -1,8 +1,6 @@
 package in.infiniumglobal.infirms.activity;
 
 import android.content.ContentValues;
-import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -51,6 +49,10 @@ public class CustomerAddActivity extends BaseActivity {
                     contentValues.put(DatabaseHandler.KEY_CREATEDBY, Common.getStringPrefrences(CustomerAddActivity.this, getString(R.string.pref_userId), getString(R.string.app_name)));
                     contentValues.put(DatabaseHandler.KEY_CREATEDDATE, Common.getCurrentDate("yyyy-MM-dd hh:mm:ss"));
                     long res = dbHandler.addData(dbHandler.TABLE_TBLR_RevenueCustomer, contentValues);
+                    contentValues = new ContentValues();
+                    String customerId = AppConfig.DeviceCode + Common.getCurrentDate("MMyy") + res;
+                    contentValues.put(DatabaseHandler.KEY_RCUSTOMERID, customerId);
+                    dbHandler.updateCustomer(res + "", contentValues);
 
                     if (res != 0) {
 //                        startActivity(new Intent(CustomerAddActivity.this, CustomerManagementActivity.class));

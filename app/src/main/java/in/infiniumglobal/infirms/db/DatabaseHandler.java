@@ -247,6 +247,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return count;
     }
 
+    public int updateCustomer(String rowId, ContentValues values) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int count = db.update(TABLE_TBLR_RevenueCustomer, values, KEY_ID + "=?", new String[]{rowId});
+        return count;
+    }
+
     public Cursor getUnitType(int revenueID) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_TBLR_RevenueRate, null, KEY_REVENUE_TYPEID + "=?", new String[]{String.valueOf(revenueID)}, null, null, null, null);

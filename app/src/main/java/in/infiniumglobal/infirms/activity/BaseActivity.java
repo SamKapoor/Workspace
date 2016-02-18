@@ -76,9 +76,9 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.action_logout:
                 Common.removeAllPrefrences(this, getString(R.string.app_name));
                 Intent intent = new Intent(this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
                 break;
@@ -659,7 +659,7 @@ public class BaseActivity extends AppCompatActivity {
             // compare
             int temp = Integer.parseInt(receiptcode.substring(receiptcode.length() - 7)) + 1; //Result:7002513+1=7002514
             String stemp = "000000" + temp; //Result:0000007002514
-            stemp = stemp.substring(stemp.length() - 7, 7); // Result: 7002514 ,Description : get last 7 chars
+            stemp = stemp.substring(stemp.length() - 7, stemp.length()); // Result: 7002514 ,Description : get last 7 chars
             receiptcode = devicecode + revenuecode + date + stemp;//Result:010216027002514
         } else {
             receiptcode = devicecode + revenuecode + date + "0000001";

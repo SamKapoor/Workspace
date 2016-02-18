@@ -118,7 +118,7 @@
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:background="@drawable/drawable_button"
-            android:text="Save &amp; Print"
+            android:text="Save"
             android:textColor="@android:color/white" />
 
         <Button
