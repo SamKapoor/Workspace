@@ -92,7 +92,7 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
 
         Cursor customerCursor = AppConfig.customerData;
         String businessName = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_BUSINESSNAME));
-        String customerName = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_CUSTOMERNO));
+        String customerName = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_OWNERNAME));
         String outstandingAmt = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_OUTSTANDINGAMT));
         String ownerName = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_OWNERNAME));
         String businessLicNo = customerCursor.getString(customerCursor.getColumnIndex(DatabaseHandler.KEY_BUSINESSLICNO));

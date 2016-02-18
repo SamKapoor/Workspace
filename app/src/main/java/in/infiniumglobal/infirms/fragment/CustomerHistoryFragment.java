@@ -177,8 +177,8 @@ public class CustomerHistoryFragment extends Fragment {
 
                         printing += "\n________________________\n";
                         printing += "\nRECEIPT NO:" + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)) + "  \n" + Common.getCurrentDate("dd-MM-yy hh:mm");
-                        if (tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CUSTOMERNAME)).length() > 0)
-                            printing += "\n\t\t" + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CUSTOMERNAME)).toUpperCase();
+                        if (tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_OWNERNAME)).length() > 0)
+                            printing += "\n\t\t" + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_OWNERNAME)).toUpperCase();
 
                         if (AppConfig.RevenueRateType.equals("A"))
                             printing += "\n" + AppConfig.RevenueUnit + "\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_REVENUERATE)) + " * " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALUNIT)) + "%\t " + tempCursor.getString(tempCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_TOTALAMOUNT));

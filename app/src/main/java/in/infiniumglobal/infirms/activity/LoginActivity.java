@@ -71,8 +71,8 @@ public class LoginActivity extends Activity {
             }
         });
 
-        mEmailView.setText("infinium");
-        mPasswordView.setText("infinium001");
+//        mEmailView.setText("infinium");
+//        mPasswordView.setText("infinium001");
         findViewById(R.id.login_reset_button).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
