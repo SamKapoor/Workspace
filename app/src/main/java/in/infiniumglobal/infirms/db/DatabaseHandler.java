@@ -21,9 +21,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Database Version
     private static final int DATABASE_VERSION = 1;
     // Database Name
-    private static final String DATABASE_NAME = "prosimity";
+    public static final String DATABASE_NAME = "prosimity";
     // Database Name
-    private static final String DATABASE_PATH = "/data/data/in.infiniumglobal.infirms/databases/";
+    public static final String DATABASE_PATH = "/data/data/in.infiniumglobal.infirms/databases/";
     private static DatabaseHandler mInstance;
     private SQLiteDatabase db;
 

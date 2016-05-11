@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings;
 import android.view.Window;
@@ -13,6 +14,11 @@ import android.view.WindowManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 
 import in.infiniumglobal.infirms.R;
 import in.infiniumglobal.infirms.client.MyClientGet;
@@ -37,6 +43,12 @@ public class SplashActivity extends Activity {
 
         AppConfig.ANDROID_ID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
+        try {
+            exportDatabase();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         DatabaseHandler dbHandler = DatabaseHandler.getInstance(this);
         Cursor company = dbHandler.getCompany();
         if (company != null && company.getCount() > 0) {
@@ -54,6 +66,30 @@ public class SplashActivity extends Activity {
                 startActivity(mIntent);
                 finish();
             }
+        }
+    }
+
+    public void exportDatabase() {
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+
+            if (sd.canWrite()) {
+                String currentDBPath = DatabaseHandler.DATABASE_PATH + DatabaseHandler.DATABASE_NAME;
+                String backupDBPath = "RMS_DB_backup.db";
+                File currentDB = new File(data, currentDBPath);
+                File backupDB = new File(sd, backupDBPath);
+
+                if (currentDB.exists()) {
+                    FileChannel src = new FileInputStream(currentDB).getChannel();
+                    FileChannel dst = new FileOutputStream(backupDB).getChannel();
+                    dst.transferFrom(src, 0, src.size());
+                    src.close();
+                    dst.close();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

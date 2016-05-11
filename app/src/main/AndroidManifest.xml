@@ -12,6 +12,7 @@
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!--
  To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
      option is required to comply with the Google+ Sign-In developer policies
@@ -74,6 +75,10 @@
         <activity
             android:name=".activity.ReceiptHistoryActivity"
             android:label="@string/title_activity_receipt_history"></activity>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="df9bbe58e01d58896bd8e5b900c49a546b7e4c24" />
     </application>
 
 </manifest>
