@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -42,6 +43,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splashscreen);
 
         AppConfig.ANDROID_ID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        AppConfig.ANDROID_ID = "5ed9afd105f813fb";
 
         try {
             exportDatabase();
@@ -70,27 +72,34 @@ public class SplashActivity extends Activity {
     }
 
     public void exportDatabase() {
-        try {
-            File sd = Environment.getExternalStorageDirectory();
-            File data = Environment.getDataDirectory();
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    File sd = Environment.getExternalStorageDirectory();
+                    File data = Environment.getDataDirectory();
 
-            if (sd.canWrite()) {
-                String currentDBPath = DatabaseHandler.DATABASE_PATH + DatabaseHandler.DATABASE_NAME;
-                String backupDBPath = "RMS_DB_backup.db";
-                File currentDB = new File(data, currentDBPath);
-                File backupDB = new File(sd, backupDBPath);
+                    if (sd.canWrite()) {
+                        String currentDBPath = DatabaseHandler.DATABASE_PATH + DatabaseHandler.DATABASE_NAME;
+                        String backupDBPath = "RMS_DB_backup.db";
+                        File currentDB = new File(currentDBPath);
+                        File backupDB = new File(sd, backupDBPath);
 
-                if (currentDB.exists()) {
-                    FileChannel src = new FileInputStream(currentDB).getChannel();
-                    FileChannel dst = new FileOutputStream(backupDB).getChannel();
-                    dst.transferFrom(src, 0, src.size());
-                    src.close();
-                    dst.close();
+                        if (currentDB.exists()) {
+                            FileChannel src = new FileInputStream(currentDB).getChannel();
+                            FileChannel dst = new FileOutputStream(backupDB).getChannel();
+                            dst.transferFrom(src, 0, src.size());
+                            src.close();
+                            dst.close();
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+                return null;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        };
+        task.execute();
     }
 
     private void executeSplash() {
