@@ -334,7 +334,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
 
 //            receiptValues.put(DatabaseHandler.KEY_, unitRate);
             receiptValues.put(DatabaseHandler.KEY_REVENUE_TYPEID, AppConfig.revenueID);
-            if (!name.isEmpty())
+//            if (!name.isEmpty())
                 receiptValues.put(DatabaseHandler.KEY_CUSTOMERNAME, name);
 
 

@@ -43,7 +43,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splashscreen);
 
         AppConfig.ANDROID_ID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        AppConfig.ANDROID_ID = "5ed9afd105f813fb";
+//        AppConfig.ANDROID_ID = "5ed9afd105f813fb";
 
         try {
             exportDatabase();
