@@ -53,7 +53,7 @@ public class CustomerSearchActivity extends BaseActivity {
                 if (edtTinNumber.getText().toString().trim().length() > 0 || edtReceiptNumber.getText().toString().trim().length() > 0
                         || edtBusinessName.getText().toString().trim().length() > 0 || edtCustomerName.getText().toString().trim().length() > 0) {
                     Cursor customerData = dbHandler.searchCustomer(edtTinNumber.getText().toString().trim(), edtReceiptNumber.getText().toString().trim(), edtBusinessName.getText().toString().trim(), edtCustomerName.getText().toString().trim(), AppConfig.revenueID + "");
-                    System.out.println("customer size:" + customerData.getCount());
+//                    System.out.println("customer size:" + customerData.getCount());
 
                     if (customerData != null && customerData.getCount() > 0) {
                         AppConfig.customerData = customerData;

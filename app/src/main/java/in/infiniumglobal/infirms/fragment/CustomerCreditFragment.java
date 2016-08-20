@@ -63,7 +63,7 @@ public class CustomerCreditFragment extends Fragment implements View.OnClickList
             if (remarks.length() > 0) {
                 values.put(DatabaseHandler.KEY_REMARKS, remarks);
             }
-            values.put(DatabaseHandler.KEY_ADJUSTMENTAMT, amount);
+            values.put(DatabaseHandler.KEY_AMOUNT, amount);
             DatabaseHandler dbHandler = DatabaseHandler.getInstance(getActivity());
             dbHandler.addData(DatabaseHandler.TABLE_TBLR_Adjustment, values);
 

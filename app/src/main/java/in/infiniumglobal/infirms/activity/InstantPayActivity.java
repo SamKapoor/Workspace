@@ -200,7 +200,7 @@ public class InstantPayActivity extends BaseActivity implements View.OnClickList
         DatabaseHandler dbHandler = DatabaseHandler.getInstance(this);
         unitCursor = dbHandler.getUnitType(AppConfig.revenueID);
         if (unitCursor != null && unitCursor.getCount() > 0) {
-            System.out.println("revenue size:" + unitCursor.getCount());
+//            System.out.println("revenue size:" + unitCursor.getCount());
             unitCursor.moveToFirst();
             while (!unitCursor.isAfterLast()) {
                 unitList.add(unitCursor.getString(unitCursor.getColumnIndex(DatabaseHandler.KEY_REVENUEUNIT))); //add the item

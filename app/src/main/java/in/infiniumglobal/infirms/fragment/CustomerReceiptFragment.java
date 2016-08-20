@@ -401,8 +401,8 @@ public class CustomerReceiptFragment extends Fragment implements View.OnClickLis
 
 //            receiptValues.put(DatabaseHandler.KEY_, unitRate);
             receiptValues.put(DatabaseHandler.KEY_REVENUE_TYPEID, AppConfig.revenueID);
-            if (!businessName.isEmpty())
-                receiptValues.put(DatabaseHandler.KEY_BUSINESSNAME, businessName);
+//            if (!businessName.isEmpty())
+//                receiptValues.put(DatabaseHandler.KEY_BUSINESSNAME, businessName);
             if (!customerName.isEmpty())
                 receiptValues.put(DatabaseHandler.KEY_CUSTOMERNAME, customerName);
 
